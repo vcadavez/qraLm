@@ -1,0 +1,31 @@
+Model;Population;Characteristics;meanLog10;sdLog10
+JEMRA;1;Healthy population;-11.975;0.000
+JEMRA;2;Increased susceptibility;-13.625;0.000
+Pouillot;1;Less than 65 years old;-14.110;1.620
+Pouillot;2;More than 65 years old;-12.830;1.620
+Pouillot;3;Pregnancy;-11.700;1.620
+Pouillot;4;Nonhematological Cancer;-12.110;1.620
+Pouillot;5;Hematological cancer;-11.020;1.620
+Pouillot;6;Renal or Liver failure;-11.560;1.620
+Pouillot;7;Solid organ transplant;-11.510;1.620
+Pouillot;8;Inflammatory diseases;-12.080;1.620
+Pouillot;9;HIV/AIDS;-12.190;1.620
+Pouillot;10;Diabetes;-13.130;1.620
+Pouillot;11;Hear diseases;-13.300;1.620
+Fritsch;1;Highly virulent;-11.878;0.521
+Fritsch;2;Medium virulent;-13.991;0.632
+Fritsch;3;Hypovirulent;-16.707;1.121
+EFSA;1;Female 1-4 yo;-14.574;1.620
+EFSA;2;Male 1-4 yo;-14.467;1.620
+EFSA;3;Female 5-14 yo;-14.916;1.620
+EFSA;4;Male 5-14 yo;-15.005;1.620
+EFSA;5;Female 15-24 yo;-14.325;1.620
+EFSA;6;Male 15-24 yo;-15.036;1.620
+EFSA;7;Female 25-44 yo;-14.025;1.620
+EFSA;8;Male 25-44 yo;-14.764;1.620
+EFSA;9;Female 45-64 yo;-14.081;1.620
+EFSA;10;Male 45-64 yo;-14.045;1.620
+EFSA;11;Female 65-74 yo;-13.702;1.620
+EFSA;12;Male 65-74 yo;-13.560;1.620
+EFSA;13;Female >75 yo;-13.536;1.620
+EFSA;14;Male >75 yo;-13.536;1.620

@@ -1,0 +1,744 @@
+---
+title: "QRA models functions for Smoked Fish"
+description: >
+  QRA models for frozen vegetables
+author: "Vasco Cadavez, Laurent Guillier, Régis Pouillot, Moez Sanaa, Ursula Gonzales-Barron"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+     number_sections: yes
+     toc: yes
+vignette: >
+  %\VignetteIndexEntry{QRA models functions for  Smoked Fish}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  \usepackage{caption}
+  \usepackage{amssymb, amsmath}
+csl: ../inst/apa.csl
+bibliography: ../inst/REFERENCES.bib
+---
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, warning = FALSE, message = FALSE,
+  comment = "#>"
+)
+```
+
+
+```{r libs, echo=FALSE}
+library(Hmisc)
+library(dplyr)
+library(DT)
+#library(rbokeh)
+library(qraLm)
+library(extraDistr)
+library(mc2d)
+library(ggplot2)
+library(doseresponsemodels)
+library(plotly)
+#library(kableExtra)
+```
+
+
+## Production - Initial contamination of Fish
+
+### Parameters
+
+```{r}
+nLots <- 10000
+sizeLot <- 100 # Fishes. Will be increased (*2*40)
+unitSize_SF_Prefilleting <- 4000 #g 
+beta_alpha_SF <- 0.874   
+beta_beta_SF <- 5.88   
+C0_meanLog10_SF <- -1 # Alternative for calibrated baseline= -1, if poisson=FALSE
+C0_sdLog10_SF <- 1  # Alternative for calibrated baseline= 1 , if poisson=FALSE
+propVarInter_SF <- 0.5   # Not used
+Poisson <- TRUE  # The initial concentration will be evaluated from prevalence 
+```
+
+### Simulation
+
+```{r}
+set.seed(666)
+res1 <- Lot2LotGen(nLots = nLots,
+                   sizeLot = sizeLot,
+                   unitSize = unitSize_SF_Prefilleting,
+                   betaAlpha = beta_alpha_SF,
+                   betaBeta = beta_beta_SF,
+                   C0MeanLog = C0_meanLog10_SF,
+                   C0SdLog = C0_sdLog10_SF,
+                   propVarInter = propVarInter_SF,
+                   Poisson=Poisson)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res1)
+```
+
+## Short storage pre-filleting
+
+### Parameters
+
+```{r}
+MPD_SF <- 9.2 
+Temp_min_SF_PreFillet <- -2 # (C) 
+Temp_mode_SF_PreFillet <- 0 # (C)
+Temp_max_SF_PreFillet <- 4 # (C) 
+
+t_min_SF_PreFillet <- 0.5 # (h) Placeholder
+t_mode_SF_PreFillet <- 2 # (h) Placeholder
+t_max_SF_PreFillet <- 6 # (h) Placeholder
+
+```
+
+### Simulation
+
+```{r}
+set.seed(666+1)
+res2 <- sfRawFishStorage(data=res1, 
+                               unitSize = unitSize_SF_Prefilleting, 
+                               MPD=MPD_SF,
+                               tempMin = Temp_min_SF_PreFillet, 
+                               tempMode = Temp_mode_SF_PreFillet, 
+                               tempMax = Temp_max_SF_PreFillet,
+                               timeMin = t_min_SF_PreFillet,
+                               timeMode = t_mode_SF_PreFillet,
+                               timeMax = t_max_SF_PreFillet)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res2)
+```
+
+
+
+
+## Filleting
+
+### Parameters
+
+```{r}
+#nb.slices_fillet <- 2
+wSlices_fillet <- 1300
+initSlicer_fillet <- 1000 # Placeholder
+a.ParamLoc_fillet	<- 0.07
+a.ParamScale_fillet	<- 0.03
+a.ParamMax_fillet	<- 0.5
+e.mean_fillet <- -2.12
+e.sd_fillet <- 0.85
+```
+
+### Simulation
+
+```{r}
+set.seed(666+2)
+set.seed(666+2)
+res3 <- sfSlicer(res2,
+                 wSlices = wSlices_fillet,  
+                 initSlicer = initSlicer_fillet,
+                 aParamLoc	= a.ParamLoc_fillet,
+                 aParamScale	= a.ParamScale_fillet,
+                 aParamMax	= a.ParamMax_fillet,
+                 eMean = e.mean_fillet,
+                 eSd = e.sd_fillet)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res3)
+```
+
+
+## Holding time
+
+### Parameters
+
+```{r}
+unitSize_SF_Fillet <- 1300 #g Aarnisalo
+Temp_min_SF_HoldFillet <- -2 # (C) 
+Temp_mode_SF_HoldFillet <- 0 # (C) 
+Temp_max_SF_HoldFillet <- 4 # (C) 
+t_min_SF_HoldFillet <- 1 # (h) 
+t_mode_SF_HoldFillet <- 2 # (h) 
+t_max_SF_HoldFillet <- 6 # (h) 
+```
+
+### Simulation
+
+```{r}
+set.seed(666+5)
+res4 <- sfRawFishStorage(data=res3, 
+                                unitSize = unitSize_SF_Fillet, 
+                                MPD=9.2,
+                                tempMin = Temp_min_SF_HoldFillet, 
+                                tempMode = Temp_mode_SF_HoldFillet, 
+                                tempMax = Temp_max_SF_HoldFillet,
+                                timeMin = t_min_SF_HoldFillet,
+                                timeMode = t_mode_SF_HoldFillet,
+                                timeMax = t_max_SF_HoldFillet)
+
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res4)
+```
+
+
+## Brining or Salting
+
+### Parameters
+
+```{r}
+p_brine_SF <- 1 # Placeholder
+Pcc_brine_SF <- 5/37 # Gudbjornsdottir2005 ############################################## 
+V_inj_min_SF <- 25  # ml per filet
+V_inj_mode_SF <- 35  # 
+V_inj_max_SF <- 100  # 
+
+C_brine_min_SF <- 0  # Cfu/ml TBD
+C_brine_mode_SF <- 0.0145182 # -log(1-5/37)/10  # Cfu/ml mean, from Prevalence
+C_brine_max_SF <- 0.06  # Cfu/ml
+
+Pcc_smearing_SF <- 0.029 #  5.2*0.571 from Gudbjornsdottir2005
+TR_smearing_mean_SF <- -0.29 # TR board to meat Hoelzer2012
+TR_smearing_sd_SF  <- 0.31 # TR board to meat Hoelzer2012
+N_surface_SF <- 9 # 500  # CFU to be transferred (mode from Ana, 10^0.2* 300 cm^2) 
+```
+
+### Simulation
+
+```{r}
+set.seed(1234)
+#if(!gravad){
+  res5 <- sfBrineORsaltCC(data=res4,
+                               pBrine = p_brine_SF,
+                               pccBrine = Pcc_brine_SF,
+                               volInjMin = V_inj_min_SF,
+                               volInjMode = V_inj_mode_SF,
+                               volInjMax = V_inj_max_SF,
+                               concBrineMin = C_brine_min_SF,
+                               concBrineMode = C_brine_mode_SF,
+                               concBrineMax = C_brine_max_SF,
+                               pccSmearing = Pcc_smearing_SF,
+                               nSurface = N_surface_SF,
+                               trSmearingMean = TR_smearing_mean_SF,
+                               trSmearingSd = TR_smearing_sd_SF)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res5)
+```
+
+
+## Smoking
+
+### Parameters
+
+```{r}
+R_brine_mean_SF <- 0.871 # Eklund1995, Porsby 2008
+R_brine_sd_SF <- 0.807
+R_drysalt_mean_SF <- 1.093
+R_drysalt_sd_SF <- 0.532
+```
+
+### Simulation
+
+```{r}
+set.seed(66656)
+res6 <- sfSmoking(res5,
+                        rBrineMean = R_brine_mean_SF,
+                        rBrineSd = R_brine_sd_SF,
+                        rDrysaltMean = R_drysalt_mean_SF,
+                        rDrysaltSd = R_drysalt_sd_SF)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res6)
+```
+
+
+## Slicing
+
+### Parameters
+
+```{r}
+#nb.slices_slices <- 40 #Aarnisalo numbres must be pair
+wSlices_slices <- 32.5 # 1300/40
+initSlicer_slices <- 0 # Placeholder
+```
+
+### Simulation
+
+```{r}
+set.seed(09866)
+res7 <- sfSlicer(res6,
+                    wSlices = wSlices_slices,  
+                    initSlicer = initSlicer_slices,
+                    aParamLoc	= a.ParamLoc_fillet,
+                    aParamScale	= a.ParamScale_fillet,
+                    aParamMax	= a.ParamMax_fillet,
+                    eMean = e.mean_fillet,
+                    eSd = e.sd_fillet)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res7)
+```
+
+
+## Packaging
+
+### Parameters
+
+```{r}
+slices_per_pack_SF <- 8
+#unitSize_pack <- unitSize_SF_Fillet/nb.slices_slices*slices_per_pack_SF
+unitSize_pack <- slices_per_pack_SF*res7$unitSize
+```
+
+### Simulation
+
+```{r}
+set.seed(65733)
+res8 <- sfPackaging(res7,
+                    slicesPerPack = slices_per_pack_SF)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res8)
+```
+
+## Testing
+
+### Parameters
+
+```{r}
+nTested_SF <- 5
+gTested_SF <- 25
+MTested_SF <- 0
+cTested_SF <- 0
+pLotTested_SF <- 0 # Baseline
+Se_SF <- 1 
+```
+
+### Simulation
+
+```{r}
+set.seed(34680)
+res9 <- sfTesting(res8,
+                    nTested = nTested_SF,
+                    gTested = gTested_SF,
+                    MTested = MTested_SF,
+                    cTested = cTested_SF,
+                    pLotTested = pLotTested_SF,
+                    Se = Se_SF,
+                    unitSize = unitSize_pack,
+                    gTestedEnum = 10)
+```
+
+### Results
+
+```{r}
+## prevalence of contaminated units at the end of processing
+prevEndProcessing <- weighted.mean(res9$ProbUnitPos * (res9$N != 0), 
+                                   w = rep(1, length(res9$N)))
+prevEndProcessing
+
+# assessment in CFU per lot
+cat("overall P:", mean(res9$ProbUnitPos * rowMeans(res9$N !=0)),"\n")
+#cat("overall N:", mean(res8$ProbUnitPos * rowSums(res8$N)),"\n")
+
+cat("overall P>10:", weighted.mean(rowMeans(res9$N/unitSize_pack >= 10), w=res9$ProbUnitPos),"\n")
+cat("overall P>100:", weighted.mean(rowMeans(res9$N/unitSize_pack >= 100), w=res9$ProbUnitPos),"\n")
+
+# assessment in mean CFU per g on a lot basis
+lotBasis_Cunit <-rowMeans(res9$N/unitSize_pack) #CFU/g for every pack
+NStats <- Hmisc::wtd.quantile(lotBasis_Cunit,
+                              weights=res9$ProbUnitPos,
+                              probs=c(0,0.5,0.025,0.975,1),
+                              normwt=TRUE)
+
+NStatsMin    <- NStats[1]
+NStatsMax    <- NStats[5]
+NStatsMedian <- NStats[2]
+NStatsMean   <- stats::weighted.mean(lotBasis_Cunit, w = res9$ProbUnitPos)
+Q2.5  <- NStats[3]
+Q97.5 <- NStats[4]
+
+
+NStatsMin
+NStatsMax
+NStatsMedian
+NStatsMean
+Q2.5
+Q97.5
+summaryLot.qraLm(res9)
+```
+
+
+
+
+## old Chain
+
+### Parameters
+
+```{r}
+Tempmin_CC <- qnorm(0.025, 4.6, 2.2) 
+Tempmode_CC <- 4.6
+Tempmax_CC <- 7 # baseline qnorm(0.975, 4.6, 2.2) Alternative 10°C
+
+# From FDA/FSIS 2003. Will be used as a Pert
+timemin_CC <- 0.5*24 
+timemode_CC <- 6*24
+timemax_CC <- 30*24
+
+corTimeTemp_CC <- -0.16 #Pouillot et al 2007
+
+
+# LAB characteristics
+ #low levels according to Wiernacz  al 2021: https://doi.org/10.3390/foods10112517 
+N0LABmin_CC <- 1.5 - 2.5 # a more credible initial LAB concentration
+N0LABmode_CC <- 2.78 - 2.5
+N0LABmax_CC <- 4.1 - 2.5
+# intra_lot variability. Will be used as a Pert
+intralot_sdN0LAB_CC <- 0
+
+# from Lm. Will be used as a Pert
+# From Couvert, 2010 
+# h0 <- extraDistr::rtnorm(1E7, mean=2.8, sd=4.6, a=0) 
+# ln_q0Lm <- log(1/(exp(h0)-1))
+ln_q0LABmin_CC <- -12 
+ln_q0LABmode_CC <- -2.73
+ln_q0LABmax_CC <- 1.26
+
+# Will be used as a Pert
+MPDLABmin_CC <- 8  # From Mejholm and Daalgard 
+MPDLABmode_CC <- 8.5
+MPDLABmax_CC <- 9
+
+# LM characteristics. Will be used as a Pert
+MPDLmmin_CC <- 6.6 # From EFSA
+MPDLmmode_CC <- 7.36
+MPDLmmax_CC <- 8.2
+
+awminSF <- NULL
+awmodeSF <- NULL
+awmaxSF <- NULL
+NaClminSF <- 1.5
+NaClmodeSF <- 3.4
+NaClmaxSF <- 5.3
+PminSF <- 5
+PmodeSF <- 10
+PmaxSF <- 22
+pHminSF <- 5.8
+pHmodeSF <- 6.1
+pHmaxSF <- 6.5
+CO2equilibriumminSF <- 0.25
+CO2equilibriummodeSF <- 0.25
+CO2equilibriummaxSF <- 0.3
+NITminSF <- 0
+NITmodeSF <- 0
+NITmaxSF <- 0
+aaWphminSF <- 0
+aaWphmodeSF <- 0
+aaWphmaxSF <- 0
+baWphminSF <- 0
+baWphmodeSF <- 0
+baWphmaxSF <- 0
+caWphminSF <- 0
+caWphmodeSF <- 0
+caWphmaxSF <- 0
+daWphminSF <- 0 # 500
+daWphmodeSF <- 0 # 1500
+daWphmaxSF <- 0 # 1900
+laWphminSF <- 0 # 6000
+laWphmodeSF <- 0 # 12000
+laWphmaxSF <- 0 # 28000
+saWphminSF <- 0
+saWphmodeSF <- 0
+saWphmaxSF <- 0
+```
+
+### Simulation
+
+```{r}
+RTEChar <- sfCharacteristics(nrow(res9$N),
+                                          awminSF=awminSF,
+                                          awmodeSF=awmodeSF,
+                                          awmaxSF=awmaxSF,
+                                          NaClminSF=NaClminSF,
+                                          NaClmodeSF=NaClmodeSF,
+                                          NaClmaxSF=NaClmaxSF,
+                                          PminSF=PminSF,
+                                          PmodeSF=PmodeSF,
+                                          PmaxSF=PmaxSF,
+                                          pHminSF=pHminSF,
+                                          pHmodeSF=pHmodeSF,
+                                          pHmaxSF=pHmaxSF,
+                                          CO2equilibriumminSF=CO2equilibriumminSF,
+                                          CO2equilibriummodeSF=CO2equilibriummodeSF,
+                                          CO2equilibriummaxSF=CO2equilibriummaxSF,
+                                          NITminSF=NITminSF,
+                                          NITmodeSF=NITmodeSF,
+                                          NITmaxSF=NITmaxSF,
+                                          aaWphminSF=aaWphminSF,
+                                          aaWphmodeSF=aaWphmodeSF,
+                                          aaWphmaxSF=aaWphmaxSF,
+                                          baWphminSF =baWphminSF,
+                                          baWphmodeSF =baWphmodeSF,
+                                          baWphmaxSF =baWphmaxSF,
+                                          caWphminSF=caWphminSF,
+                                          caWphmodeSF=caWphmodeSF,
+                                          caWphmaxSF=caWphmaxSF,
+                                          daWphminSF=daWphminSF,
+                                          daWphmodeSF=daWphmodeSF,
+                                          daWphmaxSF=daWphmaxSF,
+                                          laWphminSF=laWphminSF,
+                                          laWphmodeSF=laWphmodeSF,
+                                          laWphmaxSF=laWphmaxSF,
+                                          saWphminSF=saWphminSF,
+                                          saWphmodeSF=saWphmodeSF,
+                                          saWphmaxSF=saWphmaxSF)
+#} else {
+# gravad 
+#  sfCharacteristics(nrow(res$N),
+#                                        awminSF=awminGravad,
+#                                        awmodeSF=awmodeGravad,
+#                                        awmaxSF=awmaxGravad,
+#                                        NaClminSF=NaClminGravad,
+#                                        NaClmodeSF=NaClmodeGravad,
+#                                        NaClmaxSF=NaClmaxGravad,
+#                                        PminSF=PminGravad,
+#                                        PmodeSF=PmodeGravad,
+#                                        PmaxSF=PmaxGravad,
+#                                        pHminSF=pHminGravad,
+#                                        pHmodeSF=pHmodeGravad,
+#                                        pHmaxSF=pHmaxGravad,
+#                                        CO2equilibriumminSF=CO2equilibriumminGravad,
+#                                        CO2equilibriummodeSF=CO2equilibriummodeGravad,
+#                                        CO2equilibriummaxSF=CO2equilibriummaxGravad,
+#                                        NITminSF=NITminGravad,
+#                                        NITmodeSF=NITmodeGravad,
+#                                        NITmaxSF=NITmaxGravad,
+#                                        aaWphminSF=AA_wphminGravad,
+#                                        aaWphmodeSF=AA_wphmodeGravad,
+#                                        aaWphmaxSF=AA_wphmaxGravad,
+#                                        BbaWphminSF=BA_wphminGravad,
+#                                        BA_wphmodeSF=BA_wphmodeGravad,
+#                                        baWphmaxSF=BA_wphmaxGravad,
+#                                        caWphminSF=CA_wphminGravad,
+#                                        caWphmodeSF=CA_wphmodeGravad,
+#                                        caWphmaxSF=CA_wphmaxGravad,
+#                                        daWphminSF=DA_wphminGravad,
+#                                        daWphmodeSF=DA_wphmodeGravad,
+#                                        daWphmaxSF=DA_wphmaxGravad,
+#                                        laWphminSF=LA_wphminGravad,
+#                                        laWphmodeSF=LA_wphmodeGravad,
+#                                        laWphmaxSF=LA_wphmaxGravad,
+#                                        saWphminSF=SA_wphminGravad,
+#                                        saWphmodeSF=SA_wphmodeGravad,
+#                                        saWphmaxSF=SA_wphmaxGravad)
+#}
+
+res10 <- sfColdChain(data=res9, 
+                           # RTE characteristics
+                           RTE = RTEChar,
+                           unitSize = unitSize_pack,
+                           
+                           # time temperature profile
+                           # From Pouillot et al, 2009. Will be used as a Pert
+                           tempMin = Tempmin_CC, 
+                           tempMode = Tempmode_CC,
+                           tempMax = Tempmax_CC,
+                           
+                           # From FDA/FSIS 200. Will be used as a Pert
+                           timeMin = timemin_CC, 
+                           timeMode = timemode_CC,
+                           timeMax = timemax_CC,
+                          
+                           corTimeTemp = corTimeTemp_CC,
+                           
+                           variability = "lot",
+                           
+                           # LAB characteristics
+                           N0LABmin = N0LABmin_CC,
+                           N0LABmode = N0LABmode_CC,
+                           N0LABmax = N0LABmax_CC,
+                           # intra_lot variability. Will be used as a Pert
+                           intralotSdN0LAB = intralot_sdN0LAB_CC,
+                           
+                           # from Lm. To be changed. Will be used as a Pert
+                           lnQ0LABmin = ln_q0LABmin_CC, 
+                           lnQ0LABmode = ln_q0LABmode_CC,
+                           lnQ0LABmax = ln_q0LABmax_CC,
+                           
+                           # To be changed. Will be used as a Pert
+                           MPDLABmin = MPDLABmin_CC, 
+                           MPDLABmode = MPDLABmode_CC,
+                           MPDLABmax = MPDLABmax_CC,
+                           
+                           # LM characteristics. Will be used as a Pert
+                           MPDLmmin = MPDLmmin_CC,
+                           MPDLmmode = MPDLmmode_CC,
+                           MPDLmmax = MPDLmmax_CC)
+
+```
+
+```{r}
+summaryLot.qraLm(res10)
+```
+
+
+## Home
+
+### Parameters
+
+```{r}
+Tempmin_HO <- qnorm(0.025, 7, 3) #1.12 ºC
+Tempmode_HO <- 7
+Tempmax_HO <- qnorm(0.975, 7, 3) #12.9 ºC
+# From Home time: W (1.14, 18.39) days (Endrikat et al., 2010). Will be used as a Pert
+timemin_HO <- qweibull(0.025,shape = 1.14, scale = 18.39) * 24  # 0.73 days
+timemode_HO <- 18.39*((1.14-1)/1.14)^(1/1.14) * 24 # Mode of the weibull 3 days
+timemax_HO <- 35 * 24 # 35 days as discussed. Used to be qweibull(0.975,shape = 1.14, scale = 18.39) * 24
+corTimeTemp_HO <- -0.12 # From Pouillot et al 2007
+
+```
+
+### Simulation
+
+```{r}
+set.seed(983)
+
+res11 <- sfColdChain(data=res10, 
+                       # RTE characteristics
+                       RTE=RTEChar,
+                       unitSize = unitSize_pack,
+                       
+                       # time temperature profile
+                       # From N(7.0, 3.0) (Pouillot et al., 2009). Will be used as a Pert
+                       tempMin = Tempmin_HO, 
+                       tempMode = Tempmode_HO,
+                       tempMax = Tempmax_HO,
+                       
+                       corTimeTemp = corTimeTemp_HO, 
+                                             # From Home time: W (1.14, 18.39) days (Endrikat et al., 2010). Will be used as a Pert
+                       timeMin = timemin_HO, 
+                       timeMode = timemode_HO, # Mode of the weibull
+                       timeMax = timemax_HO,
+                       
+                       variability="column")
+
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res11)
+```
+
+
+
+## Portioning before consumption
+
+
+### Parameters
+
+```{r}
+servingSize <- unitSize_pack / slices_per_pack_SF
+bPortSF <- 1
+```
+
+### Simulation
+
+```{r}
+set.seed(87973)
+
+res12 <- sfPortioning(data=res11,
+                      servingSize = servingSize,
+                      unitSize = unitSize_pack,
+                      bPortSF = bPortSF)
+```
+
+### Results
+
+```{r}
+summaryLot.qraLm(res12)
+```
+
+```{r}
+cat("overall P:", mean(res12$ProbUnitPos * rowMeans(res12$N !=0)),"\n")
+#cat("overall N:", mean(res12$ProbUnitPos * rowSums(res12$N)),"\n")
+
+cat("overall P>10:", weighted.mean(rowMeans(res12$N/servingSize >= 10), w=res12$ProbUnitPos),"\n")
+cat("overall P>100:", weighted.mean(rowMeans(res12$N/servingSize >= 100), w=res12$ProbUnitPos),"\n")
+
+# assessment in CFU per gram in a contaminated serving (unit base)
+CFUperGram <- res12$ProbUnitPos * (res12$N/servingSize) 
+index <- which(CFUperGram==0)
+PosServings <- CFUperGram[-index]
+NStatsMin    <- min(PosServings)
+NStatsMax    <- max(PosServings)
+NStatsMedian <- median(PosServings)
+NStatsMean   <- mean(PosServings)
+Q2.5  <- quantile(PosServings, probs = c(0.025))
+Q97.5 <- quantile(PosServings, probs = c(0.975))
+
+NStatsMin
+NStatsMax
+NStatsMedian
+NStatsMean
+Q2.5
+Q97.5
+```
+
+
+
+## Risk
+
+We integrate the dose-response model
+
+```{r}
+set.seed(123456)
+DRmodel <- "JEMRA"
+population <- 2
+risk <- DRForModel(res12,
+                   model = DRmodel,
+                   population = population
+)
+str(risk)
+```
+
+### Risk statistics between lots
+
+```{r}
+summaryLot.qraLm(risk)
+```
+
+### Risk statistics within lots
+
+```{r}
+summaryUnits.qraLm(risk)
+```
+
+### Risk distribution between lots
+
+```{r}
+plotRisk.qraLm(risk)
+```

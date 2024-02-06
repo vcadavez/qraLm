@@ -1,0 +1,14 @@
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+bibentry(bibtype = "Manual",
+title = "qraLM: A R package for quantitative risk analysis of Listeria monocytogenes in foods",
+author = c(
+           person("Vasco", "Cadavez"),
+           person("Régis", "Pouillot"),
+           person("Laurent", "Guillier"),
+           person("Ursula", "Gonzales-Barron"),
+           person("Moez", "Sanaa")
+           ),
+           year = year,
+           note = note,
+           url = "https://github.com/vcadavez/qraLm/")
