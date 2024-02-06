@@ -5,4 +5,5 @@ A R package for quantitative risk assessment of *Listeria monocytogenes*
 in foods.
 
 - Version developed within JEMRA group …
-- Used for the QRA of frozen vegetables, RTE cantaloupe and smoked fish.
+- Used for the quantitative risk assessment of Frozen Vegetables, Diced
+  RTE Cantaloupe and Smoked Fish.
