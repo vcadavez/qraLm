@@ -12,13 +12,23 @@ authors:
   Vasco Cadavez:
     href: "https://ipb.pt/vcadavez/"
   Régis Pouillot:
-    href: "http://thesearemyapps.com/"
+    href: "https://scholar.google.com/citations?hl=en&user=dCv0o0wAAAAJ&view_op=list_works&sortby=pubdate/"
   Ursula Gonzales-Barron:
     href: "https://ipb.pt/~ubarron/"
   Laurent Guillier:
     href: "https://scholar.google.com/citations?user=R6kR2RgAAAAJ&hl=fr/"
   Moez Sanaa:
     href: "https://ch.linkedin.com/in/sanaamo/en/"
+    
+    
+articles:
+- title: Vignettes
+  navbar: ~
+  contents:
+  - dicedRTECantaloupeVignette
+  - frozenVegetablesVignette
+  - smokedFishVignette
+
 
 reference:
 - title: "qraLm"

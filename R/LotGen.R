@@ -48,34 +48,37 @@
 #'
 #' @examples
 #' lots <- LotGen(
-#'   nLots = 500,
-#'   sizeLot = 200,
-#'   P = 0.057,
-#'   C0MeanLog = 1.023,
-#'   C0SdLog = 0.3267,
-#'   unitSize = 500
-#' )
-#' print(head(lots))
+#'                nLots = 500,
+#'                sizeLot = 200,
+#'                P = 0.057,
+#'                C0MeanLog = 1.023,
+#'                C0SdLog = 0.3267,
+#'                unitSize = 500
+#'                )
+#' str(lots)
 #' summary(c(lots$N))
 LotGen <- function(nLots,
                    sizeLot,
                    P,
                    C0MeanLog,
                    C0SdLog,
-                   unitSize) {
+                   unitSize,
+                   ...) {
+    LotGenParameters <<- c(as.list(environment()), list(...))
+  
   N0 <- matrix(
     10^stats::rnorm(
-      nLots * sizeLot,
-      C0MeanLog, C0SdLog
-    ),
-    nrow = nLots, ncol = sizeLot
-  )
+                    nLots * sizeLot,
+                     C0MeanLog, C0SdLog),
+    nrow = nLots, 
+    ncol = sizeLot
+    )
   N <- round(N0 * unitSize, digits = 0)
 
-  data <- list(
-    N = N,
-    P = P
-  )
+ data <- list(
+              N = N,
+              P = P,
+              LotGenParameters = LotGenParameters)
 
   # Set the name for the class
   class(data) <- append(class(data), "qraLm")

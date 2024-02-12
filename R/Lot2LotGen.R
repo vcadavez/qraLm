@@ -88,7 +88,11 @@ Lot2LotGen <- function(nLots,
                        C0MeanLog,
                        C0SdLog,
                        propVarInter,
-                       Poisson = FALSE) {
+                       Poisson = FALSE,
+                       ...){
+  
+  Lot2LotGenParameters <<- c(as.list(environment()), list(...))
+  
   # Prevalence (beta distribution)
   prob <- rbeta(nLots, betaAlpha, betaBeta)
   # Prob that the lot is not contaminated at all
@@ -139,14 +143,15 @@ Lot2LotGen <- function(nLots,
   P0 <- 1 - extraDistr::dbbinom(x = 0, size = sizeLot, alpha = betaAlpha, beta = betaBeta)
 
   data <- list(
-    N = Ncounts,
-    ProbUnitPos = 1 - prob0,
-    P = P0,
-    betaGen = prob,
-    nLots = nLots,
-    sizeLot = sizeLot,
-    unitSize = unitSize
-  )
+               N = Ncounts,
+               ProbUnitPos = 1 - prob0,
+               P = P0,
+               betaGen = prob,
+               nLots = nLots,
+               sizeLot = sizeLot,
+               unitSize = unitSize,
+               Lot2LotGenParameters=Lot2LotGenParameters
+               )
   class(data) <- "qraLm"
 
   return(data)
