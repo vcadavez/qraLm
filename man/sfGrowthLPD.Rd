@@ -7,7 +7,7 @@
 sfGrowthLPD(
   data = list(),
   unitSize = NULL,
-  MPD,
+  MPD = NULL,
   Temp,
   time,
   aLM = 0.0581,

@@ -125,34 +125,34 @@ caPrimaryProduction <- function(nLots,
                                 pWaterGainMax = 0.004) {
   # Assess the contamination (P and N) coming from soil
   conta_soil <- caSoil2rind(
-    nLots = nLots,
-    sizeLot = sizeLot,
-    pSoil = pSoil,
-    fManure = fManure,
-    pManure = pManure,
-    fIrrigRaining = fIrrigRaining,
-    pIrrigRaining = pIrrigRaining,
-    cSoilLogMin = cSoilLogMin,
-    cSoilLogMode = cSoilLogMode,
-    cSoilLogMax = cSoilLogMax,
-    qSoilMin = qSoilMin,
-    qSoilMode = qSoilMode,
-    qSoilMax = qSoilMax,
-    pFoil = pFoil,
-    rFoil = rFoil
-  )
+                            nLots=nLots,
+                            sizeLot = sizeLot,
+                            pSoil = pSoil,
+                            fManure = fManure,
+                            pManure = pManure,
+                            fIrrigRaining = fIrrigRaining,
+                            pIrrigRaining = pIrrigRaining,
+                            cSoilLogMin = cSoilLogMin,
+                            cSoilLogMode = cSoilLogMode,
+                            cSoilLogMax = cSoilLogMax,
+                            qSoilMin = qSoilMin,
+                            qSoilMode = qSoilMode,
+                            qSoilMax = qSoilMax,
+                            pFoil = pFoil,
+                            rFoil = rFoil
+                            )
 
   # Assess the contamination (P and N) coming from irrigation water
   conta_irrig <- caIrrig2rind(
-    nLots = nLots,
-    sizeLot = sizeLot,
-    pIrrig = pIrrig,
-    cIrrigLogMin = cIrrigLogMin,
-    cIrrigLogMax = cIrrigLogMax,
-    cantaWeight = cantaWeight,
-    pWaterGainMin = pWaterGainMin,
-    pWaterGainMax = pWaterGainMax
-  )
+                              nLots = nLots,
+                              sizeLot = sizeLot,
+                              pIrrig = pIrrig,
+                              cIrrigLogMin = cIrrigLogMin,
+                              cIrrigLogMax = cIrrigLogMax,
+                              cantaWeight = cantaWeight,
+                              pWaterGainMin = pWaterGainMin,
+                              pWaterGainMax = pWaterGainMax
+                              )
 
   # Resulting prevalence of both events
   p_from_soil <- conta_soil$P # probability from soil
@@ -208,13 +208,13 @@ caPrimaryProduction <- function(nLots,
   N0 <- N0[shuffle, ]
 
   data <- list(
-    N = N0,
-    P = P0,
-    Origin = Origin,
-    nLots = nLots,
-    sizeLot = sizeLot,
-    cantaWeight = cantaWeight
-  )
+               N = N0,
+               P = P0,
+               Origin = Origin,
+               nLots = nLots,
+               sizeLot = sizeLot,
+               cantaWeight = cantaWeight
+               )
   class(data) <- "qraLm"
   return(data)
 }

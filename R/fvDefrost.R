@@ -88,7 +88,7 @@ fvDefrost <- function(data = list(),
                       Tmin,
                       meanEGR5,
                       sdEGR5,
-                      servingSize = NULL,
+                      servingSize,
                       pDefrost) {
   if (pDefrost == 0) {
     return(data)
@@ -98,7 +98,6 @@ fvDefrost <- function(data = list(),
 
   ifelse(exists("nLots", data) == TRUE, nLots <- data$nLots, nLots <- nrow(N_m))
   ifelse(exists("sizeLot", data) == TRUE, sizeLot <- data$sizeLot, sizeLot <- ncol(N_m))
-  ifelse(exists("servingSize", data) == TRUE, servingSize <- data$servingSize, print("Add 'servingSize=#' to function arguments"))
 
   #  nLots <- nrow(N_m)
   #  sizeLot <- ncol(N_m)

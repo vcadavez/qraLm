@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-qraLm: A R package for quantitative risk assessment for Listeria monocytogenes in foods
+qraLm: A R package for quantitative risk assessment for Listeria monocytogenes in foods.
 }
 \seealso{
 Useful links:

@@ -14,7 +14,7 @@ fvDefrost(
   Tmin,
   meanEGR5,
   sdEGR5,
-  servingSize = NULL,
+  servingSize,
   pDefrost
 )
 }

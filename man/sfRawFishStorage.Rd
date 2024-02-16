@@ -9,7 +9,7 @@ sfRawFishStorage(
   unitSize = NULL,
   nLots = NULL,
   sizeLot = NULL,
-  MPD,
+  MPD = NULL,
   tempMin,
   tempMode,
   tempMax,

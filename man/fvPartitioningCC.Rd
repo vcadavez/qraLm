@@ -9,8 +9,8 @@ fvPartitioningCC(
   nLots = NULL,
   sizeLot = NULL,
   probCC,
-  trMean,
-  trSd,
+  trMean = -0.44,
+  trSd = 0.4,
   nEquip,
   bCCFV
 )

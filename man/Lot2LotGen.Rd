@@ -13,7 +13,8 @@ Lot2LotGen(
   C0MeanLog,
   C0SdLog,
   propVarInter,
-  Poisson = FALSE
+  Poisson = FALSE,
+  ...
 )
 }
 \arguments{

@@ -29,7 +29,7 @@
 #'        \item{`MPDLm`}{(`log10 CFU/g`) Optional: A matrix containing the maximum population density of \emph{L. monocytogenes} in packs of RTE seafood. If missing, it will be generated from default parameters.}
 #'        \item{`MPDLAB`}{(`log10 CFU/g`) Optional: A matrix containing the log10 of MPD for LAB in packs of RTE seafood. If missing, it will be generated from default parameters.}
 #'          }
-#' @param corTimeTemp define ?
+#' @param corTimeTemp define 
 #' @param nLots Number of lots sampled or size of the Monte Carlo simulation (scalar).
 #' @param sizeLot Number of units or portions produced in a lot (scalar).
 #' @param tempMin (\eqn{^\circ C}) Minimum storage temperature of the RTE seafood product (scalar). Will be used in a Pert distribution.
@@ -147,21 +147,20 @@
 #' sizeLot <- 100
 #' size_mc <- 100
 #' N <- matrix(round(10^rnorm(size_mc * sizeLot, 0, 3)),
-#'   ncol = sizeLot, nrow = size_mc
-#' )
+#'             ncol = sizeLot,
+#'             nrow = size_mc
+#'             )
 #'
 #' dat <- list(N = N, unitSize = 500)
 #' RTE <- sfCharacteristics(size_mc)
 #' str(RTE)
 #' dat1 <- sfColdChain(dat,
 #'                     RTE = RTE
-#' )
-#'
-#' print(list(N = dat1$N, lnQ0Lm = dat1$lnQ0Lm))
+#'                     )
+#' str(dat1)
 #'
 sfColdChain <- function(data = list(),
-                        # RTE characteristics
-                        RTE,
+                        RTE, # RTE characteristics
                         nLots = NULL,
                         sizeLot = NULL,
                         unitSize = NULL,

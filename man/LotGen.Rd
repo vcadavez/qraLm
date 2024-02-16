@@ -4,7 +4,7 @@
 \alias{LotGen}
 \title{Generation of contaminated lots}
 \usage{
-LotGen(nLots, sizeLot, P, C0MeanLog, C0SdLog, unitSize)
+LotGen(nLots, sizeLot, P, C0MeanLog, C0SdLog, unitSize, ...)
 }
 \arguments{
 \item{nLots}{number of lots sampled or size of the Monte Carlo simulation (scalar).}
@@ -43,14 +43,14 @@ arriving at the frozen food facility), and \insertCite{Kuan2017;textual}{qraLm} 
 }
 \examples{
 lots <- LotGen(
-  nLots = 500,
-  sizeLot = 200,
-  P = 0.057,
-  C0MeanLog = 1.023,
-  C0SdLog = 0.3267,
-  unitSize = 500
-)
-print(head(lots))
+               nLots = 500,
+               sizeLot = 200,
+               P = 0.057,
+               C0MeanLog = 1.023,
+               C0SdLog = 0.3267,
+               unitSize = 500
+               )
+str(lots)
 summary(c(lots$N))
 }
 \references{

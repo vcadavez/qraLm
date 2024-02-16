@@ -82,7 +82,7 @@
 #' hist(AtConsumption$N)
 caHomeRTE <- function(data = list(),
                       MPD = NULL,
-                      Tmin = NULL,
+                      Tmin = -2.0196,
                       tempMin,
                       tempMode,
                       tempMax,
@@ -97,9 +97,6 @@ caHomeRTE <- function(data = list(),
 
   if (missing(MPD)) MPD <- data$MPD # test if MPD was defined
   if (is.null(MPD)) warning("Add 'MPD=#' to function arguments") # test again if MPD is defined
-
-  if (missing(Tmin)) Tmin <- data$Tmin # test if Tmin was defined
-  if (is.null(Tmin)) warning("Add 'Tmin=#' to function arguments") # test again if Tmin is defined
 
   if (!all(c(
     length(MPD), length(data$lotEGR5), length(Tmin),

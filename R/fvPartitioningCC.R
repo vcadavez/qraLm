@@ -87,8 +87,8 @@ fvPartitioningCC <- function(data = list(),
                              nLots = NULL,
                              sizeLot = NULL,
                              probCC,
-                             trMean,
-                             trSd,
+                             trMean=-0.44,
+                             trSd=0.40,
                              nEquip,
                              bCCFV) {
   ifelse(exists("nLots", data) == TRUE, nLots <- data$nLots, nLots <- nrow(data$N))

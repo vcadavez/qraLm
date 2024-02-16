@@ -91,7 +91,7 @@ Lot2LotGen <- function(nLots,
                        Poisson = FALSE,
                        ...){
   
-  Lot2LotGenParameters <<- c(as.list(environment()), list(...))
+  Lot2LotGenParameters <- c(as.list(environment()), list(...))
   
   # Prevalence (beta distribution)
   prob <- rbeta(nLots, betaAlpha, betaBeta)

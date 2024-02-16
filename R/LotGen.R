@@ -64,7 +64,7 @@ LotGen <- function(nLots,
                    C0SdLog,
                    unitSize,
                    ...) {
-    LotGenParameters <<- c(as.list(environment()), list(...))
+    LotGenParameters <- c(as.list(environment()), list(...))
   
   N0 <- matrix(
     10^stats::rnorm(

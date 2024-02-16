@@ -110,7 +110,7 @@ sfRawFishStorage <- function(data = list(),
                              unitSize = NULL,
                              nLots = NULL,
                              sizeLot = NULL,
-                             MPD,
+                             MPD = NULL,
                              tempMin,
                              tempMode,
                              tempMax,
@@ -128,6 +128,10 @@ sfRawFishStorage <- function(data = list(),
 
   if (missing(unitSize)) unitSize <- data$unitSize # test if unitSize was defined
   if (is.null(unitSize)) warning("Add 'unitSize=#' to function arguments") # test again if unitSize is defined
+
+  if (missing(MPD)) MPD <- data$MPD # test if MPD was defined
+  if (is.null(MPD)) warning("Add 'MPD=#' to function arguments") # test again if MPD is defined
+  
   #  sizeLot <- ncol(N_t)
   #  nLots <- nrow(N_t)
   if (is.null(data$workDone)) workDone <- 0 else workDone <- data$workDone
@@ -146,20 +150,21 @@ sfRawFishStorage <- function(data = list(),
 
   # Calculates final counts N (CFU) in contaminated fillets and the work done
   results <- sfGrowthLPD(data,
-    unitSize = unitSize,
-    MPD = MPD,
-    Temp = Temp_v,
-    time = time_v,
-    aLM = 0.0581,
-    Tmin = 1.3,
-    ALM = 0.84,
-    mLM = 1.11,
-    workDone = workDone
-  )
+                         unitSize = unitSize,
+                         MPD = MPD,
+                         Temp = Temp_v,
+                         time = time_v,
+                         aLM = 0.0581,
+                         Tmin = 1.3,
+                         ALM = 0.84,
+                         mLM = 1.11,
+                         workDone = workDone
+                         )
   data$results <- results
   data$N <- ceiling(data$results$N)
   data$ProbUnitPos <- data$results$ProbUnitPos
   data$P <- data$results$P
+  data$MPD <- 
   data$unitSize <- data$results$unitSize
   data$workDone <- data$results$workDone
   data$results <- NULL

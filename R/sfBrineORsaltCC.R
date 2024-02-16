@@ -132,21 +132,21 @@ sfBrineORsaltCC <- function(data = list(),
     N_brine_in <- N[index_brine, ]
     ProbUnitPos_brine_in <- data$ProbUnitPos[index_brine]
     data_brine_in <- list(
-      N = N_brine_in,
-      ProbUnitPos = ProbUnitPos_brine_in,
-      P = data$P
-    )
+                          N = N_brine_in,
+                          ProbUnitPos = ProbUnitPos_brine_in,
+                          P = data$P
+                          )
 
     data_brine_out <- sfBriningCC(
-      data = data_brine_in,
-      pccBrine = pccBrine,
-      volInjMin = volInjMin,
-      volInjMode = volInjMode,
-      volInjMax = volInjMax,
-      concBrineMin = concBrineMin,
-      concBrineMode = concBrineMode,
-      concBrineMax = concBrineMax
-    )
+                                  data = data_brine_in,
+                                  pccBrine = pccBrine,
+                                  volInjMin = volInjMin,
+                                  volInjMode = volInjMode,
+                                  volInjMax = volInjMax,
+                                  concBrineMin = concBrineMin,
+                                  concBrineMode = concBrineMode,
+                                  concBrineMax = concBrineMax
+                                  )
 
     N_brine_out <- data_brine_out$N
     ProbUnitPos_brine_out <- data_brine_out$ProbUnitPos * pBrine
@@ -160,18 +160,18 @@ sfBrineORsaltCC <- function(data = list(),
     N_salt_in <- N[index_salt, ]
     ProbUnitPos_salt_in <- data$ProbUnitPos[index_salt]
     data_salt_in <- list(
-      N = N_salt_in,
-      ProbUnitPos = ProbUnitPos_salt_in,
-      P = data$P
-    )
+                         N = N_salt_in,
+                         ProbUnitPos = ProbUnitPos_salt_in,
+                         P = data$P
+                         )
 
     data_salt_out <- sfSmearingCC(
-      data = data_salt_in,
-      pccSmearing = pccSmearing,
-      trSmearingMean = trSmearingMean,
-      trSmearingSd = trSmearingSd,
-      nSurface = nSurface
-    )
+                                  data = data_salt_in,
+                                  pccSmearing = pccSmearing,
+                                  trSmearingMean = trSmearingMean,
+                                  trSmearingSd = trSmearingSd,
+                                  nSurface = nSurface
+                                  )
     N_salt_out <- data_salt_out$N
     ProbUnitPos_salt_out <- data_salt_out$ProbUnitPos * (1 - pBrine)
     data$N[index_salt, ] <- N_salt_out

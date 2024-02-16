@@ -10,10 +10,11 @@ caDicing(
   modeTR = 0.55,
   maxTR = 2.82,
   cantaSurface = 580,
-  cantaRindFree = 950,
+  pulpYield = 0.6,
+  cantaWeight = NULL,
   nLots = NULL,
   sizeLot = NULL,
-  sizeSublot
+  sizeSublot = 20
 )
 }
 \arguments{
@@ -32,7 +33,9 @@ on cantaloupe rind, from contaminated lots;}
 
 \item{cantaSurface}{(\eqn{cm^2}) Surface area of a cantaloupe (scalar or vector).}
 
-\item{cantaRindFree}{(\code{g}) Weight of a seedless rind-free cantaloupe equivalent to the weight of dices from one cantaloupe (scalar or vector).}
+\item{pulpYield}{(\verb{\%}) Cantaloupe pulp yield (scalar or vector).}
+
+\item{cantaWeight}{(\code{g}) weight of a cantaloupe}
 
 \item{nLots}{Number of lots (scalar).}
 
@@ -61,23 +64,39 @@ The matrix \code{N} is returned in a sublot arrangement, meaning that the number
 and the number of columns the number of cantaloupes processed in a sublot. This is done because the production lot size is not
 necessarily the same as the processing lot size. Therefore, the numbers and prevalence outputs are given in the sublot basis (processing lot).
 The variability in the transfer rate from rind to flesh (\code{CFU/g} dices per \eqn{CFU/cm^2} rind) was modelled as a Pert distribution using data
-digitised from \insertCite{Ukuku2002;textual}{qraLm} and \insertCite{Ukuku2012;textual}{qraLm}.
+digitised from \insertCite{Ukuku2002;textual}{JEMRA} and \insertCite{Ukuku2012;textual}{JEMRA}.
 }
 \examples{
-nLots <- 1000
-sizeLot <- 100
-# df <- list(N = matrix(rpois(sizeLot*nLots, 2), ncol=sizeLot, nrow=nLots), P = .16)
-# CantaDices <- caDicing (df, cantaSurface=780,cantaRindFree=1050,
-# nLots=nLots, sizeLot=sizeLot,sizeSublot=25)
-# hist(CantaDices$N)
+nLots        <- 1000
+sizeLot      <- 100
+sizeSublot   <- 20
+cantaSurface <- 780
+pulpYield    <- 0.75
+cantaWeight  <- 1000
+data         <- list(N = matrix(rpois(sizeLot*nLots, 100),
+                                ncol=sizeLot, 
+                                nrow=nLots),
+                                P = 0.16,
+                      cantaWeight=cantaWeight,
+                      nLots=nLots,
+                      sizeLot=sizeLot)
+str(data)
+CantaDices <- caDicing (data,
+                        minTR=0.087,
+                        modeTR=0.55,
+                        maxTR=2.82,
+                        pulpYield=pulpYield,
+                        cantaSurface=cantaSurface,
+                        sizeSublot=sizeSublot)
+hist(CantaDices$N)
 
 }
 \references{
-\insertRef{mc2d}{qraLm}
+\insertRef{mc2d}{JEMRA}
 
-\insertRef{Ukuku2002}{qraLm}
+\insertRef{Ukuku2002}{JEMRA}
 
-\insertRef{Ukuku2012}{qraLm}
+\insertRef{Ukuku2012}{JEMRA}
 }
 \author{
 Ursula Gonzales-Barron \email{ubarron@ipb.pt}

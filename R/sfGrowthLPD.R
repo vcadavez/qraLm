@@ -81,7 +81,7 @@
 ########################################################################
 sfGrowthLPD <- function(data = list(),
                         unitSize = NULL,
-                        MPD,
+                        MPD=NULL,
                         Temp,
                         time,
                         aLM = 0.0581,
@@ -89,6 +89,9 @@ sfGrowthLPD <- function(data = list(),
                         ALM = 0.84,
                         mLM = 1.11,
                         workDone = 0) {
+  if (missing(MPD)) MPD <- data$MPD # test if MPD was defined
+  if (is.null(MPD)) warning("Add 'MPD=#' to function arguments") # test again if MPD is defined
+  
   if (missing(unitSize)) unitSize <- data$unitSize # test if unitSize was defined
   if (is.null(unitSize)) warning("Add 'unitSize=#' to function arguments") # test again if unitSize is defined
 

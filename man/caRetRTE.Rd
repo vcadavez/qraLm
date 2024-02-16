@@ -7,7 +7,7 @@
 caRetRTE(
   data = list(),
   MPD = NULL,
-  Tmin = NULL,
+  Tmin = -2.0196,
   tempMin,
   tempMode,
   tempMax,

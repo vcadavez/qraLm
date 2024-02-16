@@ -12,10 +12,11 @@ caPartitioningCC(
   nDicer,
   b = 1,
   unitSize,
-  newMC,
-  cantaRindFree = NULL,
-  sizeSublot = NULL,
-  sizeLot = NULL
+  cantaWeight = NULL,
+  pulpYield = NULL,
+  nLots = NULL,
+  sizeLot = NULL,
+  sizeSublot = NULL
 )
 }
 \arguments{
@@ -39,13 +40,13 @@ flesh (scalar or vector).}
 
 \item{unitSize}{(\code{g}) Weight of a pack of cantaloupe dices (scalar).}
 
-\item{newMC}{Number of sublots (scalar).}
+\item{cantaWeight}{(\code{g}) weight of a cantaloupe}
 
-\item{cantaRindFree}{(\code{g}) Weight of a seedless rind-free cantaloupe (scalar).}
-
-\item{sizeSublot}{Number of cantaloupes processed in a sublot. It should be a multiple of \code{sizeLot} (scalar).}
+\item{pulpYield}{(\verb{\%}) Cantaloupe pulp yield (scalar or vector).}
 
 \item{sizeLot}{Number of cantaloupes from a harvested lot (scalar).}
+
+\item{sizeSublot}{Number of cantaloupes processed in a sublot. It should be a multiple of \code{sizeLot} (scalar).}
 }
 \value{
 A list with four elements:
@@ -73,31 +74,56 @@ the heterogeneity in the number of cells distributed among pack units.
 }
 \note{
 The value of \eqn{beta = 1} represents moderate clustering of cells in the bulk of diced cantaloupe from a
-sublot \insertCite{Nauta2005;textual}{qraLm}. \insertCite{Hoelzer2012;textual}{qraLm} established the log 10 of the transfer coefficient
+sublot \insertCite{Nauta2005;textual}{JEMRA}. \insertCite{Hoelzer2012;textual}{JEMRA} established the log 10 of the transfer coefficient
 of \emph{L. monocytogenes} from knives to vegetables as a normal distribution with \eqn{TRdicer\_mean = -1.42} and \eqn{TRdicer\_sd = 0.52}.
 }
 \examples{
 library(extraDistr)
 library(mc2d)
-sizeLot <- 500 # 500 cantaloupes were harvested from a field
-sizeSublot <- 50 # sublots of 50 cantaloupes are processed at each time
-newMC <- 10000 # number of sublots
-N <- matrix(100, nrow = newMC, ncol = sizeSublot)
-N0 <- list(N = N, P = 0.35)
-Packs <- caPartitioningCC(N0,
-  probCCDice = 0.08, trDicerMean = -1.42, trDicerSd = 0.52, nDicer = 280,
-  b = 1, cantaRindFree = 950, newMC, sizeSublot, sizeLot, unitSize = 250
-)
+probCCDice=0.08
+trDicerMean=-1.42
+trDicerSd=0.52
+nDicer=280
+b=1
+unitSize=250
+nLots=1000
+sizeLot=500 #500 cantaloupes were harvested from a field
+sizeSublot=50 #sublots of 50 cantaloupes are processed at each time
+pulpYield=0.75
+cantaWeight=1000
+P=0.35
+newMC=sizeLot/sizeSublot #number of sublots
+N = matrix(100, nrow = newMC, ncol = sizeSublot)
+data = list(N=N,
+            nLots=nLots,
+           sizeLot=sizeLot,
+           sizeSublot=sizeSublot,
+           cantaWeight=cantaWeight,
+           pulpYield=pulpYield,
+           P=P)
+Packs = caPartitioningCC (data, 
+                          probCCDice=0.08,
+                          trDicerMean=-1.42,
+                          trDicerSd=0.52, 
+                          nDicer=280,
+                          b=1,
+                          cantaWeight=1000,
+                          pulpYield=0.75,
+                          nLots=nLots,
+                          sizeLot=sizeLot,                           
+                          sizeSublot=sizeSublot,
+                          unitSize=250)
 hist(Packs$N)
+
 }
 \references{
-\insertRef{Hoelzer2012}{qraLm}
-\insertRef{Nauta2005}{qraLm}
-\insertRef{extraDistr}{qraLm}
-\insertRef{mc2d}{qraLm}
-\insertRef{Rdpack}{qraLm}
-\insertRef{stats}{qraLm}
-\insertRef{iRisk2021}{qraLm}
+\insertRef{Hoelzer2012}{JEMRA}
+\insertRef{Nauta2005}{JEMRA}
+\insertRef{extraDistr}{JEMRA}
+\insertRef{mc2d}{JEMRA}
+\insertRef{Rdpack}{JEMRA}
+\insertRef{stats}{JEMRA}
+\insertRef{iRisk2021}{JEMRA}
 }
 \author{
 Ursula Gonzales-Barron \email{ubarron@ipb.pt}

@@ -98,7 +98,7 @@ sfColdChain(
 
 \item{variability}{level of variability for time and temperature: "lot", "column" or "portion".}
 
-\item{corTimeTemp}{define ?}
+\item{corTimeTemp}{define}
 
 \item{N0LABmin}{(\verb{log10 CFU}) Minimum value of the Pert distribution representing variability in the numbers of LAB at \code{time=0} (scalar). Will be then used as a power of 10.}
 
@@ -237,17 +237,17 @@ which are reformulated from the \code{Weibull(1.14, 18.39)} days used in \insert
 sizeLot <- 100
 size_mc <- 100
 N <- matrix(round(10^rnorm(size_mc * sizeLot, 0, 3)),
-  ncol = sizeLot, nrow = size_mc
-)
+            ncol = sizeLot,
+            nrow = size_mc
+            )
 
 dat <- list(N = N, unitSize = 500)
 RTE <- sfCharacteristics(size_mc)
 str(RTE)
 dat1 <- sfColdChain(dat,
                     RTE = RTE
-)
-
-print(list(N = dat1$N, lnQ0Lm = dat1$lnQ0Lm))
+                    )
+str(dat1)
 
 }
 \references{

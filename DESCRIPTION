@@ -13,7 +13,7 @@ Authors@R: c(
     person("Moez", "Sanaa", , "sanaam@who.int", role = c("aut"),
            comment = c(ORCID = "0000-0003-3576-0379"))
            )
-Description: qraLm: A R package for quantitative risk assessment for Listeria monocytogenes in foods
+Description: qraLm: A R package for quantitative risk assessment for Listeria monocytogenes in foods.
 URL: https://github.com/vcadavez/qraLm
 BugReports: https://github.com/vcadavez/qraLm/issues
 Depends: R (>= 3.5.0)

@@ -1,50 +1,45 @@
-url: ~
+url: https://vcadavez.github.io/qraLm/
+
+home:
+  title: qraLm
+
+authors:
+  Vasco Cadavez:
+    href: https://ipb.pt/vcadavez
+  Régis Pouillot:
+    href: https://scholar.google.com/citations?hl=en&user=dCv0o0wAAAAJ&view_op=list_works&sortby=pubdate/
+  Ursula Gonzales-Barron:
+    href: https://ipb.pt/~ubarron/
+  Laurent Guillier:
+    href: https://scholar.google.com/citations?user=R6kR2RgAAAAJ&hl=fr/
+  Moez Sanaa:
+    href: https://ch.linkedin.com/in/sanaamo/en/
+
 template:
   bootstrap: 5
   bootswatch: cerulean
 
-navbar:
-  structure:
-    left:  [intro, reference, articles, news]
-    right: [search, github]
-
-authors:
-  Vasco Cadavez:
-    href: "https://ipb.pt/vcadavez/"
-  Régis Pouillot:
-    href: "https://scholar.google.com/citations?hl=en&user=dCv0o0wAAAAJ&view_op=list_works&sortby=pubdate/"
-  Ursula Gonzales-Barron:
-    href: "https://ipb.pt/~ubarron/"
-  Laurent Guillier:
-    href: "https://scholar.google.com/citations?user=R6kR2RgAAAAJ&hl=fr/"
-  Moez Sanaa:
-    href: "https://ch.linkedin.com/in/sanaamo/en/"
-    
-    
 articles:
 - title: Vignettes
   navbar: ~
   contents:
-  - dicedRTECantaloupeVignette
   - frozenVegetablesVignette
-  - smokedFishVignette
-
+  - dicedRTECantaloupeVignette
 
 reference:
-- title: "qraLm"
-  desc: "R package for quantitative risk assessment of Listeria monocytogenes in food"
+- title: qraLm
+  desc: R package for quantitative risk assessment of Listeria monocytogenes in food
   contents:
   - qraLm
 
-- title: "Dose-Response Models"
-  desc: "An updated DR model was developed to take into account class of strain virulence and age-sex
-group, as a surrogate for susceptibility, as determined by underlying health conditions"
+- title: Dose-Response Models
+  desc: An updated DR model was developed to take into account class of strain virulence and age-sex group, as a surrogate for susceptibility, as determined by underlying health conditions
   contents:
   - DRForModel
   - RiskEurope
 
-- title: "Summary and Plots"
-  desc: "Functions to summarise and plot the Monte-Carlo simulation results"
+- title: Summary and Plots
+  desc: Functions to summarise and plot the Monte-Carlo simulation results
   contents:
   - plotLotsECDF.qraLm
   - plotRisk.qraLm
@@ -52,17 +47,15 @@ group, as a surrogate for susceptibility, as determined by underlying health con
   - summaryLot.qraLm
   - summaryServings.qraLm
   - summaryUnits.qraLm
-  
-- title: "Generate Data"
-  desc: "Functions to generate the simulated data"
+
+- title: Generate Data
+  desc: Functions to generate the simulated data
   contents:
   - LotGen
   - Lot2LotGen
- 
-- title: "Frozen Vegetables"
-  desc: "The stages represented in the model considered pre-conditioned vegetables as the raw material
-and included processing (blanching and packaging), environmental contamination, and consumer
-handling practices (defrosting and cooking)"
+
+- title: Frozen Vegetables
+  desc: The stages represented in the model considered pre-conditioned vegetables as the raw material and included processing (blanching and packaging), environmental contamination, and consumer handling practices (defrosting and cooking)
   contents:
   - fvBlanching
   - fvPartitioningCC
@@ -72,11 +65,9 @@ handling practices (defrosting and cooking)"
   - fvPortioning
   - fvTesting
 
-- title: "Diced RTE Cantaloupe"
-  desc: "The model considered a full production-to-consumption chain representing pre-harvest, harvest
-and storage, cleaning and washing, processing, cold chain storage, and consumer handling
-practices"
-  contents:  
+- title: Diced RTE Cantaloupe
+  desc: The model considered a full production-to-consumption chain representing pre-harvest, harvest and storage, cleaning and washing, processing, cold chain storage, and consumer handling practices
+  contents:
   - caGrowthBaranyi
   - caHomeRTE
   - caRet2HomeRTE
@@ -94,10 +85,9 @@ practices"
   - caSoil2rind
   - caTesting
 
-- title: "Cold-smoked RTE Fish"
-  desc: "The model considered a full production-to-consumption chain including primary processing,
-secondary processing, cold-chain, and consumer handling."
-  contents:  
+- title: Cold-smoked RTE Fish
+  desc: The model considered a full production-to-consumption chain including primary processing, secondary processing, cold-chain, and consumer handling
+  contents:
   - sfGrowthLPD
   - sfBrineORsaltCC
   - sfBriningCC
@@ -120,5 +110,3 @@ news:
   releases:
   - text: "Version 0.1.1"
     href: https://github.com/vcadavez/qraLm/
-
-    

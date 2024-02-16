@@ -66,6 +66,7 @@ dat <- caPrimaryProduction(
   pIrrig = 0.131,
   cantaWeight = 800
 )
+
 caIrrig2rind(
   nLots = 5,
   sizeLot = 10,
