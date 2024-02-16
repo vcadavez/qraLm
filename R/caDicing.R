@@ -36,11 +36,11 @@
 #' @keywords melon transfer rind cutting flesh
 #' 
 #' @references
-#' \insertRef{mc2d}{JEMRA}
+#' \insertRef{mc2d}{qraLm}
 #' 
-#' \insertRef{Ukuku2002}{JEMRA}
+#' \insertRef{Ukuku2002}{qraLm}
 #' 
-#' \insertRef{Ukuku2012}{JEMRA}
+#' \insertRef{Ukuku2012}{qraLm}
 #' 
 #' @importFrom mc2d rpert
 #' @importFrom utils data
@@ -52,7 +52,7 @@
 #'  and the number of columns the number of cantaloupes processed in a sublot. This is done because the production lot size is not
 #'  necessarily the same as the processing lot size. Therefore, the numbers and prevalence outputs are given in the sublot basis (processing lot).
 #' The variability in the transfer rate from rind to flesh (`CFU/g` dices per \eqn{CFU/cm^2} rind) was modelled as a Pert distribution using data 
-#' digitised from \insertCite{Ukuku2002;textual}{JEMRA} and \insertCite{Ukuku2012;textual}{JEMRA}.
+#' digitised from \insertCite{Ukuku2002;textual}{qraLm} and \insertCite{Ukuku2012;textual}{qraLm}.
 #' 
 #' @examples
 #' nLots        <- 1000

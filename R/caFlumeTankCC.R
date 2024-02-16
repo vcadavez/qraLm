@@ -41,7 +41,6 @@
 #'
 #' @references
 #' \insertRef{mc2d}{qraLm}
-#'
 #' \insertRef{stats}{qraLm}
 #'
 #'

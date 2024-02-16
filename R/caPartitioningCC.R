@@ -47,13 +47,13 @@
 #' @keywords cross-contamination portioning
 #'
 #' @references
-#' \insertRef{Hoelzer2012}{JEMRA}
-#' \insertRef{Nauta2005}{JEMRA}
-#' \insertRef{extraDistr}{JEMRA}
-#' \insertRef{mc2d}{JEMRA}
-#' \insertRef{Rdpack}{JEMRA}
-#' \insertRef{stats}{JEMRA}
-#' \insertRef{iRisk2021}{JEMRA}
+#' \insertRef{Hoelzer2012}{qraLm}
+#' \insertRef{Nauta2005}{qraLm}
+#' \insertRef{extraDistr}{qraLm}
+#' \insertRef{mc2d}{qraLm}
+#' \insertRef{Rdpack}{qraLm}
+#' \insertRef{stats}{qraLm}
+#' \insertRef{iRisk2021}{qraLm}
 #'
 #' @importFrom extraDistr rtnorm
 #' @importFrom stats rbinom rmultinom
@@ -63,7 +63,7 @@
 #' @export
 #' 
 #' @note The value of \eqn{beta = 1} represents moderate clustering of cells in the bulk of diced cantaloupe from a 
-#' sublot \insertCite{Nauta2005;textual}{JEMRA}. \insertCite{Hoelzer2012;textual}{JEMRA} established the log 10 of the transfer coefficient
+#' sublot \insertCite{Nauta2005;textual}{qraLm}. \insertCite{Hoelzer2012;textual}{qraLm} established the log 10 of the transfer coefficient
 #' of \emph{L. monocytogenes} from knives to vegetables as a normal distribution with \eqn{TRdicer\_mean = -1.42} and \eqn{TRdicer\_sd = 0.52}. 
 #'
 #' @examples
