@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# qraLm <a href='https://vcadavez.github.io/qraLm/docs/'><img src='man/figures/hex-qraLm.png' align="right" height="50" /></a>
+# qraLm <a href='https://vcadavez.github.io/qraLm/docs/'><img src='man/figures/qraLm_logo.png' align="right" height="50" /></a>
 
 A R package to develop quantitative risk assessment for *L.
 monocytogenes* in Frozen Vegetables, Diced RTE Cantaloupe and
