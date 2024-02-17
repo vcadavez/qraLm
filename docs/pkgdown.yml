@@ -2,7 +2,7 @@ pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-02-17T10:41Z
+last_built: 2024-02-17T23:06Z
 urls:
   reference: https://vcadavez.github.io/qraLm/reference
   article: https://vcadavez.github.io/qraLm/articles

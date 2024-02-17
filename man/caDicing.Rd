@@ -10,11 +10,8 @@ caDicing(
   modeTR = 0.55,
   maxTR = 2.82,
   cantaSurface = 580,
-  pulpYield = 0.6,
-  cantaWeight = NULL,
-  nLots = NULL,
-  sizeLot = NULL,
-  sizeSublot = 20
+  cantaRindFree = 950,
+  sizeSublot
 )
 }
 \arguments{
@@ -33,13 +30,7 @@ on cantaloupe rind, from contaminated lots;}
 
 \item{cantaSurface}{(\eqn{cm^2}) Surface area of a cantaloupe (scalar or vector).}
 
-\item{pulpYield}{(\verb{\%}) Cantaloupe pulp yield (scalar or vector).}
-
-\item{cantaWeight}{(\code{g}) weight of a cantaloupe}
-
-\item{nLots}{Number of lots (scalar).}
-
-\item{sizeLot}{Number of cantaloupes in a production lot (scalar).}
+\item{cantaRindFree}{(\code{g}) Weight of a seedless rind-free cantaloupe equivalent to the weight of dices from one cantaloupe (scalar or vector).}
 
 \item{sizeSublot}{Number of cantaloupes to be diced in a sublot or processing lot (the sizeSublot should be multiple of sizeLot) (scalar).}
 }
@@ -67,35 +58,21 @@ The variability in the transfer rate from rind to flesh (\code{CFU/g} dices per 
 digitised from \insertCite{Ukuku2002;textual}{qraLm} and \insertCite{Ukuku2012;textual}{qraLm}.
 }
 \examples{
-nLots        <- 1000
-sizeLot      <- 100
-sizeSublot   <- 20
-cantaSurface <- 780
-pulpYield    <- 0.75
-cantaWeight  <- 1000
-data         <- list(N = matrix(rpois(sizeLot*nLots, 100),
-                                ncol=sizeLot, 
-                                nrow=nLots),
-                                P = 0.16,
-                      cantaWeight=cantaWeight,
-                      nLots=nLots,
-                      sizeLot=sizeLot)
-str(data)
-CantaDices <- caDicing (data,
-                        minTR=0.087,
-                        modeTR=0.55,
-                        maxTR=2.82,
-                        pulpYield=pulpYield,
-                        cantaSurface=cantaSurface,
-                        sizeSublot=sizeSublot)
+nLots <- 1000
+sizeLot <- 1000
+df <- list(N = matrix(rpois(sizeLot*nLots, 200), 
+           ncol=sizeLot, nrow=nLots),
+           P = .16)
+CantaDices <- caDicing (df,
+                        cantaSurface=780,
+                        cantaRindFree=950,
+                        sizeSublot=100)
 hist(CantaDices$N)
 
 }
 \references{
 \insertRef{mc2d}{qraLm}
-
 \insertRef{Ukuku2002}{qraLm}
-
 \insertRef{Ukuku2012}{qraLm}
 }
 \author{

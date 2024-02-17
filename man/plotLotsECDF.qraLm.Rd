@@ -9,7 +9,7 @@ plotLotsECDF.qraLm(x, ...)
 \arguments{
 \item{x}{qraLm object see \code{\link[=Lot2LotGen]{Lot2LotGen()}}}
 
-\item{...}{Optional plot parameters passed to the \code{\link[=plotLotsECDF]{plotLotsECDF()}} function}
+\item{...}{Optional plot parameters passed to the function}
 }
 \description{
 Plot ECDF curve

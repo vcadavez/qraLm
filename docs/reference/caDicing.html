@@ -78,11 +78,8 @@ with parameters <code>minTR</code>, <code>modeTR</code> and <code>maxTR</code>.<
 <span>  modeTR <span class="op">=</span> <span class="fl">0.55</span>,</span>
 <span>  maxTR <span class="op">=</span> <span class="fl">2.82</span>,</span>
 <span>  cantaSurface <span class="op">=</span> <span class="fl">580</span>,</span>
-<span>  pulpYield <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>  cantaWeight <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  nLots <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  sizeLot <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  sizeSublot <span class="op">=</span> <span class="fl">20</span></span>
+<span>  cantaRindFree <span class="op">=</span> <span class="fl">950</span>,</span>
+<span>  <span class="va">sizeSublot</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,20 +113,8 @@ on cantaloupe rind, from contaminated lots;</p></dd>
 <dd><p>(\(cm^2\)) Surface area of a cantaloupe (scalar or vector).</p></dd>
 
 
-<dt>pulpYield</dt>
-<dd><p>(<code>%</code>) Cantaloupe pulp yield (scalar or vector).</p></dd>
-
-
-<dt>cantaWeight</dt>
-<dd><p>(<code>g</code>) weight of a cantaloupe</p></dd>
-
-
-<dt>nLots</dt>
-<dd><p>Number of lots (scalar).</p></dd>
-
-
-<dt>sizeLot</dt>
-<dd><p>Number of cantaloupes in a production lot (scalar).</p></dd>
+<dt>cantaRindFree</dt>
+<dd><p>(<code>g</code>) Weight of a seedless rind-free cantaloupe equivalent to the weight of dices from one cantaloupe (scalar or vector).</p></dd>
 
 
 <dt>sizeSublot</dt>
@@ -163,13 +148,15 @@ digitised from Ukuku and Fett (2002)
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Pouillot R, Delignette-Muller M (2010).
 “Evaluating variability and uncertainty in microbial quantitative risk assessment using two R packages.”
-<em>International Journal of Food Microbiology</em>, <b>142</b>(3), 330-40.</p>
-<p>Ukuku DO, Fett W (2002).
+<em>International Journal of Food Microbiology</em>, <b>142</b>(3), 330-40.
+
+Ukuku DO, Fett W (2002).
 “Behavior of Listeria monocytogenes inoculated on cantaloupe surfaces and efficacy of washing treatments to reduce transfer from rind to fresh-cut pieces.”
 <em>Journal of Food Protection</em>, <b>65</b>(6), 924-930.
 <a href="https://doi.org/10.4315/0362-028X-65.6.924" class="external-link">doi:10.4315/0362-028X-65.6.924</a>
-.</p>
-<p>Ukuku DO, Olanya M, Geveke DJ, Sommers CH (2012).
+.
+
+Ukuku DO, Olanya M, Geveke DJ, Sommers CH (2012).
 “Effect of native microflora, waiting period, and storage temperature on Listeria monocytogenes serovars transferred from cantaloupe rind to fresh-cut pieces during preparation.”
 <em>Journal of Food Protection</em>, <b>75</b>(11), 1912-1919.
 <a href="https://doi.org/10.4315/0362-028X.JFP-12-191" class="external-link">doi:10.4315/0362-028X.JFP-12-191</a>
@@ -182,33 +169,15 @@ digitised from Ukuku and Fett (2002)
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nLots</span>        <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
-<span class="r-in"><span><span class="va">sizeLot</span>      <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
-<span class="r-in"><span><span class="va">sizeSublot</span>   <span class="op">&lt;-</span> <span class="fl">20</span></span></span>
-<span class="r-in"><span><span class="va">cantaSurface</span> <span class="op">&lt;-</span> <span class="fl">780</span></span></span>
-<span class="r-in"><span><span class="va">pulpYield</span>    <span class="op">&lt;-</span> <span class="fl">0.75</span></span></span>
-<span class="r-in"><span><span class="va">cantaWeight</span>  <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
-<span class="r-in"><span><span class="va">data</span>         <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="va">sizeLot</span><span class="op">*</span><span class="va">nLots</span>, <span class="fl">100</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                                ncol<span class="op">=</span><span class="va">sizeLot</span>, </span></span>
-<span class="r-in"><span>                                nrow<span class="op">=</span><span class="va">nLots</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                                P <span class="op">=</span> <span class="fl">0.16</span>,</span></span>
-<span class="r-in"><span>                      cantaWeight<span class="op">=</span><span class="va">cantaWeight</span>,</span></span>
-<span class="r-in"><span>                      nLots<span class="op">=</span><span class="va">nLots</span>,</span></span>
-<span class="r-in"><span>                      sizeLot<span class="op">=</span><span class="va">sizeLot</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ N          : int [1:1000, 1:100] 96 95 100 109 101 111 92 91 110 91 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ P          : num 0.16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ cantaWeight: num 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ nLots      : num 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sizeLot    : num 100</span>
-<span class="r-in"><span><span class="va">CantaDices</span> <span class="op">&lt;-</span> <span class="fu">caDicing</span> <span class="op">(</span><span class="va">data</span>,</span></span>
-<span class="r-in"><span>                        minTR<span class="op">=</span><span class="fl">0.087</span>,</span></span>
-<span class="r-in"><span>                        modeTR<span class="op">=</span><span class="fl">0.55</span>,</span></span>
-<span class="r-in"><span>                        maxTR<span class="op">=</span><span class="fl">2.82</span>,</span></span>
-<span class="r-in"><span>                        pulpYield<span class="op">=</span><span class="va">pulpYield</span>,</span></span>
-<span class="r-in"><span>                        cantaSurface<span class="op">=</span><span class="va">cantaSurface</span>,</span></span>
-<span class="r-in"><span>                        sizeSublot<span class="op">=</span><span class="va">sizeSublot</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nLots</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">sizeLot</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="va">sizeLot</span><span class="op">*</span><span class="va">nLots</span>, <span class="fl">200</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>           ncol<span class="op">=</span><span class="va">sizeLot</span>, nrow<span class="op">=</span><span class="va">nLots</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           P <span class="op">=</span> <span class="fl">.16</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">CantaDices</span> <span class="op">&lt;-</span> <span class="fu">caDicing</span> <span class="op">(</span><span class="va">df</span>,</span></span>
+<span class="r-in"><span>                        cantaSurface<span class="op">=</span><span class="fl">780</span>,</span></span>
+<span class="r-in"><span>                        cantaRindFree<span class="op">=</span><span class="fl">950</span>,</span></span>
+<span class="r-in"><span>                        sizeSublot<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">CantaDices</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="caDicing-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>

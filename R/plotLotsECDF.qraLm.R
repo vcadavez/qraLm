@@ -2,7 +2,7 @@
 #'
 #' @title plotLotsECDF Generic plot function to plot the ECDF
 #' @param x qraLm object see [Lot2LotGen()]
-#' @param ... Optional plot parameters passed to the [plotLotsECDF()] function
+#' @param ... Optional plot parameters passed to the function
 #' @author Vasco Cadavez
 #'
 #' @importFrom stats weighted.mean

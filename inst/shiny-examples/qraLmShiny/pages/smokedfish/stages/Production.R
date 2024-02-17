@@ -72,7 +72,7 @@ sf_ProductionInputs_ui <- function(id) {
                  "Set a random seed", value = 12345),  
     numericInput(ns("n_lots"), 
                  "nLots: number of lots",
-                 value = 1000,  min = 1000, max = 10000, step = 1000),
+                 value = 1000,  min = 1000, max = 10000, step = 500),
     numericInput(ns("size_lot"), 
                  "sizeLot: number of fishes",
                  value = 500,  min = 500, max = 5000, step = 500),

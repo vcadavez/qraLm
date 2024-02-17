@@ -105,8 +105,7 @@ caTesting <- function(data = list(),
   if ((pLotTested == 0 | nTested == 0 | gTested == 0) & backToSublot) {
     data$D <- 0
     return(data)
-  }
-
+    }
 
   N <- data$N
 

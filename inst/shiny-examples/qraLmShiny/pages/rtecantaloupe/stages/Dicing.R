@@ -45,7 +45,7 @@ generate_datDicing <- function(input, prefix, datWashing) {
     modeTR = 0.55,
     maxTR = 2.82,
     cantaSurface  = 580,
-    pulpYield = get_input_value(input, prefix, "pulp_yield"),
+    cantaRindFree = get_input_value(input, prefix, "canta_rind_free"),
     sizeSublot = get_input_value(input, prefix, "size_sublot")
     )
   return(df)
@@ -56,9 +56,9 @@ ca_DicingInputs_ui <- function(id) {
   div(
   id = ns("Dicing"),
 #  tagList(
-sliderInput(ns("pulp_yield"),
-            "pulpYield: Cantaloupe pulp yield (%)",
-            value = 0.95, min = 0.60, max = 0.95, step=0.05),
+sliderInput(ns("canta_rind_free"),
+            "cantaRindFree: Weight of a seedless rind-free cantaloupe (%)",
+            value = 950, min = 600, max = 1000, step=50),
     sliderInput(ns("size_sublot"),
                 "sizeSublot: Number of cantaloupes to be diced",
                 value = 500, min = 50, max = 1000, step=50)

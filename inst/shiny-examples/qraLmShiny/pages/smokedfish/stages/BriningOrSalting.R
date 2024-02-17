@@ -86,7 +86,7 @@ sf_BriningOrSaltingInputs_ui <- function(id) {
                   value = 0.060, min = 0, max = 5, step = 0.015),
       sliderInput(ns("pcc_smearing"), 
                   "pccSmearing: Probability of cross-contamination",
-                  value = 0.25, min = 0, max = 1, step = 0.10),
+                  value = 0.029, min = 0, max = 1, step = 0.10),
        sliderInput(ns("n_surface"), 
                    "nSurface: Numbers of LM on surfaces in contact with a fillet (CFU)",
                   value = 1000, min = 0, max = 5000, step = 100)
