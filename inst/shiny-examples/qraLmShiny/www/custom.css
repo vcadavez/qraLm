@@ -1,0 +1,75 @@
+body{
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+.navbar {
+  background-color: #005393;
+  font-size: 18px;
+  font-weight: bold;
+}
+.navbar-brand{
+  height: auto;
+}
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:focus, 
+.navbar-default .navbar-brand:hover {
+  background-color: #fafafa;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+  color: #555;
+  background-color: #fafafa;
+}
+
+
+body > nav > div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+#navbarPageId{
+  margin-left: auto;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.irs-bar {
+  top: 25px;
+  height: 8px;
+  border-top: 1px solid #005393 !important;
+  border-bottom: 1px solid #005393 !important;
+  background: #005393 !important;
+}
+
+
+.navbar-static-top {
+  border-width: 0 0 0px !important;
+}
+.navbar-default .navbar-brand {
+  background-color: #fafafa;
+}
+.navbar-default .navbar-nav>li>a{
+  color: #fafafa;
+}
+.navbar-default .navbar-nav>li>a:hover{
+  background-color: #d86422;
+  color: #fafafa;
+}
+
+/* .navbar-default{
+  background-color: #007eb4;
+  color: #fafafa;
+} */
+
+/* .navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+  background-color: #730823;
+} */
+/* Change the active background color of the navbar items */
+/* .navbar-default .navbar-nav>.active>a {
+  background-color: #57d30f;
+  color: #57d30f;
+} */
+

@@ -25,7 +25,7 @@ reference:
   desc: R package for quantitative risk assessment of Listeria monocytogenes in food
   contents:
   - qraLm
-
+  
 - title: Dose-Response Models
   desc: An updated DR model was developed to take into account class of strain virulence and age-sex group, as a surrogate for susceptibility, as determined by underlying health conditions
   contents:
@@ -41,6 +41,7 @@ reference:
   - summaryLot.qraLm
   - summaryServings.qraLm
   - summaryUnits.qraLm
+  - summaryRisk.qraLm
 
 - title: Generate Data
   desc: Functions to generate the simulated data
@@ -99,6 +100,12 @@ reference:
   - sfPortioning
   - expandedjamesonC
   - expandedjamesonC_set_params
+
+- title: qraLmShiny
+  desc: Shiny application for simulation
+  contents:
+  - runExample
+
 
 news:
   releases:

@@ -40,6 +40,8 @@ representing the total variability in the microbial concentration of contaminate
 to between-lot variance. The remaining (\code{1-propVarInter}) is the proportion of within-lot variance.}
 
 \item{Poisson}{need to be defined}
+
+\item{...}{Other options used to control \code{\link[=LotGen]{LotGen()}}}
 }
 \value{
 A list of four elements:

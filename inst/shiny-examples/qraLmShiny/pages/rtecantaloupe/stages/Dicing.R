@@ -1,0 +1,67 @@
+ca_Dicing_ui <- function(id) {
+  ns <- NS(id)
+  
+  fluidRow(
+    column(6, 
+           h4("Prevalence of contaminated lots"), prevLotsUI("prev_lots_dicing"),
+           h4("Between lots LM counts"), mcstatsLotsUI("lots_mcstats_dicing")
+           #           h4("Between lots LM counts distribution"), countsLotsDistUI("counts_lots_dist_dicing")
+    ),
+    column(6, 
+           h4("Prevalence of contaminated units"), prevUnitsUI("prev_units_dicing"),
+           h4("Within lots/Between units LM counts"), mcstatsUnitsUI("units_mcstats_dicing")
+           #           h4("Within lots/Between units distribution"), countsUnitsDistUI("counts_units_dist_dicing")
+    ),
+    column(12, 
+           h4("ECDF plot"), ecdfLotsUI("ecdf_prob_dicing")
+    )
+  )
+}
+
+ca_Dicing_server <- function(input, output, session, suffix, datWashing) {
+  ns <- NS(suffix)
+  id <- ns("Dicing")
+  
+  output[[id]] <- renderUI({ ca_Dicing_ui(id) })
+  
+  prefix <- "rtecantaloupe-sidebar-inputs-"
+  datDicing <- reactive({ generate_datDicing(input, prefix, datWashing) })
+  
+  prevLotsServer("prev_lots_dicing",                data=datDicing)
+  prevUnitsServer("prev_units_dicing",              data=datDicing)
+  mcstatsLotsServer("lots_mcstats_dicing",          data=datDicing)
+  mcstatsUnitsServer("units_mcstats_dicing",        data=datDicing)
+  countsLotsDistServer("counts_lots_dist_dicing",   data=datDicing)
+  countsUnitsDistServer("counts_units_dist_dicing", data=datDicing)
+  ecdfLotsServer("ecdf_prob_dicing",                data=datDicing)
+  return(datDicing)
+}
+
+generate_datDicing <- function(input, prefix, datWashing) {
+  set.seed(get_input_value(input, prefix, "seed"))
+  df <- caDicing(
+    datWashing(),
+    minTR = 0.087,
+    modeTR = 0.55,
+    maxTR = 2.82,
+    cantaSurface  = 580,
+    pulpYield = get_input_value(input, prefix, "pulp_yield"),
+    sizeSublot = get_input_value(input, prefix, "size_sublot")
+    )
+  return(df)
+}
+
+ca_DicingInputs_ui <- function(id) {
+  ns <- NS(id)
+  div(
+  id = ns("Dicing"),
+#  tagList(
+sliderInput(ns("pulp_yield"),
+            "pulpYield: Cantaloupe pulp yield (%)",
+            value = 0.95, min = 0.60, max = 0.95, step=0.05),
+    sliderInput(ns("size_sublot"),
+                "sizeSublot: Number of cantaloupes to be diced",
+                value = 500, min = 50, max = 1000, step=50)
+#    )
+  )
+}

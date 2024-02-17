@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 
 A R package to develop quantitative risk assessment for *L. monocytogenes* in Frozen Vegetables, Diced RTE Cantaloupe and Cold-smoked RTE Fish.
 
-- Version developed scope of the [JEMRA workgroup](https://www.who.int/publications/m/item/jemra-of-listeria-monocytogenes-in-foods).
+- Version developed under the scope of the [Joint FAO/WHO](https://www.who.int/publications/m/item/jemra-of-listeria-monocytogenes-in-foods)
+ Expert meeting on microbiological risk assessment of Listeria monocytogenes in foods.
 
 
 ## Installation

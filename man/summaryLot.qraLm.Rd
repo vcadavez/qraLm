@@ -12,19 +12,19 @@ summaryLot.qraLm(x, ...)
 \item{...}{optional plot parameters passed to the plot function}
 }
 \description{
-Print summary MC results
+Print summary MC results at Lot level
 }
 \examples{
 prod <- Lot2LotGen(
-  nLots        = 1000,
-  sizeLot      = 1000,
-  unitSize     = 500,
-  betaAlpha    = 0.5112,
-  betaBeta     = 9.959,
-  C0MeanLog    = 1.023,
-  C0SdLog      = 0.3267,
-  propVarInter = 0.7,
-  Poisson      = FALSE
+                   nLots        = 1000,
+                   sizeLot      = 1000,
+                   unitSize     = 500,
+                   betaAlpha    = 0.5112,
+                   betaBeta     = 9.959,
+                   C0MeanLog    = 1.023,
+                   C0SdLog      = 0.3267,
+                   propVarInter = 0.7,
+                   Poisson      = FALSE
 )
 
 summaryLot.qraLm(prod)

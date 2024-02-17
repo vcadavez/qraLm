@@ -21,6 +21,7 @@
 #' @param propVarInter proportion of the total variance (\eqn{C0\_sdLog10^2}) attributed
 #'   to between-lot variance. The remaining (`1-propVarInter`) is the proportion of within-lot variance.
 #' @param Poisson need to be defined
+#' @param ... Other options used to control [LotGen()]
 #'
 #' @return A list of four elements:
 #'    \describe{

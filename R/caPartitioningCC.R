@@ -1,41 +1,51 @@
 #' @title Cross-contamination of cantaloupe during dicing and partitioning into packed units
 #' 
 #' @description
-#' The [caPartitioningCC()] function simulates the potential cross-contamination of cantaloupes, when in direct contact with the dicing machine
+#' The [caPartitioningCC()] function simulates the potential cross-contamination of cantaloupes, 
+#' when in direct contact with the dicing machine
 #' or knives, followed by the partitioning of all dices produced in one processing lot (sublot) into packed units.
 #' The cross-contamination algorithm accounts for four possible scenarios:
 #' \enumerate{
 #'    \item cross-contamination occurring in sublots already contaminated; 
 #'    \item contamination occurring in sublots that were not contaminated;
 #'    \item no cross-contamination occurring in sublots already contaminated; and
-#'    \item no cross-contamination occurring in sublots that were not contaminated. Probabilities of occurrence of every event are computed.
+#'    \item no cross-contamination occurring in sublots that were not contaminated. Probabilities 
+#'    of occurrence of every event are computed.
 #'      }
-#' The partitioning algorithm randomly distributes the total numbers of cells from a contaminated sublot of dices into packed units. The dispersion factor `b`, 
-#' which is a parameter of the beta distribution, indicates the extent of cell clustering in the bulk of dices in the sublot, and ultimately
+#' The partitioning algorithm randomly distributes the total numbers of cells from a contaminated sublot
+#'  of dices into packed units. The dispersion factor `b`, 
+#' which is a parameter of the beta distribution, indicates the extent of cell clustering in the bulk
+#'  of dices in the sublot, and ultimately
 #' the heterogeneity in the number of cells distributed among pack units.
 #'
 #' @param data a list of:
 #' \describe{
-#'    \item{`N`}{(`CFU`) A matrix of size `newMC` sublots by `sizeSublot` portions of dices from one cantaloupe representing the numbers of \emph{L. monocytogenes} 
-#'    in dices;}
+#'    \item{`N`}{(`CFU`) A matrix of size `newMC` sublots by `sizeSublot` portions of dices from one 
+#'    cantaloupe representing the numbers of \emph{L. monocytogenes} in dices;}
 #'    \item{`P`}{Prevalence of contaminated sublots (scalar).}
 #'          }
 #' @param probCCDice Probability of cross-contamination from the dicing machine (scalar).
-#' @param trDicerMean Mean of the transfer coefficient of \emph{L. monocytogenes} from dicing machine to cantaloupe flesh (scalar or vector).
-#' @param trDicerSd Standard deviation of the transfer coefficient of \emph{L. monocytogenes} from dicing machine to cantaloupe 
+#' @param trDicerMean Mean of the transfer coefficient of \emph{L. monocytogenes} from dicing
+#'  machine to cantaloupe flesh (scalar or vector).
+#' @param trDicerSd Standard deviation of the transfer coefficient of \emph{L. monocytogenes} 
+#' from dicing machine to cantaloupe 
 #'  flesh (scalar or vector).
-#' @param nDicer (`CFU`) Numbers of \emph{L. monocytogenes} on the surface of the dicing machine ready to be transferred (scalar or vector).
+#' @param nDicer (`CFU`) Numbers of \emph{L. monocytogenes} on the surface of the dicing machine 
+#' ready to be transferred (scalar or vector).
 # #' @param newMC Number of sublots (scalar).
+#' @param nLots See [Lot2LotGen()].
 #' @param sizeLot Number of cantaloupes from a harvested lot (scalar).
 #' @param sizeSublot Number of cantaloupes processed in a sublot. It should be a multiple of `sizeLot` (scalar).
 #' @param cantaWeight (`g`) weight of a cantaloupe
 #' @param pulpYield (`%`) Cantaloupe pulp yield (scalar or vector).
 #' @param unitSize (`g`) Weight of a pack of cantaloupe dices (scalar).
-#' @param b Dispersion factor of the beta distribution representing the degree of heterogeneity in the number of cells between pack units (scalar).
+#' @param b Dispersion factor of the beta distribution representing the degree of heterogeneity in the number
+#'  of cells between pack units (scalar).
 #'
 #' @return A list with four elements:
 #' \describe{
-#'       \item{`N`}{(`CFU`) A matrix of size `newMC` sublots by Number_packs number of packs containing the numbers of \emph{L. monocytogenes} in a pack,
+#'       \item{`N`}{(`CFU`) A matrix of size `newMC` sublots by Number_packs number of packs containing 
+#'       the numbers of \emph{L. monocytogenes} in a pack,
 #'            from contaminated lots;}
 #'       \item{`P`}{Prevalence of contaminated sublots (scalar);} 
 #'       \item{`sizeSublot`}{Number of cantaloupes processed in a sublot (scalar);} 
@@ -63,8 +73,9 @@
 #' @export
 #' 
 #' @note The value of \eqn{beta = 1} represents moderate clustering of cells in the bulk of diced cantaloupe from a 
-#' sublot \insertCite{Nauta2005;textual}{qraLm}. \insertCite{Hoelzer2012;textual}{qraLm} established the log 10 of the transfer coefficient
-#' of \emph{L. monocytogenes} from knives to vegetables as a normal distribution with \eqn{TRdicer\_mean = -1.42} and \eqn{TRdicer\_sd = 0.52}. 
+#' sublot \insertCite{Nauta2005;textual}{qraLm}. \insertCite{Hoelzer2012;textual}{qraLm} established the log 10 of 
+#' the transfer coefficient of \emph{L. monocytogenes} from knives to vegetables as a normal distribution with
+#' \eqn{TRdicer\_mean = -1.42} and \eqn{TRdicer\_sd = 0.52}. 
 #'
 #' @examples
 #' library(extraDistr)

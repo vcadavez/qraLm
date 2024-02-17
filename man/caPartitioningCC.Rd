@@ -22,27 +22,33 @@ caPartitioningCC(
 \arguments{
 \item{data}{a list of:
 \describe{
-\item{\code{N}}{(\code{CFU}) A matrix of size \code{newMC} sublots by \code{sizeSublot} portions of dices from one cantaloupe representing the numbers of \emph{L. monocytogenes}
-in dices;}
+\item{\code{N}}{(\code{CFU}) A matrix of size \code{newMC} sublots by \code{sizeSublot} portions of dices from one
+cantaloupe representing the numbers of \emph{L. monocytogenes} in dices;}
 \item{\code{P}}{Prevalence of contaminated sublots (scalar).}
 }}
 
 \item{probCCDice}{Probability of cross-contamination from the dicing machine (scalar).}
 
-\item{trDicerMean}{Mean of the transfer coefficient of \emph{L. monocytogenes} from dicing machine to cantaloupe flesh (scalar or vector).}
+\item{trDicerMean}{Mean of the transfer coefficient of \emph{L. monocytogenes} from dicing
+machine to cantaloupe flesh (scalar or vector).}
 
-\item{trDicerSd}{Standard deviation of the transfer coefficient of \emph{L. monocytogenes} from dicing machine to cantaloupe
+\item{trDicerSd}{Standard deviation of the transfer coefficient of \emph{L. monocytogenes}
+from dicing machine to cantaloupe
 flesh (scalar or vector).}
 
-\item{nDicer}{(\code{CFU}) Numbers of \emph{L. monocytogenes} on the surface of the dicing machine ready to be transferred (scalar or vector).}
+\item{nDicer}{(\code{CFU}) Numbers of \emph{L. monocytogenes} on the surface of the dicing machine
+ready to be transferred (scalar or vector).}
 
-\item{b}{Dispersion factor of the beta distribution representing the degree of heterogeneity in the number of cells between pack units (scalar).}
+\item{b}{Dispersion factor of the beta distribution representing the degree of heterogeneity in the number
+of cells between pack units (scalar).}
 
 \item{unitSize}{(\code{g}) Weight of a pack of cantaloupe dices (scalar).}
 
 \item{cantaWeight}{(\code{g}) weight of a cantaloupe}
 
 \item{pulpYield}{(\verb{\%}) Cantaloupe pulp yield (scalar or vector).}
+
+\item{nLots}{See \code{\link[=Lot2LotGen]{Lot2LotGen()}}.}
 
 \item{sizeLot}{Number of cantaloupes from a harvested lot (scalar).}
 
@@ -51,7 +57,8 @@ flesh (scalar or vector).}
 \value{
 A list with four elements:
 \describe{
-\item{\code{N}}{(\code{CFU}) A matrix of size \code{newMC} sublots by Number_packs number of packs containing the numbers of \emph{L. monocytogenes} in a pack,
+\item{\code{N}}{(\code{CFU}) A matrix of size \code{newMC} sublots by Number_packs number of packs containing
+the numbers of \emph{L. monocytogenes} in a pack,
 from contaminated lots;}
 \item{\code{P}}{Prevalence of contaminated sublots (scalar);}
 \item{\code{sizeSublot}}{Number of cantaloupes processed in a sublot (scalar);}
@@ -59,23 +66,28 @@ from contaminated lots;}
 }
 }
 \description{
-The \code{\link[=caPartitioningCC]{caPartitioningCC()}} function simulates the potential cross-contamination of cantaloupes, when in direct contact with the dicing machine
+The \code{\link[=caPartitioningCC]{caPartitioningCC()}} function simulates the potential cross-contamination of cantaloupes,
+when in direct contact with the dicing machine
 or knives, followed by the partitioning of all dices produced in one processing lot (sublot) into packed units.
 The cross-contamination algorithm accounts for four possible scenarios:
 \enumerate{
 \item cross-contamination occurring in sublots already contaminated;
 \item contamination occurring in sublots that were not contaminated;
 \item no cross-contamination occurring in sublots already contaminated; and
-\item no cross-contamination occurring in sublots that were not contaminated. Probabilities of occurrence of every event are computed.
+\item no cross-contamination occurring in sublots that were not contaminated. Probabilities
+of occurrence of every event are computed.
 }
-The partitioning algorithm randomly distributes the total numbers of cells from a contaminated sublot of dices into packed units. The dispersion factor \code{b},
-which is a parameter of the beta distribution, indicates the extent of cell clustering in the bulk of dices in the sublot, and ultimately
+The partitioning algorithm randomly distributes the total numbers of cells from a contaminated sublot
+of dices into packed units. The dispersion factor \code{b},
+which is a parameter of the beta distribution, indicates the extent of cell clustering in the bulk
+of dices in the sublot, and ultimately
 the heterogeneity in the number of cells distributed among pack units.
 }
 \note{
 The value of \eqn{beta = 1} represents moderate clustering of cells in the bulk of diced cantaloupe from a
-sublot \insertCite{Nauta2005;textual}{qraLm}. \insertCite{Hoelzer2012;textual}{qraLm} established the log 10 of the transfer coefficient
-of \emph{L. monocytogenes} from knives to vegetables as a normal distribution with \eqn{TRdicer\_mean = -1.42} and \eqn{TRdicer\_sd = 0.52}.
+sublot \insertCite{Nauta2005;textual}{qraLm}. \insertCite{Hoelzer2012;textual}{qraLm} established the log 10 of
+the transfer coefficient of \emph{L. monocytogenes} from knives to vegetables as a normal distribution with
+\eqn{TRdicer\_mean = -1.42} and \eqn{TRdicer\_sd = 0.52}.
 }
 \examples{
 library(extraDistr)

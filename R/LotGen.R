@@ -1,17 +1,23 @@
 #' @title Generation of contaminated lots
 #'
 #' @description
-#' The function [LotGen()] generates a matrix of contaminated lots from information on the parameters of a normal distribution (mean, sd)
+#' The function [LotGen()] generates a matrix of contaminated lots from information on the 
+#' parameters of a normal distribution (mean, sd)
 #' representing the microbial concentration in the contaminated units (log10 CFU/g).
-#' Every row of the matrix corresponds to a production lot, broken down in units or portions, which are the columns of the matrix.
-#' There is no assumption that lots can have different prevalence values, and therefore the microbial numbers of all units or portions produced in a lot
+#' Every row of the matrix corresponds to a production lot, broken down in units or portions,
+#'  which are the columns of the matrix.
+#' There is no assumption that lots can have different prevalence values, and therefore the 
+#' microbial numbers of all units or portions produced in a lot
 #' are sampled from a microbial concentration distribution.
 #' @param nLots number of lots sampled or size of the Monte Carlo simulation (scalar).
 #' @param sizeLot number of units or portions produced in a lot (scalar).
 #' @param unitSize (`g`) weight of single unit or portion from a lot (scalar).
 #' @param P prevalence of contaminated lots (scalar)
-#' @param C0MeanLog (log10 CFU/g) mean parameter of the normal distribution representing the variability in the microbial concentration of contaminated units (scalar or vector).
-#' @param C0SdLog (log10 CFU/g) standard deviation parameter of the normal distribution representing the variability in the microbial concentration of contaminated units (scalar or vector).
+#' @param C0MeanLog (log10 CFU/g) mean parameter of the normal distribution representing
+#'  the variability in the microbial concentration of contaminated units (scalar or vector).
+#' @param C0SdLog (log10 CFU/g) standard deviation parameter of the normal distribution
+#'  representing the variability in the microbial concentration of contaminated units (scalar or vector).
+#' @param ... Other options used to control [LotGen()]
 #' @return A list of two elements:
 #'     \describe{
 #'              \item{N}{(`CFU`) A matrix of size `nLots` lots by `sizeLot` units representing the microbial numbers in the units or portions from contaminated lots;}

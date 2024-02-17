@@ -9,7 +9,7 @@ plotLotsECDF.qraLm(x, ...)
 \arguments{
 \item{x}{qraLm object see \code{\link[=Lot2LotGen]{Lot2LotGen()}}}
 
-\item{...}{optional plot parameters passed to the plot function}
+\item{...}{Optional plot parameters passed to the \code{\link[=plotLotsECDF]{plotLotsECDF()}} function}
 }
 \description{
 Plot ECDF curve
@@ -17,25 +17,25 @@ Plot ECDF curve
 \examples{
 
 prod <- Lot2LotGen(
-  nLots = 1000,
-  sizeLot = 1000,
-  unitSize = 500,
-  betaAlpha = 0.5112,
-  betaBeta = 9.959,
-  C0MeanLog = 1.023,
-  C0SdLog = 0.3267,
-  propVarInter = 0.7
-)
+                   nLots = 1000,
+                   sizeLot = 1000,
+                   unitSize = 500,
+                   betaAlpha = 0.5112,
+                   betaBeta = 9.959,
+                   C0MeanLog = 1.023,
+                   C0SdLog = 0.3267,
+                   propVarInter = 0.7
+                   )
 prod1 <- Lot2LotGen(
-  nLots = 1000,
-  sizeLot = 1000,
-  unitSize = 500,
-  betaAlpha = 0.9112,
-  betaBeta = 2.959,
-  C0MeanLog = 2.023,
-  C0SdLog = 0.5267,
-  propVarInter = 0.7
-)
+                    nLots = 1000,
+                    sizeLot = 1000,
+                    unitSize = 500,
+                    betaAlpha = 0.9112,
+                    betaBeta = 2.959,
+                    C0MeanLog = 2.023,
+                    C0SdLog = 0.5267,
+                    propVarInter = 0.7
+                    )
 
 plotLotsECDF.qraLm(prod1)
 

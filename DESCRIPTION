@@ -17,7 +17,7 @@ Description: qraLm: A R package for quantitative risk assessment for Listeria mo
 URL: https://github.com/vcadavez/qraLm
 BugReports: https://github.com/vcadavez/qraLm/issues
 Depends: R (>= 3.5.0)
-Imports: Rdpack, Hmisc, extraDistr, mc2d, matrixStats, DT, dplyr,
+Imports: Rdpack, Hmisc, extraDistr, mc2d, matrixStats, DT, dplyr, shiny,
          ggplot2, plotly, Rcpp, odeintr, doseresponsemodels
 LinkingTo: Rcpp, odeintr, BH
 RdMacros: Rdpack

@@ -13,11 +13,15 @@ LotGen(nLots, sizeLot, P, C0MeanLog, C0SdLog, unitSize, ...)
 
 \item{P}{prevalence of contaminated lots (scalar)}
 
-\item{C0MeanLog}{(log10 CFU/g) mean parameter of the normal distribution representing the variability in the microbial concentration of contaminated units (scalar or vector).}
+\item{C0MeanLog}{(log10 CFU/g) mean parameter of the normal distribution representing
+the variability in the microbial concentration of contaminated units (scalar or vector).}
 
-\item{C0SdLog}{(log10 CFU/g) standard deviation parameter of the normal distribution representing the variability in the microbial concentration of contaminated units (scalar or vector).}
+\item{C0SdLog}{(log10 CFU/g) standard deviation parameter of the normal distribution
+representing the variability in the microbial concentration of contaminated units (scalar or vector).}
 
 \item{unitSize}{(\code{g}) weight of single unit or portion from a lot (scalar).}
+
+\item{...}{Other options used to control \code{\link[=LotGen]{LotGen()}}}
 }
 \value{
 A list of two elements:
@@ -27,10 +31,13 @@ A list of two elements:
 }
 }
 \description{
-The function \code{\link[=LotGen]{LotGen()}} generates a matrix of contaminated lots from information on the parameters of a normal distribution (mean, sd)
+The function \code{\link[=LotGen]{LotGen()}} generates a matrix of contaminated lots from information on the
+parameters of a normal distribution (mean, sd)
 representing the microbial concentration in the contaminated units (log10 CFU/g).
-Every row of the matrix corresponds to a production lot, broken down in units or portions, which are the columns of the matrix.
-There is no assumption that lots can have different prevalence values, and therefore the microbial numbers of all units or portions produced in a lot
+Every row of the matrix corresponds to a production lot, broken down in units or portions,
+which are the columns of the matrix.
+There is no assumption that lots can have different prevalence values, and therefore the
+microbial numbers of all units or portions produced in a lot
 are sampled from a microbial concentration distribution.
 }
 \note{

@@ -2,7 +2,7 @@
 #'
 #' @title plotLotsECDF Generic plot function to plot the ECDF
 #' @param x qraLm object see [Lot2LotGen()]
-#' @param ... optional plot parameters passed to the plot function
+#' @param ... Optional plot parameters passed to the [plotLotsECDF()] function
 #' @author Vasco Cadavez
 #'
 #' @importFrom stats weighted.mean
@@ -12,25 +12,25 @@
 #' @examples
 #'
 #' prod <- Lot2LotGen(
-#'   nLots = 1000,
-#'   sizeLot = 1000,
-#'   unitSize = 500,
-#'   betaAlpha = 0.5112,
-#'   betaBeta = 9.959,
-#'   C0MeanLog = 1.023,
-#'   C0SdLog = 0.3267,
-#'   propVarInter = 0.7
-#' )
+#'                    nLots = 1000,
+#'                    sizeLot = 1000,
+#'                    unitSize = 500,
+#'                    betaAlpha = 0.5112,
+#'                    betaBeta = 9.959,
+#'                    C0MeanLog = 1.023,
+#'                    C0SdLog = 0.3267,
+#'                    propVarInter = 0.7
+#'                    )
 #' prod1 <- Lot2LotGen(
-#'   nLots = 1000,
-#'   sizeLot = 1000,
-#'   unitSize = 500,
-#'   betaAlpha = 0.9112,
-#'   betaBeta = 2.959,
-#'   C0MeanLog = 2.023,
-#'   C0SdLog = 0.5267,
-#'   propVarInter = 0.7
-#' )
+#'                     nLots = 1000,
+#'                     sizeLot = 1000,
+#'                     unitSize = 500,
+#'                     betaAlpha = 0.9112,
+#'                     betaBeta = 2.959,
+#'                     C0MeanLog = 2.023,
+#'                     C0SdLog = 0.5267,
+#'                     propVarInter = 0.7
+#'                     )
 #'
 #' plotLotsECDF.qraLm(prod1)
 #'
