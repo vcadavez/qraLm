@@ -8,7 +8,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-6107-5212")),
     person("Ursula", "Gonzales-Barron", , "ubarron@ipb.pt", role = c("aut"),
            comment = c(ORCID = "0000-0002-8462-9775")),
-    person("Laurent", "Guilier", , "Laurent.guillier@anses.fr", role = c("aut"),
+    person("Laurent", "Guillier", , "Laurent.guillier@anses.fr", role = c("aut"),
            comment = c(ORCID = "0000-0002-7867-2937")),
     person("Moez", "Sanaa", , "sanaam@who.int", role = c("aut"),
            comment = c(ORCID = "0000-0003-3576-0379"))

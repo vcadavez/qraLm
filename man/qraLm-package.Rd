@@ -25,7 +25,7 @@ Authors:
 \itemize{
   \item Régis Pouillot \email{rpouillot.work@gmail.com} (\href{https://orcid.org/0000-0002-6107-5212}{ORCID})
   \item Ursula Gonzales-Barron \email{ubarron@ipb.pt} (\href{https://orcid.org/0000-0002-8462-9775}{ORCID})
-  \item Laurent Guilier \email{Laurent.guillier@anses.fr} (\href{https://orcid.org/0000-0002-7867-2937}{ORCID})
+  \item Laurent Guillier \email{Laurent.guillier@anses.fr} (\href{https://orcid.org/0000-0002-7867-2937}{ORCID})
   \item Moez Sanaa \email{sanaam@who.int} (\href{https://orcid.org/0000-0003-3576-0379}{ORCID})
 }
 
