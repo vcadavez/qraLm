@@ -35,7 +35,7 @@ ecdfLotsServer <- function(id, data) {
     df$logCounts <- log_var(df$Counts)
     p <- ggplot2::ggplot(df, aes(x=logCounts)) +
              theme_minimal() +
-             stat_ecdf(geom = "step", col="blue", size=1.5)
+             stat_ecdf(geom = "step", col="blue", linewidth=1.5)
     
     plot <- plotly::ggplotly(p, width = 800, height = 500) |> 
         plotly::layout(title = "",
