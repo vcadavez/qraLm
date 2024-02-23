@@ -15,7 +15,7 @@ fv_Portioning_ui <- function(id) {
                   #                  h4("Within lots/Between units LM counts distribution"), countsUnitsDistUI("fv_counts_units_dist_port")
            ),
            column(12,
-             h4("ECDF plot"), ecdfLotsUI("fv_ecdf_prob_port")
+             h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob_port")
              )
            )
   )

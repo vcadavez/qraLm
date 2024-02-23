@@ -1,4 +1,4 @@
-#load DR frozenvegetables data
+#load DR data
 load("data/sysdata.rda")
 
 #find model

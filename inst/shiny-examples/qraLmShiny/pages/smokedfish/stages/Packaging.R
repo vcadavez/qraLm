@@ -13,7 +13,7 @@ sf_Packaging_ui <- function(id) {
             h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_mcstats_units_pack")
             #            h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_pack")
             ),
-     column(12, h4("ECDF plot"), ecdfLotsUI("sf_ecdf_prob_pack")
+     column(12, h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_pack")
             )
     )
     )

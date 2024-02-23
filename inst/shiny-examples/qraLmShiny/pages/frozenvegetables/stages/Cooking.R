@@ -15,7 +15,7 @@ fv_Cooking_ui <- function(id) {
 #           h4("Within lots/Between units LM Counts distribution"), countsUnitsDistUI("fv_counts_units_dist_cook")
            ),
     column(12, 
-           h4("ECDF plot"), ecdfLotsUI("fv_ecdf_prob_cook")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob_cook")
            )
     )
     )

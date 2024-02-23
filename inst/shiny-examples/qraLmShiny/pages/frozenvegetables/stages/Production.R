@@ -3,16 +3,16 @@ fv_Production_ui <- function(id) {
     column(6,
            h4("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_prod"),
            h4("Between lots LM counts"), mcstatsLotsUI("fv_lots_mcstats_prod"),
-#           h4("Between lots Counts distribution"), countsLotsDistUI("fv_counts_lots_dist_prod"),
-           h4("Variability in the prevalence of contaminated lots"), betaDistUI("fv_beta_dist")
+           h4("Between lots Counts distribution"), countsLotsDistUI("fv_counts_lots_dist_prod"),
+           h4("Variability between-lot prevalence"), betaDistUI("fv_beta_dist")
     ),
     column(6,
            h4("Prevalence of contaminated units"), prevUnitsUI("fv_prev_units_prod"),
            h4("Within lots/Between units LM counts"), mcstatsUnitsUI("fv_units_mcstats_prod"),
-#           h4("Within lots/Between units LM counts distribution"), countsUnitsDistUI("fv_counts_units_dist_prod"),
+           h4("Within lots/Between units LM counts distribution"), countsUnitsDistUI("fv_counts_units_dist_prod"),
            h4("Variability in within-lot prevalence"), prevWithinlotsUI("fv_prob_dist")
     ),
-    column(12, h4("ECDF plot"), ecdfLotsUI("fv_ecdf_prob"))
+    column(12, h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob"))
   )
 }
 

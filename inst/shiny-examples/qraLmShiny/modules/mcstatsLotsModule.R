@@ -1,11 +1,10 @@
-## Summary statistics of contaminated lots 
-# define the Ui
+# UI
 mcstatsLotsUI <- function(id) {
   ns <- NS(id)
     DT::dataTableOutput(ns("mcstats_lots"))
 }  
 
-# server
+# SERVER
 mcstatsLotsServer <- function(id, data) {
   moduleServer(id, function(input, output, session) {
  

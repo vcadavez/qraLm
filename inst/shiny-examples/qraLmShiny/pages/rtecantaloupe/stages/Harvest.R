@@ -13,7 +13,7 @@ ca_Harvest_ui <- function(id) {
            #           h4("Within lots/Between units distribution"), countsUnitsDistUI("counts_units_dist_harvest")
     ),
     column(12, 
-           h4("ECDF plot"), ecdfLotsUI("ecdf_prob_harvest")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("ecdf_prob_harvest")
     )
   )
 }

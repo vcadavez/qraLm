@@ -13,7 +13,7 @@ sf_Home_ui <- function(id) {
          #         h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_prod_counts_units_dist_home")
          ),
   column(12,
-         h4("ECDF plot"), ecdfLotsUI("sf_ecdf_prob_home")
+         h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_home")
     )
   )
   )
@@ -114,7 +114,6 @@ selectInput(ns("Variability_h"),     "variability: Variability for time and temp
             choices = c("lot", "column", "portion"), selected=c("lot")),
 sliderInput(ns("cor_time_temp_h"),     "corTimeTemp: Correlation time/temperature",
             value = -0.15, min = -1.0, max = 1.0, step=0.05)
-
 #  ) 
    )
 }

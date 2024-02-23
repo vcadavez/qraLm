@@ -13,7 +13,7 @@ sf_ColdChain_ui <- function(id) {
              #            h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_coldchain")
       ),
       column(12,
-             h4("ECDF plot"), ecdfLotsUI("sf_ecdf_prob_coldchain")
+             h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_coldchain")
       )
     )
   )
@@ -115,11 +115,11 @@ sf_ColdChainInputs_ui <- function(id) {
                 value = 4.6, min = 0, max = 6, step=0.1),
     sliderInput(ns("temp_max_cc"),     "tempMax: Maximum storage temperature (ºC)",
                 value = 8.9, min = 0, max = 10, step=0.1),
-    sliderInput(ns("time_min_cc"),     "timeMin: Minimum storage time (min)",
+    sliderInput(ns("time_min_cc"),     "timeMin: Minimum storage time (h)",
                 value = 12, min = 0, max = 100, step=1),
-    sliderInput(ns("time_mode_cc"),     "timeMode: Mode storage time (min)",
+    sliderInput(ns("time_mode_cc"),     "timeMode: Mode storage time (h)",
                 value = 144, min = 0, max = 250, step=10),
-    sliderInput(ns("time_max_cc"),     "timeMax: Maximum storage time (min)",
+    sliderInput(ns("time_max_cc"),     "timeMax: Maximum storage time (h)",
                 value = 720, min = 0, max = 800, step=10),
     selectInput(ns("Variability_cc"),     "variability: Variability for time and temperature",
                 choices = c("lot", "column", "portion"), selected=c("lot")),

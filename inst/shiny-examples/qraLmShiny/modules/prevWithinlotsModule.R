@@ -18,11 +18,14 @@ prevWithinlotsServer <- function(id, data) {
       df <- data.frame(betaGen=data()$betaGen)
       p <- ggplot(df, aes(x=betaGen, y=after_stat(density))) +
            theme_minimal() +
-           geom_histogram(fill="brown", bins=20) + 
-           labs(x = "Prevalence", y = "Frequency")
+           geom_histogram(fill="brown", bins=20)
       
-      
-      plot <- ggplotly(p)
+      plot <- ggplotly(p) |>
+        plotly::layout(title = "",
+                     xaxis = list(title = "Frequency"),
+                     yaxis = list(title = "Prevalence"),
+                     margin = list(l = 50, r = 50, t = 50, b = 150)
+      )
       return(plot)
       #})
     })

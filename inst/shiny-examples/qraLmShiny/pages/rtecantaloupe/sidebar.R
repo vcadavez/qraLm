@@ -2,8 +2,8 @@ ca_sidebar_ui <- function(id) {
   ns <- NS(id)
   column(4,
     wellPanel(
-      h3("Properties"),
       uiOutput(ns("selector")),
+      h3("Select Parameters"),
       uiOutput(ns("inputs"))
     )
   )

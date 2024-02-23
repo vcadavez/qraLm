@@ -1,8 +1,5 @@
-# qraLmShiny
+# qraLmShiny ![](www/img/logo.svg){width=25%} ![](www/img/hex-qraLm.png){width=7%}
 
-Shiny application for quantitative risk assessment of *Listeria monocytogenes* in foods.
-
-![](www/img/logo.svg)
 
 ## Table of Contents
 
@@ -38,6 +35,12 @@ Shiny application for quantitative risk assessment of *Listeria monocytogenes* i
   - [Collaborators](#collaborators)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
+
+## qraLmShiny
+
+Shiny application based on the [qraLm](https://vcadavez.github.io/qraLm/index.html) R package developed for the quantitative risk assessment of *L. monocytogenes* in Frozen Vegetables, Diced RTE Cantaloupe and Cold-smoked RTE Fish; under the scope of the [Joint FAO/WHO](https://www.who.int/publications/m/item/jemra-of-listeria-monocytogenes-in-foods)
+ Expert meeting on microbiological risk assessment of Listeria monocytogenes in foods.
+
 
 ## Overview
 

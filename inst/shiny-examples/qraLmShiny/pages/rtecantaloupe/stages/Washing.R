@@ -13,7 +13,7 @@ ca_Washing_ui <- function(id) {
            #           h4("Within lots/Between units distribution"), countsUnitsDistUI("counts_units_dist_washing")
     ),
     column(12, 
-           h4("ECDF plot"), ecdfLotsUI("ecdf_prob_washing")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("ecdf_prob_washing")
     )
   )
 }

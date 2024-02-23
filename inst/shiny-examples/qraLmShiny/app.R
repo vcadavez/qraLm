@@ -4,31 +4,28 @@ source_all <- function() {
                  "shinyWidgets", "shinymanager", "shinyalert", "Hmisc", "mc2d",
                  "fontawesome", "shinydashboard", "matrixStats")
   lapply(libraries, library, character.only = TRUE)
-
+  
   files <- list.files(path = "modules", pattern = "\\.R$", full.names = TRUE)
   lapply(files, source)
   
   files <- list.files(path = "pages", pattern = "\\.R$", full.names = TRUE)
   lapply(files, source)
-  }
+}
 
 source_all()
 
 ui <- function(id) {
-  about_tab_ui            <- tabPanel("qraLmShiny", about_ui("about"))
-
+  about_tab_ui            <- tabPanel("About", about_ui("about"))
   frozenvegetables_tab_ui <- tabPanel("Frozen Vegetables", frozenvegetables_ui("frozenvegetables"))
-
   smokedfish_tab_ui       <- tabPanel("Smoked Fish", smokedfish_ui("smokedfish"))
-  
   rtecantaloupe_tab_ui    <- tabPanel("RTE Cantaloupe", rtecantaloupe_ui("rtecantaloupe"))
-
+  
   navbarPage(
     tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "custom.css"),
       tags$link(rel="icon", src="www/img/favicon.ico", type="image/icon"),  # Favicon
       tags$script(src = "custom.js"),  # custom JavaScript
-      tags$style(HTML("      
+      tags$style(HTML("
         body > nav > div{
                          display: flex;
                          flex-direction: row;
@@ -41,14 +38,12 @@ ui <- function(id) {
       tags$img(src = 'img/logo.svg', height = '30px', 
                alt = "World Health Organization", style="margin-right: 10px")),
     windowTitle = "qraLmShiny",
-    about_tab_ui,
     
+    tabPanel("About", about_ui("about")),
     tabPanel("Frozen Vegetables", frozenvegetables_ui("frozenvegetables")),
-    
     tabPanel("Smoked Fish", smokedfish_ui("smokedfish")),
-    
     tabPanel("RTE Cantaloupe", rtecantaloupe_ui("rtecantaloupe")),
-
+    
     id = "navbarPageId",
     collapsible = TRUE,
     position = "static-top",
@@ -75,22 +70,22 @@ ui <- function(id) {
         )
       )
     ),
-    inverse = FALSE,
-    fluid = FALSE,
+    inverse = TRUE,
+    fluid = TRUE,
     theme = "readable",
-    selected = "qraLmShiny"
+    selected = "About"
   )
 }
 
 server <- function(input, output, session) {
   
   about_server(input, output, session, "about")
-    
+  
   frozenvegetables_server(input, output, session, "frozenvegetables")
   
   smokedfish_server(input, output, session, "smokedfish")
-
+  
   rtecantaloupe_server(input, output, session, "rtecantaloupe")
-  }
+}
 
 shinyApp(ui = ui, server = server)

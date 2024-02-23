@@ -13,7 +13,7 @@ ca_Storing_ui <- function(id) {
            #           h4("Within lots/Between units distribution"), countsUnitsDistUI("counts_units_dist_storing")
     ),
     column(12, 
-           h4("ECDF plot"), ecdfLotsUI("ecdf_prob_storing")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("ecdf_prob_storing")
     )
   )
 }

@@ -4,7 +4,7 @@ ca_stageSelector_ui <- function(id, ca_stages) {
     
     pickerInput(
         inputId = ns("selection"),
-        label = "Select Stage:",
+        label = h3("Select Stage"),
         choices = ca_stages,
         options = list(
             style = "btn-primary"

@@ -13,7 +13,7 @@ sf_Holding_ui <- function(id) {
            #            h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_prod_counts_units_dist_hold")
             ),
     column(12,
-          h4("ECDF plot"), ecdfLotsUI("sf_ecdf_prob_hold")
+          h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_hold")
           )
      )
   )

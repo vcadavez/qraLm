@@ -12,7 +12,7 @@ sf_BriningOrSalting_ui <- function(id) {
            #           h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_brine_salt")
            ),
     column(12,
-           h4("ECDF plot"), ecdfLotsUI("sf_ecdf_prob_brine_salt")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_brine_salt")
     )
   )
 }
@@ -61,10 +61,10 @@ sf_BriningOrSaltingInputs_ui <- function(id) {
      id = ns("BriningOrSalting"),   
 #    tagList(  
       sliderInput(ns("p_brine"), 
-                  "pBrine: Prob. that a lot is salted by brinning",
+                  "pBrine: Prob. that a lot is salted by brinning (%)",
                   value = 1, min = 0, max = 1, step = 0.1),
       sliderInput(ns("pcc_brine"), 
-                  "pccBrine: Prob. that the brine is contaminated with LM",
+                  "pccBrine: Prob. that the brine is contaminated with LM (%)",
                   value = 0.135, min = 0, max = 1, step = 0.001),
       sliderInput(ns("vol_inj_min"), 
                   "volInjMin: Minimum volume of brine (ml)",
@@ -85,8 +85,8 @@ sf_BriningOrSaltingInputs_ui <- function(id) {
                   "concBrineMax: Maximum concentration of LM in brine (CFU/ml)",
                   value = 0.060, min = 0, max = 5, step = 0.015),
       sliderInput(ns("pcc_smearing"), 
-                  "pccSmearing: Probability of cross-contamination",
-                  value = 0.029, min = 0, max = 1, step = 0.10),
+                  "pccSmearing: Probability of cross-contamination (%)",
+                  value = 0.03, min = 0.0, max = 1, step = 0.01),
        sliderInput(ns("n_surface"), 
                    "nSurface: Numbers of LM on surfaces in contact with a fillet (CFU)",
                   value = 1000, min = 0, max = 5000, step = 100)

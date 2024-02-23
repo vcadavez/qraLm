@@ -4,7 +4,7 @@ sf_stageSelector_ui <- function(id, sf_stages) {
     
     pickerInput(
         inputId = ns("selection"),
-        label = "Select Stage:",
+        label = h3("Select Stage"),
         choices = sf_stages,
         options = list(
             style = "btn-primary"

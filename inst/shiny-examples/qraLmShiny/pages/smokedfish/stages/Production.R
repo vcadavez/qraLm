@@ -86,7 +86,7 @@ sf_ProductionInputs_ui <- function(id) {
                 "betaBeta: Beta distribution parameter",
                 value = 5.88, min = 0.0, max = 15.0, step = 0.01),  
     sliderInput(ns("prop_var_inter"),
-                "propVarInter: % between-lot variance", 
+                "propVarInter: between-lot variance (%)", 
                 value = 0.5, min = 0.0, max = 1.0, step = 0.1),  
     sliderInput(ns("log_mean_c"), 
                 "C0MeanLog: mean of counts (log10 CFU/g)",

@@ -14,7 +14,7 @@ sf_Slicing_ui <- function(id) {
           #          h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_slice")
           ),
     column(12,
-           h4("ECDF plot"), ecdfLotsUI("sf_ecdf_prob_slice")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_slice")
     )
   )
   )

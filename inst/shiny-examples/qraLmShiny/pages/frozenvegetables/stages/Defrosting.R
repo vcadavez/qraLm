@@ -14,7 +14,7 @@ fv_Defrosting_ui <- function(id) {
            #           h4("Within lots/Between units LM counts distribution"), countsUnitsDistUI("fv_counts_units_dist_defrost")
            ),
     column(12,
-           h4("ECDF plot"), ecdfLotsUI("fv_ecdf_prob_defrost")
+           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob_defrost")
            )
     )
   )

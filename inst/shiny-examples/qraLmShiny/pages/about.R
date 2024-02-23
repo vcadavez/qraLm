@@ -3,20 +3,22 @@ about_ui <- function(id) {
     tabName = id,
     dashboardBody(
       fluidRow(
-        column(12, wellPanel(
-          tags$div(style = "text-align:center;", img(src = "img/logo.svg", width = "70%")),
+        column(12,
+          tags$div(style = "text-align:center;", img(src = "img/hex-qraLm.png", width = "10%")),
           h3("qraLmShiny", style = "color: #005393; padding-top:20px;"),
           aboutProjectContentUI("about_project_content")
-        ))
+        )
       )
     )
   )
 }
 
 about_server <- function(input, output, session, id) {
+  
   output$about_project_content <- renderUI(aboutProjectContent())
+  
   output$key_features_content <- renderUI(keyFeaturesContent())
-  output$user_roles_content <- renderUI(userRolesContent())
+  
 }
 
 aboutProjectContent <- function() {
@@ -44,12 +46,6 @@ keyFeaturesContent <- function() {
     "chart-bar", " Data Visualization"
   )
 }
-# 
-# userRolesContent <- function() {
-#   iconList(
-#     "user-shield", " Admin"
-#   )
-# }
 
 iconList <- function(...) {
   args <- list(...)
@@ -70,5 +66,4 @@ quickLinksUI <- function() {
 }
 
 aboutProjectContentUI <- function(id) uiOutput(id)
-keyFeaturesContentUI <- function(id) uiOutput(id)
-userRolesContentUI <- function(id) uiOutput(id)
+keyFeaturesContentUI  <- function(id) uiOutput(id)
