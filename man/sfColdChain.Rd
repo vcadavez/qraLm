@@ -249,6 +249,7 @@ dat1 <- sfColdChain(dat,
                     )
 str(dat1)
 
+
 }
 \references{
 \insertRef{Endrikat2010}{qraLm}
