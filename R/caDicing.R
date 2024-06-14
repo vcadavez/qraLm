@@ -72,6 +72,7 @@ caDicing <- function(data = list(),
   sizeLot <- ncol(data$N)
   
   Nt <- data$N
+  
   # Verifying the exact division of sizeLot/sizeSublot
   if (sizeLot %% sizeSublot != 0) stop("sizeSublot must be a multiple of sizeLot")
 

@@ -159,6 +159,7 @@
 #'                     )
 #' str(dat1)
 #'
+#'
 sfColdChain <- function(data = list(),
                         RTE, # RTE characteristics
                         nLots = NULL,
@@ -311,7 +312,7 @@ sfColdChain <- function(data = list(),
   )
 
   # Get the muLAB
-  muLAB <- sfMejlholmDalgaard(Temp,
+  muLAB <- sfMejlholmDalgaardLAB(Temp,
     aw = RTE$aw,
     NaCl = RTE$NaCl,
     pH = RTE$pH,

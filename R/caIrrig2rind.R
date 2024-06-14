@@ -82,6 +82,7 @@ caIrrig2rind <- function(nLots,
                          cantaWeight = 1000,
                          pWaterGainMin = 0,
                          pWaterGainMax = 0.004) {
+  
   # Quantity of water by cantaloupe (function of their weights) in L
   water_gain <- cantaWeight * stats::runif(n = nLots * sizeLot, min = pWaterGainMin, pWaterGainMax) / 1000
 

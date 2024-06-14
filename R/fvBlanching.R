@@ -76,7 +76,7 @@ fvBlanching <- function(data = list(),
                         timeBlanch = 0.75,
                         logDrefMean = -1.78,
                         logDrefSd = 0.251,
-                        zT = 6.06) {
+                        zT = 6.06){
   ifelse(exists("nLots", data) == TRUE, nLots <- data$nLots, nLots <- nrow(data$N))
   #  if (exists("nLots", data)==TRUE) {
   #    nLots <- data$nLots

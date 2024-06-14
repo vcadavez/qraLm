@@ -78,7 +78,17 @@ sfPortioning <- function(data = list(),
 
   p <- stats::rbeta(lN, shape1 = bPortSF, shape2 = bPortSF * (n_serv - 1))
   N_out <- stats::rbinom(lN, N, p)
-  data$N <- matrix(N_out, ncol = sizeLot, nrow = nLots)
-  # data$N <- N_out
+  N_out <- matrix(N_out, ncol = sizeLot, nrow = nLots)
+  
+  # Lines of zeros occur after portioning
+  zeroes <- rowSums(N_out) == 0
+  if (any(zeroes)) {
+    N_out[zeroes, 1] <- 1
+    Pi_0 <- sum(zeroes) / nLots
+    data$P <- data$P * (1 - Pi_0)
+    data$ProbUnitPos <- data$ProbUnitPos*(1 - Pi_0)
+  }
+  
+  data$N <- N_out
   return(data)
 }

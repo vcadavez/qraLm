@@ -95,6 +95,7 @@ caPartitioningCC <- function(data = list(),
                              cantaRindFree = NULL,
                              sizeSublot = NULL,
                              sizeLot = NULL) {
+  
   if (missing(sizeLot)) sizeLot <- data$sizeLot # test if sizeLot was defined
   if (is.null(sizeLot)) warning("Add 'sizeLot=#' to function arguments") # test again if sizeLot is defined
 
