@@ -141,8 +141,8 @@ sfSmoking <- function(data = list(),
   }
 
   # Preparing the outputs
-   pSurvSmoking[index_brine] <- pSurvive_brine
-   pSurvSmoking[index_salt] <- pSurvive_salt
+  # pSurvSmoking[index_brine] <- pSurvive_brine
+  # pSurvSmoking[index_salt] <- pSurvive_salt
 
   data$N <- N_out
   data$ProbUnitPos <- data$ProbUnitPos * rowMeans(atLeastOneSurvive_out)
@@ -152,6 +152,6 @@ sfSmoking <- function(data = list(),
   #CF = data$ProbUnitPos/data$P 
   #data$ProbUnitPos= data$ProbUnitPos/CF
 
-  data$pSurvSmoking <- pSurvSmoking
+  #data$pSurvSmoking <- pSurvSmoking
   return(data)
 }
