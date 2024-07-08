@@ -1,6 +1,6 @@
-#' Plot risk distribution per serving
+#' Plot risk distribution
 #'
-#' @title Generic plot function for risk per serving
+#' @title Generic plot function for risk
 #' @param x qraLm object see [Lot2LotGen()]
 #' @param ... optional plot parameters passed to the plot function
 #' @author Vasco Cadavez
@@ -30,29 +30,29 @@
 #'                    model = DRmodel,
 #'                    population = population)
 #' str(risk)
-#' plotRisk.qraLm(risk)
+#' plotLotRisk.qraLm(risk)
 #'
 #' @export
 #'
-plotRisk.qraLm <- function(x, ...) {
+plotLotRisk.qraLm <- function(x, ...) {
   
   if (exists("ProbUnitPos", x) == TRUE) {
-    RiskServ <- c(x$Risk * x$ProbUnitPos)
-  } else {
+    mRiskLot <- rowMeans(x$Risk * x$ProbUnitPos) 
+    } else {
     probunitpos <- rep(1, nrow(x$N))
-    RiskServ <- c(x$Risk * probunitpos)
+    mRiskLot <- rowMeans(x$Risk * probunitpos)
   }
+  
   # logs function
   log_risk <- function(x) {
     ifelse(x != 0, log10(x), 0)
   }
 
-  logRisk=log_risk(RiskServ)
-  
+  logRisk=log_risk(mRiskLot)
   df <- data.frame(logRisk=logRisk)
   
-  histo <- plot_ly(x = ~df$logRisk, nbinsx = 30,
-                   type = "histogram",             
+  histo <- plot_ly(x = ~df$logRisk,
+                   type = "histogram", nbinsx = 30,          
                    histnorm = "probability")
 
   box <- plot_ly(x = ~df$logRisk, type = "box") 

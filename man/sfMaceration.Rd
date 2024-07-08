@@ -40,7 +40,7 @@ black pepper and dill during 72 hours at 4 ºC. Lot-specific log10 reduction val
 \note{
 The suggested parameters \code{rGravadMean=0.7} and \code{rGravadSd=0.283} defining the normal distribution about the
 variability in the log10 reduction in \emph{L. monocytogenes} in fish with gravlax ingredients were obtained combining the results
-from \insertCite{Tondo2023;textual}{qraLm} and \insertCite{Neunlist2005;textual}{qraLm}.
+from \insertCite{Lopes2023;textual}{qraLm} and \insertCite{Neunlist2005;textual}{qraLm}.
 }
 \examples{
 nLots <- 10
@@ -56,7 +56,7 @@ hist(gravadfish$N)
 
 }
 \references{
-\insertRef{Tondo2023}{qraLm}
+\insertRef{Lopes2023}{qraLm}
 \insertRef{extraDistr}{qraLm}
 \insertRef{Neunlist2005}{qraLm}
 \insertRef{stats}{qraLm}

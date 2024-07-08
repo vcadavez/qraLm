@@ -111,7 +111,9 @@ fvDefrost <- function(data = list(),
   lnorm_b <- sqrt(log(1 + (sdEGR5^2 / meanEGR5^2)))
   # Same EGR5 to better compare lot impact
   EGR5 <- matrix(stats::rlnorm(sizeLot, lnorm_a, lnorm_b),
-    nrow = nLots, ncol = sizeLot, byrow = TRUE
+                 nrow = nLots, 
+                 ncol = sizeLot, 
+                 byrow = TRUE
   )
 
   # Evaluate on all and apply only on defrost
@@ -121,5 +123,6 @@ fvDefrost <- function(data = list(),
   Nf <- pmin(Nf, servingSize * (10^MPD)) # checking for N values higher than MPD*servingSize
 
   data$N[portions_defrosted] <- round(Nf)[portions_defrosted]
+  data$servingSize <- servingSize 
   return(data)
 }

@@ -25,7 +25,7 @@
 #'
 #' @references
 #'
-#' \insertRef{Tondo2023}{qraLm}
+#' \insertRef{Lopes2023}{qraLm}
 #' \insertRef{extraDistr}{qraLm}
 #' \insertRef{Neunlist2005}{qraLm}
 #' \insertRef{stats}{qraLm}
@@ -38,7 +38,7 @@
 #'
 #' @note The suggested parameters `rGravadMean=0.7` and `rGravadSd=0.283` defining the normal distribution about the
 #' variability in the log10 reduction in \emph{L. monocytogenes} in fish with gravlax ingredients were obtained combining the results
-#'from \insertCite{Tondo2023;textual}{qraLm} and \insertCite{Neunlist2005;textual}{qraLm}.
+#'from \insertCite{Lopes2023;textual}{qraLm} and \insertCite{Neunlist2005;textual}{qraLm}.
 #'
 #' @examples
 #' nLots <- 10

@@ -33,23 +33,24 @@ summaryLot.qraLm <- function(x, ...) {
   if (exists("unitSize", x) == TRUE) {
     lotN <- rowMeans(x$N / x$unitSize, na.rm = TRUE)
   } else {
-     lotN <- rowMeans(x$N, na.rm = TRUE)
+    lotN <- rowMeans(x$N / x$cantaWeight, na.rm = TRUE)
   }
-
+  
   if (exists("ProbUnitPos", x) == TRUE) {
       NStats <- Hmisc::wtd.quantile(lotN,
                                     weights = x$ProbUnitPos,
-                                    probs = c(0.0, 0.5, 0.025, 0.975, 1.0),
+                                    probs = c(0.00, 0.50, 0.025, 0.975, 1.0),
                                     normwt = TRUE, na.rm = TRUE)
       
       NStatsMean <- stats::weighted.mean(lotN, w = x$ProbUnitPos, na.rm = TRUE)
   } else {
+    probunitpos <- rep(1, nrow(x$N))
     NStats <- Hmisc::wtd.quantile(lotN,
-                                  weights = rep(1, nrow(x$N)),
-                                  probs = c(0.00, 0.0, 0.025, 0.975, 1.00),
+                                  weights = probunitpos,
+                                  probs = c(0.00, 0.50, 0.025, 0.975, 1.00),
                                   normwt = TRUE, na.rm = TRUE)
     
-    NStatsMean <- mean(lotN, na.rm = TRUE)
+    NStatsMean <- stats::weighted.mean(lotN, w = probunitpos, na.rm = TRUE)
   }
 
   NStatsMin    <- NStats[1]
@@ -78,7 +79,7 @@ summaryLot.qraLm <- function(x, ...) {
   if (exists("ProbUnitPos", x) == TRUE) {
     names(MCstats) <- c("Statistics", "CFU/g", "log10 CFU/g")
     DT::datatable(MCstats,
-                  caption = "Summary statistics: between lots mean counts",
+                  caption = "Summary statistics: mean counts in contaminated lots",
                   class = "display",
                   fillContainer = FALSE,
                   options = list(dom = "t")) |>
@@ -87,7 +88,7 @@ summaryLot.qraLm <- function(x, ...) {
     names(MCstats) <- c("Statistics", "CFU/Melon", "log10 CFU/Melon")
 
     DT::datatable(MCstats,
-                  caption = "Summary statistics: between lots mean counts",
+                  caption = "Summary statistics: mean counts in contaminated lots",
                   class = "display",
                   fillContainer = FALSE,
                   options = list(dom = "t")) |>

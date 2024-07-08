@@ -36,20 +36,22 @@ summaryRisk.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
   if (exists("ProbUnitPos", x) == TRUE) {
-    wRiskLotMean <- matrixStats::rowWeightedMeans(x$Risk, W = x$ProbUnitPos)
+    wRiskLotMean <- rowMeans(x$Risk * x$ProbUnitPos)
    } else {
-    wRiskLotMean <- matrixStats::rowMeans2(x$Risk)
+    wRiskLotMean <- rowMeans(x$Risk)
   }
 
-  log_risk = function(x){
-             ifelse(x!=0, log10(x), 0)
-             }
+  wRiskLotMeanLog <-  log10(wRiskLotMean)
   
-  wRiskLotMeanLog <-  log_risk(wRiskLotMean)
+  # log_risk = function(x){
+  #            ifelse(x!=0, log10(x), 0)
+  #            }
+  # 
+  # wRiskLotMeanLog <-  log_risk(wRiskLotMean)
   
 riskMin <- min(wRiskLotMeanLog)
 riskMax <- max(wRiskLotMeanLog)
-riskMedian <- stats::median(wRiskLotMeanLog)
+riskMedian <- stats::quantile(wRiskLotMeanLog, probs = c(0.50), na.rm = TRUE)
 riskMean <- mean(wRiskLotMeanLog, na.rm = TRUE)
 riskQ2.5 <- stats::quantile(wRiskLotMeanLog, probs = c(0.025), na.rm = TRUE)
  riskQ97.5 <- stats::quantile(wRiskLotMeanLog, probs = c(0.975), na.rm = TRUE)

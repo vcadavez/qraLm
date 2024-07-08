@@ -1,6 +1,6 @@
 #' Plot ECDF curve
 #'
-#' @title plotLotsECDF Generic plot function to plot the ECDF
+#' @title plotUnitsECDF Generic plot function to plot the ECDF
 #' @param x qraLm object see [Lot2LotGen()]
 #' @param ... Optional plot parameters passed to the function
 #' @author Vasco Cadavez
@@ -32,10 +32,10 @@
 #'                     propVarInter = 0.7
 #'                     )
 #'
-#' plotLotsECDF.qraLm(prod1)
+#' plotUnitsECDF.qraLm(prod1)
 #'
-#' p1 <- plotLotsECDF.qraLm(prod)
-#' p2 <- plotLotsECDF.qraLm(prod1)
+#' p1 <- plotUnitsECDF.qraLm(prod)
+#' p2 <- plotUnitsECDF.qraLm(prod1)
 #' par(mfrow = c(1, 2))
 #' p1
 #' p2
@@ -43,13 +43,13 @@
 #'
 #' @export
 #'
-plotLotsECDF.qraLm <- function(x, ...) {
+plotUnitsECDF.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
   if (exists("unitSize", x) == TRUE) {
-    lotN <- rowMeans(x$N / x$unitSize, na.rm = TRUE)
+    lotN <- c(x$N / x$unitSize)
   } else {
-    lotN <- rowMeans(x$N / x$cantaWeight, na.rm = TRUE)
+    lotN <- c(x$N / x$cantaWeight, na.rm = TRUE)
   }
 
   df <- data.frame(cfu = lotN) # weighted cels/g per lot
@@ -58,7 +58,7 @@ plotLotsECDF.qraLm <- function(x, ...) {
   plot <- ggplot2::ggplot(df, ggplot2::aes(x = cfu)) +
     ggplot2::theme_minimal() +
     ggplot2::stat_ecdf() +
-    ggplot2::xlab("CFU/g in a contaminated lot") +
+    ggplot2::xlab("CFU/g in a contaminated unit") +
     ggplot2::ylab("Probability")
   p <- plotly::ggplotly(plot)
   return(p)

@@ -25,7 +25,6 @@ dat <- Lot2LotGen(
   C0SdLog = 0.3267,
   propVarInter = 0.7
 )
-df <- fvPortioning(dat, servingSize = 150, unitSize = 500, bPort = 1)
 
 summaryUnits.qraLm(dat)
 

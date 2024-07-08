@@ -160,14 +160,14 @@ sfRawFishStorage <- function(data = list(),
                          mLM = 1.11,
                          workDone = workDone
                          )
-  data$results <- results
-  data$N <- ceiling(data$results$N)
-  data$ProbUnitPos <- data$results$ProbUnitPos
-  data$P <- data$results$P
-  data$MPD <- 
-  data$unitSize <- data$results$unitSize
-  data$workDone <- data$results$workDone
-  data$results <- NULL
+  #data$results <- results
+  data$N <- ceiling(results$N)
+  data$ProbUnitPos <- results$ProbUnitPos
+  data$P <- results$P
+  data$MPD <- MPD
+  data$unitSize <- results$unitSize
+  data$workDone <- results$workDone
+ #data$results <- NULL
   #  data$N <- ceiling(results$N)
   #  data$workDone <- results$workDone
   return(data)

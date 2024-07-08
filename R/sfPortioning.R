@@ -90,5 +90,6 @@ sfPortioning <- function(data = list(),
   }
   
   data$N <- N_out
+  data$unitSize <- servingSize # para a função summary da shiny
   return(data)
 }

@@ -33,34 +33,35 @@
 #'   pDefrost = 0
 #' )
 #'
-#' summaryServings.qraLm(dat1)
+#' #summaryServings.qraLm(dat1)
 #'
 #' @export
 #'
 summaryServings.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
+  
   if (exists("ProbUnitPos", x) == TRUE) {
-    cfuUnit <- x$ProbUnitPos * (x$N / x$servingSize)
+    cfuUnit <- (x$ProbUnitPos/mean(x$ProbUnitPos)) * (x$N/x$servingSize) 
   } else {
-    cfuUnit <- x$N / x$servingSize
+    probunitpos <- rep(1, nrow(x$N))
+    cfuUnit <- (x$probunitpos/mean(x$probunitpos)) * (x$N/x$unitSize)
   }
-
-  index <- which(cfuUnit == 0)
-
-  if (length(index) == 0) {
-    posUnits <- cfuUnit
+  
+  index <- which(cfuUnit==0)
+  if (length(index)==0) {
+    PosServings <- cfuUnit
   } else {
-    posUnits <- cfuUnit[-index]
+    PosServings <- cfuUnit[-index]
   }
-
-  NStatsMin <- min(posUnits)
-  NStatsMax <- max(posUnits)
-  NStatsMedian <- stats::median(posUnits)
-  NStatsMean <- mean(posUnits)
-  Q2.5 <- stats::quantile(posUnits, probs = c(0.025))
-  Q97.5 <- stats::quantile(posUnits, probs = c(0.975))
-
+  
+  NStatsMin    <- min(PosServings)
+  NStatsMax    <- max(PosServings)
+  NStatsMedian <- quantile(PosServings, probs=c(0.5))
+  NStatsMean   <- mean(PosServings)
+  Q2.5         <- quantile(PosServings, probs=c(0.025))
+  Q97.5        <- quantile(PosServings, probs=c(0.975))
+  
   Counts <- rbind(
     unname(NStatsMin),
     unname(Q2.5),
@@ -76,7 +77,7 @@ summaryServings.qraLm <- function(x, ...) {
   MCstats <- data.frame(Statistics, Counts, log10Counts)
   names(MCstats) <- c("Statistics", "CFU/g", "log10 CFU/g")
   DT::datatable(MCstats,
-    caption = "Summary statistics: within lots (between servings) mean counts",
+    caption = "Summary statistics: counts in contaminated servings",
     class = "display",
     fillContainer = FALSE,
     options = list(dom = "t")

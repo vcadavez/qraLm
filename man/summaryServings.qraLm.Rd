@@ -37,7 +37,7 @@ dat1 <- fvDefrost(dat,
   pDefrost = 0
 )
 
-summaryServings.qraLm(dat1)
+#summaryServings.qraLm(dat1)
 
 }
 \author{
