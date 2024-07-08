@@ -1,12 +1,13 @@
 // Copyright Timothy H. Keitt 2015
 // See license for odeintr package
 
-// [[Rcpp::depends(odeintr)]]
+
 
 #include <Rcpp.h>
 // [[Rcpp::plugins(cpp11)]]
 
 // [[Rcpp::depends(BH)]]
+
 #include "boost/numeric/odeint.hpp"
 namespace odeint = boost::numeric::odeint;
 
@@ -30,7 +31,7 @@ namespace odeintr
   
   double mumax1 = 0.14, mumax2 = 0.3, ymax1 = 1e+08, ymax2 = 1e+07, gamma = 1;;
   
-  #include "utils.h"
+  //#include <Rcpp/utils.h>
   
   static void
   sys(const state_type x, state_type &dxdt, const double t)

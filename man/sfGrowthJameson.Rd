@@ -65,11 +65,10 @@ according to the Jameson-effect competition model published in \insertCite{Gimen
 For sake of speed, the function first evaluates a classical Baranyi and Roberts model without interactions.
 If any of the two population reaches a value greater than \eqn{10^{(MPD - lim)}} CFU, an expanded version of the Jameson-effect model
 by \insertCite{Gimenez2004;textual}{qraLm} is used. This model includes the parameter gamma proposed by \insertCite{Moller2013;textual}{qraLm}.
-The expanded Jameson-effect model is integrated using the \code{odeintr} package. The function is vectorized for all parameters.
+The function is vectorized for all parameters.
 }
 \examples{
 library(qraLm)
-library(odeintr)
 iter <- 1000
 set.seed(666)
 vtime <- 200
