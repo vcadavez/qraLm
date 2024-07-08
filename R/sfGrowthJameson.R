@@ -37,19 +37,16 @@
 #'
 #' \insertRef{Moller2013}{qraLm}
 #'
-#' @importFrom odeintr compile_sys
-#'
 #' @export
 #'
 #' @note
 #' For sake of speed, the function first evaluates a classical Baranyi and Roberts model without interactions.
 #' If any of the two population reaches a value greater than \eqn{10^{(MPD - lim)}} CFU, an expanded version of the Jameson-effect model
 #' by \insertCite{Gimenez2004;textual}{qraLm} is used. This model includes the parameter gamma proposed by \insertCite{Moller2013;textual}{qraLm}.
-#' The expanded Jameson-effect model is integrated using the `odeintr` package. The function is vectorized for all parameters.
+#' The function is vectorized for all parameters.
 #'
 #' @examples
 #' library(qraLm)
-#' library(odeintr)
 #' iter <- 1000
 #' set.seed(666)
 #' vtime <- 200
@@ -99,32 +96,33 @@ sfGrowthJameson <- function(time,
   # If not, build them
 
   if (!exists("expandedjamesonC_set_params")) {
-    cat("Rebuilding Jameson\n")
-
-    expandedjamesonC.sys <- "
-      /*       Q1:x[0]  dQ1<-mumax1*Q1
-               Q2:x[1]  dQ2<-mumax2*Q2
-               y1:x[2]  dy1<-(Q1/(1+Q1))*mumax1*(1-(y1/ymax1))*(1-(gamma*y2/ymax2))*y1
-               y2:x[3]  dy2<-(Q2/(1+Q2))*mumax2*(1-(y1/ymax1))*(1-(y2/ymax2))*y2
-      */
-
-      dxdt[0] = mumax1 * x[0];
-      dxdt[1] = mumax2 * x[1];
-      dxdt[2] = (x[0]/(1+x[0])) * mumax1 * (1-(x[2]/ymax1)) * (1-(gamma*x[3]/ymax2))*x[2];
-      dxdt[3] = (x[1]/(1+x[1])) * mumax2 * (1-(x[2]/ymax1)) * (1-(x[3]/ymax2))*x[3];
-    "
-    # Do compile once
-    pars <- c(mumax1 = 0.14, mumax2 = 0.3, ymax1 = 10^8, ymax2 = 10^7, gamma = 1.0)
-    compile_sys(
-      name = "expandedjamesonC",
-      sys = expandedjamesonC.sys,
-      pars = pars,
-      const = FALSE, sys_dim = 4
-    )
+    stop("C++ functions for Jameson effect are missing")
+    # cat("Rebuilding Jameson\n")
+    # 
+    # expandedjamesonC.sys <- "
+    #   /*       Q1:x[0]  dQ1<-mumax1*Q1
+    #            Q2:x[1]  dQ2<-mumax2*Q2
+    #            y1:x[2]  dy1<-(Q1/(1+Q1))*mumax1*(1-(y1/ymax1))*(1-(gamma*y2/ymax2))*y1
+    #            y2:x[3]  dy2<-(Q2/(1+Q2))*mumax2*(1-(y1/ymax1))*(1-(y2/ymax2))*y2
+    #   */
+    # 
+    #   dxdt[0] = mumax1 * x[0];
+    #   dxdt[1] = mumax2 * x[1];
+    #   dxdt[2] = (x[0]/(1+x[0])) * mumax1 * (1-(x[2]/ymax1)) * (1-(gamma*x[3]/ymax2))*x[2];
+    #   dxdt[3] = (x[1]/(1+x[1])) * mumax2 * (1-(x[2]/ymax1)) * (1-(x[3]/ymax2))*x[3];
+    # "
+    # # Do compile once
+    # pars <- c(mumax1 = 0.14, mumax2 = 0.3, ymax1 = 10^8, ymax2 = 10^7, gamma = 1.0)
+    # compile_sys(
+    #   name = "expandedjamesonC",
+    #   sys = expandedjamesonC.sys,
+    #   pars = pars,
+    #   const = FALSE, sys_dim = 4
+    # )
   }
 
   # Define a function for growth with Competition integrate the
-  # C++ function using odeintr
+  # C++ function 
   growthCompetC <- function(time, N0Lm, N0LAB, q0Lm, q0LAB,
                             muLm, muLAB, MPDLm, MPDLAB, unitSize,
                             gamma,
