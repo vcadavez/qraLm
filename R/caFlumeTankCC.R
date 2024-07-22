@@ -53,25 +53,15 @@
 #' @note  Write a note!
 #'
 #' @examples
-#' nLots <- 100
-#' sizeLot <- 20
-#' dat <- list(
-#'   N = matrix(20,
-#'     nrow = nLots,
-#'     ncol = sizeLot
-#'   ),
-#'   P = 0.25,
-#'   cantaWeight = 1000,
+#' dat <- caPrimaryProduction(
 #'   nLots = 100,
-#'   sizeLot = 20
-#' )
-#' Nf <- caFlumeTankCC(dat,
-#'   probCCW = 0.125,
-#'   logWaterMin = 1,
-#'   logWaterMode = 1,
-#'   logWaterMax = 5,
-#'   bWater = 1
-#' )
+#'     sizeLot = 100)
+#'     Nf <- caFlumeTankCC(dat,
+#'                    probCCW = 0.125,
+#'                    logWaterMin = 1,
+#'                    logWaterMode = 1,
+#'                    logWaterMax = 5,
+#'                    bWater = 1)
 #' hist(Nf$N)
 #'
 caFlumeTankCC <- function(data = list(),
@@ -133,7 +123,15 @@ caFlumeTankCC <- function(data = list(),
     (stop("Vector of bCCw non implemented yet."))
   }
 
-  data$N <- N_out
-  data$P <- 1 - (1 - data$P) * (1 - probCCW)
+  N <- N_out
+  P <- 1 - (1 - data$P) * (1 - probCCW)
+  
+  lotMeans <- rowMeans(N / data$cantaWeight, na.rm = TRUE)
+  unitsCounts <- c(N / data$cantaWeight)
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
+  data$P <- P
+  
   return(data)
 }

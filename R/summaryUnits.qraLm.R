@@ -5,7 +5,7 @@
 #' @param ... optional plot parameters passed to the plot function
 #' @author Vasco Cadavez
 #'
-#' @importFrom stats weighted.mean
+#' @importFrom stats weighted.mean quantile
 #' @importFrom Hmisc wtd.quantile
 #' @importFrom DT datatable
 #' @importFrom DT formatSignif
@@ -29,27 +29,22 @@
 summaryUnits.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
-  if (exists("ProbUnitPos", x) == TRUE) {
-    cfuUnit <- (x$ProbUnitPos/mean(x$ProbUnitPos)) * (x$N/x$unitSize) 
-  } else {
-    probunitpos <- rep(1, nrow(x$N))
-    cfuUnit <- (x$probunitpos/mean(x$probunitpos)) * (x$N/x$cantaWeight)
-  }
-  
-  index <- which(cfuUnit==0)
+
+ unitsCounts <- c(x$unitsCounts)
+
+  index <- which(unitsCounts==0)
   if (length(index)==0) {
-    PosServings <- cfuUnit
-  } else {
-    PosServings <- cfuUnit[-index]
+    PosUnits <- unitsCounts
+    } else {
+    PosUnits <- unitsCounts[-index]
   }
 
-
-  NStatsMin    <- min(PosServings)
-  NStatsMax    <- max(PosServings)
-  NStatsMedian <- quantile(PosServings, probs=c(0.5))
-  NStatsMean   <- mean(PosServings)
-  Q2.5         <- quantile(PosServings, probs=c(0.025))
-  Q97.5        <- quantile(PosServings, probs=c(0.975))
+  NStatsMin    <- min(PosUnits)
+  NStatsMax    <- max(PosUnits)
+  NStatsMedian <- quantile(PosUnits, probs=c(0.5))
+  NStatsMean   <- mean(PosUnits)
+  Q2.5         <- quantile(PosUnits, probs=c(0.025))
+  Q97.5        <- quantile(PosUnits, probs=c(0.975))
 
   Counts <- rbind(
     unname(NStatsMin),

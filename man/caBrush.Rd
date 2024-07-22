@@ -40,15 +40,15 @@ attached to the rind in \insertCite{Fu2020;textual}{qraLm}.
 \examples{
 sizeLot <- 100
 nLots <- 500
-N0 <- list(N = matrix(rpois(sizeLot * nLots, 10),
-  nrow = nLots, ncol = sizeLot
-), P = 0.16)
-brushed <- caBrush(N0,
-  nLots = 500, sizeLot = 100,
-  logDecBrush = runif(nLots, min = 0, max = 10)
-)
+df <- list(N=matrix(rpois(sizeLot * nLots, 10),
+             nrow = nLots, ncol = sizeLot),
+              P=0.7, cantaWeight=1000, sizeLot=100,
+              nLots=500)
+brushed <- caBrush(df,
+                   logDecBrush = runif(nLots, min = 0, max = 10)
+                )
 hist(brushed$N)
-
+                
 }
 \references{
 \insertRef{mc2d}{qraLm}

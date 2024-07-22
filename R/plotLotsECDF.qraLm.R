@@ -1,4 +1,4 @@
-#' Plot ECDF curve
+#' Plot lot means ECDF curve
 #'
 #' @title plotLotsECDF Generic plot function to plot the ECDF
 #' @param x qraLm object see [Lot2LotGen()]
@@ -8,6 +8,7 @@
 #' @importFrom stats weighted.mean
 #' @importFrom Hmisc wtd.quantile
 #' @importFrom DT datatable
+#' @importFrom plotly ggplotly
 #'
 #' @examples
 #'
@@ -46,14 +47,10 @@
 plotLotsECDF.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
-  if (exists("unitSize", x) == TRUE) {
-    lotN <- rowMeans(x$N / x$unitSize, na.rm = TRUE)
-  } else {
-    lotN <- rowMeans(x$N / x$cantaWeight, na.rm = TRUE)
-  }
+  
+  lotMeans <- x$lotMeans
 
-  df <- data.frame(cfu = lotN) # weighted cels/g per lot
-
+  df <- data.frame(cfu = lotMeans) # weighted cels/g per lot
 
   plot <- ggplot2::ggplot(df, ggplot2::aes(x = cfu)) +
     ggplot2::theme_minimal() +

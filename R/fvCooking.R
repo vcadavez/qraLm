@@ -118,8 +118,22 @@ fvCooking <- function(data = list(),
   # Prevalence (batch to batch) is unaffected
   Pafter <- data$P * p
 
-  data$N <- Nafter
-  data$P <- Pafter
-  data$ProbUnitPos <- data$ProbUnitPos * probUnitPos
+  
+  N <- Nafter
+  P <- Pafter
+  ProbUnitPos <- data$ProbUnitPos * probUnitPos
+  
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N / data$unitSize))
+  unitsServing <- c((ProbUnitPos/mean(ProbUnitPos)) * (N / data$servingSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$unitsServing <- unitsServing
+  
+  data$N <- N
+  data$P <- P
+  data$ProbUnitPos <- ProbUnitPos
+  
   return(data)
 }

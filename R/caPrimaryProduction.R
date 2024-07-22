@@ -154,6 +154,7 @@ caPrimaryProduction <- function(nLots,
                               pWaterGainMax = pWaterGainMax
                               )
 
+#  caPrimaryProduction <- c(as.list(environment()), list(...))
   # Resulting prevalence of both events
   p_from_soil <- conta_soil$P # probability from soil
   p_from_irrig <- conta_irrig$P # probability from irrigation water
@@ -206,8 +207,14 @@ caPrimaryProduction <- function(nLots,
   )
   Origin <- Origin[shuffle]
   N0 <- N0[shuffle, ]
+  
+  lotMeans <- rowMeans(N0 / cantaWeight, na.rm = TRUE)
+  unitsCounts <- c(N0 / cantaWeight)
 
   data <- list(
+#               caPrimaryProduction = caPrimaryProduction,
+               lotMeans = lotMeans,
+               unitsCounts = unitsCounts,
                N = N0,
                P = P0,
                Origin = Origin,

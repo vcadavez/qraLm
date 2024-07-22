@@ -1,19 +1,19 @@
 sf_Production_ui <- function(id) {
   fluidRow(
     column(6,
-           h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots"),
-           h4("Between lots LM counts"), mcstatsLotsUI("sf_lot_stats"),
-           #      h4("Between lots Counts distribution (CFU/g)"), countsLotsDistUI("sf_lot_counts")
-           h4("Variability in the prevalence of contaminated lots"), betaDistUI("sf_beta")
+           h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots"),
+           h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_lot_stats"),
+           h5("Distribution of between-lot mean counts"), countsLotsDistUI("sf_lot_counts")
+#           h5("Variability in the prevalence of contaminated lots"), betaDistUI("sf_beta")
     ),
     column(6,
-           h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units"),
-           h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_unit_stats"),
-           #      h4("Counts distribution per unit (CFU/g)"), countsUnitsDistUI("sf_unit_counts")
-           h4("Variability in within-lot prevalence"), prevWithinlotsUI("sf_within_lots")
+           h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units"),
+           h5("Counts in contaminated units"), mcstatsUnitsUI("sf_unit_stats"),
+           h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_unit_counts")
+#           h5("Variability in within-lot prevalence"), prevWithinlotsUI("sf_within_lots")
     ),
     column(12,
-           h4("ECDF Plot"), ecdfLotsUI("sf_ecdf")
+           h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf")
     )
   )
 }
@@ -33,8 +33,8 @@ sf_Production_server <- function(input, output, session, suffix) {
   mcstatsUnitsServer("sf_unit_stats", data = datFish)
   countsLotsDistServer("sf_lot_counts", data = datFish)
   countsUnitsDistServer("sf_unit_counts", data = datFish)
-  betaDistServer("sf_beta", data = datBeta)
-  prevWithinlotsServer("sf_within_lots", data = datFish)
+  #betaDistServer("sf_beta", data = datBeta)
+  #prevWithinlotsServer("sf_within_lots", data = datFish)
   ecdfLotsServer("sf_ecdf", data = datFish)
   
   return(datFish)
@@ -72,30 +72,30 @@ sf_ProductionInputs_ui <- function(id) {
                  "Set a random seed", value = 12345),  
     numericInput(ns("n_lots"), 
                  "nLots: number of lots",
-                 value = 1000,  min = 1000, max = 10000, step = 500),
+                 value = 1000,  min = 500, max = 5000, step = 500),
     numericInput(ns("size_lot"), 
                  "sizeLot: number of fishes",
-                 value = 500,  min = 500, max = 5000, step = 500),
+                 value = 100,  min = 100, max = 1000, step = 100),
     numericInput(ns("unit_size_prod"),
                  "unitSize: size of the fish (g)",
-                 value = 4000,  min = 3000, max = 6000, step = 500),
+                 value = 4000,  min = 3000, max = 5000, step = 500),
     sliderInput(ns("beta_alpha"), 
                 "betaAlpha: Beta distribution parameter", 
-                value = 0.874, min = 0.0, max = 3.0, step = 0.001),  
+                value = 0.874, min = 0.1, max = 3.0, step = 0.01),  
     sliderInput(ns("beta_beta"), 
                 "betaBeta: Beta distribution parameter",
-                value = 5.88, min = 0.0, max = 15.0, step = 0.01),  
+                value = 5.88, min = 1.0, max = 15.0, step = 0.02),  
     sliderInput(ns("prop_var_inter"),
                 "propVarInter: between-lot variance (%)", 
-                value = 0.5, min = 0.0, max = 1.0, step = 0.1),  
+                value = 0.5, min = 0.0, max = 1.0, step = 0.05),  
     sliderInput(ns("log_mean_c"), 
                 "C0MeanLog: mean of counts (log10 CFU/g)",
-                value = -1.0, min = -2, max = 2, step = 0.25),  
+                value = -1.0, min = -3, max = 3, step = 0.02),  
     sliderInput(ns("log_sd_c"),
                 "C0SdLog: std of counts (log10 CFU/g)",
-                value = 1.0, min = 0, max = 2.00, step = 0.10),
+                value = 1.0, min = 0.2, max = 3.00, step = 0.01),
     checkboxInput(ns("poisson"), 
-                  "Poisson: Poisson distribuition", value = TRUE)
+                  "Poisson distribuition?", value = TRUE)
 #    ) 
    )
 }

@@ -44,15 +44,15 @@
 #' @examples
 #' sizeLot <- 100
 #' nLots <- 500
-#' N0 <- list(N = matrix(rpois(sizeLot * nLots, 10),
-#'   nrow = nLots, ncol = sizeLot
-#' ), P = 0.16)
-#' brushed <- caBrush(N0,
-#'   nLots = 500, sizeLot = 100,
-#'   logDecBrush = runif(nLots, min = 0, max = 10)
-#' )
+#' df <- list(N=matrix(rpois(sizeLot * nLots, 10),
+#'              nrow = nLots, ncol = sizeLot),
+#'               P=0.7, cantaWeight=1000, sizeLot=100,
+#'               nLots=500)
+#' brushed <- caBrush(df,
+#'                    logDecBrush = runif(nLots, min = 0, max = 10)
+#'                 )
 #' hist(brushed$N)
-#'
+#'                 
 caBrush <- function(data = list(),
                     nLots = NULL,
                     sizeLot = NULL,
@@ -72,10 +72,12 @@ caBrush <- function(data = list(),
   pNotBrush <- 10^c(-logDecBrush)
   # Those stay o, the cantaloupe
   NNotBrush <- matrix(stats::rbinom(
-    n = nLots * sizeLot,
-    size = data$N,
-    prob = pNotBrush
-  ), ncol = sizeLot, nrow = nLots)
+                                    n = nLots * sizeLot,
+                                    size = data$N,
+                                    prob = pNotBrush
+                                    ),
+                      ncol = sizeLot, 
+                      nrow = nLots)
 
   # In case of 0 (per lot)
   # Commented out to keep lot
@@ -87,13 +89,17 @@ caBrush <- function(data = list(),
   #   NNotBrush[zeroes,] <- NNotBrush[sample(which(!zeroes),sum(zeroes), replace=TRUE),]
   # }
 
-  data$N <- NNotBrush
+  N <- NNotBrush
+  lotMeans <- rowMeans(N / data$cantaWeight, na.rm = TRUE)
+  unitsCounts <- c(N / data$cantaWeight)
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
 
   # Adjust prevalence (all brushed)
   #  At least one not brushed
   # Commented out to keep lot
   # atLeastOneSurvive <- 1 - apply((1-c(pNotBrush))^data$N, 1, prod)
   # data$P <- data$P * mean(atLeastOneSurvive)
-
   return(data)
 }

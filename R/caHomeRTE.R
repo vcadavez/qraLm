@@ -143,8 +143,12 @@ caHomeRTE <- function(data = list(),
   # #resampling to remove zeros
   # Nt_matrix[Pi_0_index] <- Nt_matrix[sample(which(!Pi_0_index),
   #                                           sum(Pi_0_index), replace=TRUE)]
-
-  data$N <- Nt_matrix
+  N <- Nt_matrix
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c(N / data$unitSize)
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
   data$lnQt <- data$lotEGR5 <- NULL #  not needed anymore
   return(data)
 }

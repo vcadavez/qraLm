@@ -69,18 +69,25 @@
 #' library(mc2d)
 #' sizeLot <- 500 # 500 cantaloupes were harvested from a field
 #' sizeSublot <- 50 # sublots of 50 cantaloupes are processed at each time
-#' newMC <- 1000 # number of sublots
-#' N <- matrix(100, nrow = newMC, ncol = sizeSublot)
-#' N0 <- list(N = N, P = 0.35)
-#' Packs <- caPartitioningCC(N0,
+#' dat <- Lot2LotGen(
+#'   nLots = 50,
+#'   sizeLot = 100,
+#'   unitSize = 500,
+#'   betaAlpha = 0.5112,
+#'   betaBeta = 9.959,
+#'   C0MeanLog = 1.023,
+#'   C0SdLog = 0.3267,
+#'   propVarInter = 0.7
+#' )
+#' str(dat)
+#' Packs <- caPartitioningCC(dat,
 #'                           probCCDice = 0.08,
 #'                           trDicerMean = -1.42,
 #'                           trDicerSd = 0.52, 
 #'                           nDicer = 280,
-#'                           b = 1, 
+#'                           b = 1,
+#'                           sizeSublot = 50,
 #'                           cantaRindFree = 950, 
-#'                           sizeSublot, 
-#'                           sizeLot,
 #'                           unitSize = 250
 #'                           )
 #' hist(Packs$N)
@@ -180,8 +187,16 @@ caPartitioningCC <- function(data = list(),
 
   N_out[Pi_0_index, ] <- N_out[sample(which(!Pi_0_index), sum(Pi_0_index), replace = TRUE), ]
 
-  data$P <- data$P * (1 - Pi_0) # prevalence at the sublot level
-  data$N <- N_out
+  P <- data$P * (1 - Pi_0) # prevalence at the sublot level
+  N <- N_out
+   
+  lotMeans <- rowMeans(N / unitSize, na.rm = TRUE)
+  unitsCounts <- c(N / unitSize)
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$P <- P
+  data$N <- N
   data$unitSize <- unitSize
   return(data)
 }

@@ -78,6 +78,7 @@
 #'   C0SdLog = 0.3267,
 #'   propVarInter = 0.7
 #' )
+#' 
 #' print(dat$P)
 #' summary(c(dat$N))
 #'
@@ -142,16 +143,24 @@ Lot2LotGen <- function(nLots,
   # So we just consider the beta binomial (because the lognormals are only for
   # contaminated ones)
   P0 <- 1 - extraDistr::dbbinom(x = 0, size = sizeLot, alpha = betaAlpha, beta = betaBeta)
-
+  
+  ProbUnitPos = 1 - prob0
+  N <- Ncounts
+  
+  lotMeans <- rowMeans(N / unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N/unitSize))
+  
   data <- list(
-               N = Ncounts,
-               ProbUnitPos = 1 - prob0,
+               Lot2LotGenParameters=Lot2LotGenParameters,
+               lotMeans = lotMeans,
+               unitsCounts = unitsCounts,
+               N = N,
+               ProbUnitPos = ProbUnitPos,
                P = P0,
                betaGen = prob,
                nLots = nLots,
                sizeLot = sizeLot,
-               unitSize = unitSize,
-               Lot2LotGenParameters=Lot2LotGenParameters
+               unitSize = unitSize
                )
   class(data) <- "qraLm"
 

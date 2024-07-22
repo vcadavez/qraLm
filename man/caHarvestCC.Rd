@@ -56,28 +56,25 @@ every cantaloupe has the same probability \code{probCCH} of being contaminated f
 }
 \examples{
 # Example of use in LARGE production farms
-nLots <- 1000
-sizeLot <- 500
-data <- list(N = matrix(rpois(nLots * sizeLot, 5), nrow = nLots, ncol = sizeLot), P = 0.15)
+dat <- caPrimaryProduction(
+nLots = 100,
+  sizeLot = 100)
 probCCH <- 0.005
-LargeFarms <- caHarvestCC(data,
-  probCCH = probCCH, trMean = -1.42,
-  trSd = 0.52, nPlas = 200,
-  nLots = nLots, sizeLot = sizeLot
-)
+LargeFarms <- caHarvestCC(dat,
+                          probCCH = probCCH, 
+                          trMean = -1.42,
+                          trSd = 0.52, 
+                          nPlas = 200
+                          )
 hist(LargeFarms$N)
-
-# Example of use in SMALL production farms
-sizeLot <- 40
-data <- list(N = matrix(rpois(nLots * sizeLot, 20), nrow = nLots, ncol = sizeLot), P = 0.20)
 probCCH <- 0.02
 nPlas <- 500
-SmallFarms <- caHarvestCC(data,
-  probCCH = probCCH, trMean = -1.42,
-  trSd = 0.52, nPlas = 500,
-  nLots = nLots, sizeLot = sizeLot
-)
-hist(SmallFarms$N)
+SmallFarms <- caHarvestCC(dat,
+                          probCCH = probCCH, trMean = -1.42,
+                          trSd = 0.52, nPlas = 500,
+                          nLots = 100, sizeLot = 100
+                          )
+                          hist(SmallFarms$N)
 }
 \references{
 \insertRef{stats}{qraLm}

@@ -102,12 +102,12 @@ sfBriningCC <- function(data = list(),
   #
   # if(missing(sizeLot)) sizeLot <- data$sizeLot #test if sizeLot was defined
   # if(is.null(sizeLot)) warning("Add 'sizeLot=#' to function arguments") #test again if sizeLot is defined
-
+  
   nLots <- nrow(N)
   sizeLot <- ncol(N)
   # Error in case at least one row of the matrix consists of zeroes
   if (any(rowSums(N) == 0)) stop("The matrix should be composed of contaminated lots only")
-
+  
   # calculated probabilities
   p_LotPos_CCNeg <- data$ProbUnitPos * (1 - pccBrine)
   p_LotPos_CCPos <- data$ProbUnitPos * pccBrine
@@ -118,14 +118,14 @@ sfBriningCC <- function(data = list(),
   # In other words, no contamination event of brine will take place at the middle of a processing lot
   matProb <- cbind(p_LotPos_CCNeg, p_LotPos_CCPos, p_LotNeg_CCPos)
   n_lot <- sapply(1:nLots, function(x) base::sample(1:3, size = 1, prob = matProb[x, ]))
-
+  
   # sampling V_inj nd N_brine for every lot
   V_inj <- mc2d::rpert(nLots, min = volInjMin, mode = volInjMode, max = volInjMax, shape = 4)
   C_brine <- mc2d::rpert(nLots, min = concBrineMin, mode = concBrineMode, max = concBrineMax, shape = 4)
   # calculating the lot-specific level of cross-contamination assuming cells in brine distribute as a Poisson
   # Note: V_inj*C_brine is of size nLots and will recycle nicely
   N_transfer <- matrix(stats::rpois(nLots * sizeLot, V_inj * C_brine), nrow = nLots, ncol = sizeLot)
-
+  
   # Re-arranging the matrix
   N_lotPostCC <- matrix(0, nrow = nLots, ncol = sizeLot)
   # Previously contaminated: take the previous values
@@ -134,11 +134,20 @@ sfBriningCC <- function(data = list(),
   # New contamination: add the cross-contamination to zero (case 3) or to the previous values (case 2)
   newly <- n_lot %in% c(2, 3)
   N_lotPostCC[newly, ] <- N_lotPostCC[newly, ] + N_transfer[newly, ]
-
+  
   # Preparing the output
-  data$N <- N_lotPostCC
-  data$P <- 1 - (1 - data$P) * (1 - pccBrine)
-  data$ProbUnitPos <- 1 - (1 - data$ProbUnitPos) * (1 - pccBrine)
-
+  N <- N_lotPostCC
+  P <- 1 - (1 - data$P) * (1 - pccBrine)
+  ProbUnitPos <- 1 - (1 - data$ProbUnitPos) * (1 - pccBrine)
+  
+  #lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos / mean(ProbUnitPos)) * (N / data$unitSize))
+  
+  #data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
+  data$P <- P
+  data$ProbUnitPos <- ProbUnitPos
+  
   return(data)
 }

@@ -12,7 +12,7 @@ plotLotsECDF.qraLm(x, ...)
 \item{...}{Optional plot parameters passed to the function}
 }
 \description{
-Plot ECDF curve
+Plot lot means ECDF curve
 }
 \examples{
 

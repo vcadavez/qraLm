@@ -7,15 +7,21 @@ prevUnitsUI <- function(id) {
 }  
 
 # server
- 
 prevUnitsServer <- function(id, data) {
   moduleServer(id, function(input, output, session) {
     
     output$prev_units <-  renderPrint({
 #   cat("Prevalence of contaminated units\n")
-      
-          P <- mean( data()$P * rowMeans(data()$N != 0))
-          return(P)
-      })
+      if (exists("ProbUnitPos", data()) == TRUE) {
+        prevUnits <- stats::weighted.mean(data()$ProbUnitPos * (data()$N != 0),
+                             w=rep(1,length(data()$N)))
+      } else {
+        probunitpos <- rep(1, nrow(data()$N))
+        prevUnits <- stats::weighted.mean(probunitpos * (data()$N != 0),
+                                     w=rep(1,length(data()$N)))
+      }
+      return(prevUnits)
     })
+    
+  })
 }

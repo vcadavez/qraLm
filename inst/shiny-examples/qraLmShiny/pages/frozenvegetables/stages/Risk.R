@@ -5,10 +5,10 @@ fv_Risk_ui <- function(id) {
 #    h3("Risk computation"),
   fluidRow(
     column(8,
-           h4("Risk summary statistics"), riskStatsUI("fv_risk_stats")
+           h5("Risk summary"), riskStatsUI("fv_risk_stats")
            ),
     column(8,
-           h4("Risk distribution (log10 risk)"), riskDistUI("fv_risk_dist")
+           h5("Risk plots"), riskDistUI("fv_risk_dist")
            )
     )
   )
@@ -72,7 +72,7 @@ fv_RiskInputs_ui <- function(id) {
                      selectInput(ns("PopulationJEMRA"), label = "Select population:", 
                                  choices = list("Healthy population" = 1,
                                                 "Increased susceptibility" = 2),
-                                 selected = 1
+                                 selected = 2
                      )
     ),
     conditionalPanel(sprintf("input['%s'] == 'Pouillot'", ns("Model")),

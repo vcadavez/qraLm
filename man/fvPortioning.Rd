@@ -54,13 +54,15 @@ A dispersion factor \eqn{bPort=1} represents moderate clustering of cells \inser
 within the package.
 }
 \examples{
-nLots <- 1000
-sizeLot <- 500
-dat <- list(
-  N = matrix(rpois(sizeLot * nLots, 10),
-    nrow = nLots, ncol = sizeLot
-  ), P = 0.16,
-  ProbUnitPos = rep(0.16, nLots)
+dat <- Lot2LotGen(
+  nLots = 50,
+  sizeLot = 100,
+  unitSize = 500,
+  betaAlpha = 0.5112,
+  betaBeta = 9.959,
+  C0MeanLog = 1.023,
+  C0SdLog = 0.3267,
+  propVarInter = 0.7
 )
 Nf <- fvPortioning(dat, servingSize = 150, unitSize = 500, bPort = 1)
 str(Nf)

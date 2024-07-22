@@ -83,38 +83,31 @@ and about mean concentration of \emph{L. monocytogenes} in brine (\code{concBrin
 tested in scenarios. Similarly, the values of \code{pBrine}, \code{Pcc_salting} and \code{nSurface} must be defined by the user and/or assessed in scenarios.
 }
 \examples{
-nLots <- 100
-sizeLot <- 100
-pBrine <- 0.2
-pccBrine <- 5 / 37
-volInjMin <- 0.5
-volInjMode <- 1.2
-volInjMax <- 4.5
-concBrineMin <- 0
-concBrineMode <- 3
-concBrineMax <- 40
-pccSmearing <- 0.05 #  unlikely to occur
-trSmearingMean <- -0.29 # TR board to meat
-trSmearingSd <- 0.31 # TR board to meat
-nSurface <- 200
 
-dat <- list(
-  N = matrix(rpois(nLots * sizeLot, 25),
-    nrow = nLots,
-    ncol = sizeLot
-  ),
-  P = 0.05,
-  ProbUnitPos = rep(0.05, nLots),
-  nLots = 100,
-  sizeLot = 100
+dat <- Lot2LotGen(
+  nLots = 50,
+  sizeLot = 100,
+  unitSize = 500,
+  betaAlpha = 0.5112,
+  betaBeta = 9.959,
+  C0MeanLog = 1.023,
+  C0SdLog = 0.3267,
+  propVarInter = 0.7
 )
-Nf <- sfBrineORsaltCC(
-  dat, pBrine, pccBrine,
-  volInjMin, volInjMode, volInjMax,
-  concBrineMin, concBrineMode, concBrineMax,
-  pccSmearing, nSurface, trSmearingMean, trSmearingSd
-)
-hist(Nf$N)
+df <- sfBrineORsaltCC(dat,
+                      pBrine = 0.2,
+                      pccBrine = 0.13,
+                      volInjMin = 0.5,
+                      volInjMode = 1.2,
+                      volInjMax = 4.5,
+                      concBrineMin = 0,
+                      concBrineMode = 3,
+                      concBrineMax = 40,
+                      pccSmearing = 0.05,
+                      trSmearingMean = -0.29,
+                      trSmearingSd = 0.31,
+                      nSurface = 200)
+ hist(df$N)
 }
 \references{
 \insertRef{Gudbjornsdottir2004}{qraLm}

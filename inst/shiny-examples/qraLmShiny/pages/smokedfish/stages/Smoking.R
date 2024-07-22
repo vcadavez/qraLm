@@ -4,17 +4,17 @@ sf_Smoking_ui <- function(id) {
   fluidPage(
     fluidRow(
       column(6,
-             h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_smoke"),
-             h4("Between lots LM counts"), mcstatsLotsUI("sf_mcstats_lots_smoke")
-             #             h4("Between lots LM Counts distribution"), countsLotsDistUI("sf_counts_lots_dist_smoke")
+             h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_smoke"),
+             h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_mcstats_lots_smoke"),
+             h5("Distribution of between-lot mean counts"), countsLotsDistUI("sf_counts_lots_dist_smoke")
       ),
       column(6, 
-             h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_smoke"),
-             h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_mcstats_units_smoke")
-             #             h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_smoke")
+             h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_smoke"),
+             h5("Counts in contaminated units"), mcstatsUnitsUI("sf_mcstats_units_smoke"),
+             h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_counts_units_dist_smoke")
              ),
       column(12,
-           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_smoke")
+           h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf_prob_smoke")
     )
    )
   )
@@ -58,15 +58,15 @@ sf_SmokingInputs_ui <- function(id) {
 #    tagList(
 sliderInput(ns("r_brine_mean"), 
             "rBrineMean: Mean of the normal distribution about log10 reduction in LM in brined fillets (log10)",
-            value = 0.871, min = 0.500, max = 1.000, step = 0.001),
+            value = 0.871, min = 0.25, max = 1.50, step = 0.01),
 sliderInput(ns("r_brine_sd"), 
             "rBrineSd: Std of the normal distribution about the log10 reduction in LM in brineed fillets (log10)",
-            value = 0.807, min = 0.500, max = 1.000, step = 0.001),
+            value = 0.807, min = 0.25, max = 1.50, step = 0.01),
 sliderInput(ns("r_drysalt_mean"), 
             "rDrysaltMean: Mean of the normal distribution about log10 reduction in LM in dry-salted fillets (log10)",
-            value = 1.093, min = 0.500, max = 1.500, step = 0.001),
+            value = 1.093, min = 0.25, max = 1.50, step = 0.01),
 sliderInput(ns("r_drysalt_sd"), 
             "rDrysaltSd: Std of the normal distribution about the log10 reduction in LM in dry-salted fillets (log10)",
-            value = 0.532, min = 0.250, max = 1.000, step = 0.001)
+            value = 0.532, min = 0.25, max = 1.50, step = 0.01)
 )
 }

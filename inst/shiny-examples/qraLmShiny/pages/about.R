@@ -4,8 +4,8 @@ about_ui <- function(id) {
     dashboardBody(
       fluidRow(
         column(12,
-          tags$div(style = "text-align:center;", img(src = "img/hex-qraLm.png", width = "10%")),
-          h3("qraLmShiny", style = "color: #005393; padding-top:20px;"),
+          tags$div(style = "text-align:center;", img(src = "img/logo.svg", width = "25%")),
+          h1("qraLmShiny", style = "color: #005393; padding-top:20px;"),
           aboutProjectContentUI("about_project_content")
         )
       )
@@ -16,54 +16,59 @@ about_ui <- function(id) {
 about_server <- function(input, output, session, id) {
   
   output$about_project_content <- renderUI(aboutProjectContent())
-  
-  output$key_features_content <- renderUI(keyFeaturesContent())
-  
-}
+   }
 
 aboutProjectContent <- function() {
-  tags$ul(
-    tags$p(
-      "The qraLmShiny application is designed to offer ",
-      tags$b("comprehensive risk assessment for Listeria monocytogenes in foods"),
-      ". Developed in collaboration WHO, the tool aims to empower industries, 
-      researchers, and consumers with critical insights for food safety."
-    ),
-    iconList(
-      "check-circle", "Interactive Models: Comprehensive risk assessment models tailored for precision.",
-      "desktop",      "Fluid UI: Intuitive and interactive interface for an optimized user experience.",
-      "chart-bar",    "Data Visualization: Advanced graphics and charts for in-depth analysis."
-    ),
-    h3("Quick Links", style = "color: #337ab7; padding-top:20px;"),
-    quickLinksUI()
+  fluidRow(
+    column(
+      width = 12,
+      withTags({
+        ul(
+          p("In response to a request by the Codex Committee on Food Hygiene (CCFH) at its fifty-second session,
+          formal risk assessment models were developed by the Joint FAO/WHO Expert meeting on microbiological risk 
+          assessment of ", em("Listeria monocytogenes"), " in foods; Part 1 (FAO HQ, Rome, Italy: 24 – 28 October 2022), taking 
+          into account the effects of agrifood practices, climate change and the latent possibility of cross-contamination along 
+          the production chain for produce and seafood commodities.",
+            style = "font-size: 15px;"
+          ),
+          p(),
+          p("Quantitative risk assessment (QRA) models were commissioned by WHO to a team of risk modellers,
+          who programmed them in open-source software, according 
+            to the designed formal models and based upon an extensive literature review for data retrieval.",
+            style = "font-size: 15px;"
+          ),
+          p(),
+          p("The qraLmShiny application was designed as an easy-to-use tool to carry out risk assessments of 
+          ", em("Listeria monocytogenes"), " in frozen blanched vegetables, RTE smoked fish, RTE gravad fish and RTE diced 
+          cantaloupe. Using qraLmShiny it is possible to assess the effect of many processing stages; the effect of 
+          preventing cross-contamination and recontamination events along the production chain; the impact of
+          different within-lot testing schemes; the effectiveness of improved consumers' practices related to
+          handling and storage; and the effectiveness of intervention strategies. The qraLmShiny has been
+          developed as a tool for supporting decision-making by food safety authorities.",
+            style = "font-size: 15px;"
+          ),
+          p(),
+          p("Full definition of model parameters and explanation of functions can be found on the ", 
+            a("Function reference manual", href = "https://vcadavez.github.io/qraLm/reference/", style = "color: blue;"),
+            " of the qraLM package.",
+            style = "font-size: 15px;"
+          ),
+          p(),
+          p("Cadavez, V., Pouillot, R., Guillier, L., Gonzales-Barron, U., Sanaa, M. (2024). qraLm: An R package
+            for quantitative risk assessment of ", em("Listeria monocytogenes"), " in foods. ", 
+            a("https://github.com/vcadavez/qraLm/", href = "https://github.com/vcadavez/qraLm/", style = "color: blue;"),
+            style = "font-size: 15px;"
+          )
+        )
+      })
+    )#,
+    # column(
+    #   width = 4,
+    #   img(src = "img/logo.svg", height = "100px", style = "display: block; margin-bottom: 20px;")
+    # )
   )
 }
 
-keyFeaturesContent <- function() {
-  iconList(
-    "check-circle", " Interactive Models",
-    "desktop", " Fluid UI",
-    "chart-bar", " Data Visualization"
-  )
+aboutProjectContentUI <- function(id) {
+  uiOutput(id)
 }
-
-iconList <- function(...) {
-  args <- list(...)
-  tags$ul(lapply(seq(1, length(args), 2), function(i) {
-    tags$li(icon(args[[i]], lib = "font-awesome"), args[[i + 1]])
-  }))
-}
-
-quickLinksUI <- function() {
-  tags$div(
-    style = "margin-top:20px;",
-    icon("file-download"), " ",
-    a(href = "https://www.fao.org/3/cc6993en/cc6993en.pdf", "Summary Report", style = "text-decoration:none; color:#333;"),
-    br(),
-    icon("github"), " ",
-    a(href = "https://github.com/vcadavez/qraLmShiny", "Visit our GitHub!", style = "text-decoration:none; color:#333;")
-  )
-}
-
-aboutProjectContentUI <- function(id) uiOutput(id)
-keyFeaturesContentUI  <- function(id) uiOutput(id)

@@ -130,8 +130,13 @@ caRet2HomeRTE <- function(data = list(),
   Nt_matrix <- ceiling(matrix(results$Nt, ncol = Number_packs, nrow = old_nLots))
   lnQt_matrix <- matrix(results$lnQt, ncol = Number_packs, nrow = old_nLots)
 
-  data$N <- Nt_matrix
+  N <- Nt_matrix
+  
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c(N / data$unitSize)
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
   data$lnQt <- lnQt_matrix
-
   return(data)
 }

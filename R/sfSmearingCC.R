@@ -52,29 +52,25 @@
 #' user and/or assessed in scenarios.
 #'
 #' @examples
-#' nLots <- 500
-#' sizeLot <- 200
-#' pccSmearing <- 0.05 #  unlikely to occur
-#' trSmearingMean <- -0.29 # TR board to meat
-#' trSmearingSd <- 0.31 # TR board to meat
-#' nSurface <- 200
-#' data <- list(
-#'   N = matrix(rpois(nLots * sizeLot, 25),
-#'     nrow = nLots,
-#'     ncol = sizeLot
-#'   ),
-#'   P = 0.05,
-#'   ProbUnitPos = rep(0.05, nLots),
-#'   nLots = 1000,
-#'   sizeLot = 500
-#' )
+#' 
+#' dat <- Lot2LotGen(
+#'                   nLots = 50,
+#'                   sizeLot = 100,
+#'                   unitSize = 500,
+#'                   betaAlpha = 0.5112,
+#'                   betaBeta = 9.959,
+#'                   C0MeanLog = 1.023,
+#'                   C0SdLog = 0.3267,
+#'                   propVarInter = 0.7
+#'                   )
 #' Nf <- sfSmearingCC(
-#'   data,
-#'   pccSmearing,
-#'   trSmearingMean,
-#'   trSmearingSd,
-#'   nSurface
-#' )
+#'                    dat,
+#'                    pccSmearing = 0.05,
+#'                    trSmearingMean = -0.29,
+#'                    trSmearingSd = 0.31,
+#'                    nSurface = 200
+#'                    )
+#' str(Nf)                    
 #' Nf$P
 #' mean(Nf$ProbUnitPos)
 #' hist(Nf$N)
@@ -90,7 +86,7 @@ sfSmearingCC <- function(data = list(),
   # Get the simulation dimension
   # if(missing(nLots)) nLots <- data$nLots #test if nLots was defined
   # if(is.null(nLots)) warning("Add 'nLots=#' to function arguments") #test again if nLots is defined
-  #
+  # 
   # if(missing(sizeLot)) sizeLot <- data$sizeLot #test if sizeLot was defined
   # if(is.null(sizeLot)) warning("Add 'sizeLot=#' to function arguments") #test again if sizeLot is defined
   nLots <- nrow(Nt_batch)
@@ -160,11 +156,22 @@ sfSmearingCC <- function(data = list(),
     }
     N_out[origin == "Newly", ] <- N_total2_c[sample_index2, ]
   }
-
-  data$N <- N_out
+  
+  # output
+  N <- N_out
   # Modified RP (was an error identified by UGB on 18 Jan 2024)
-  data$ProbUnitPos <- ProbUnitPos + (1 - ProbUnitPos) * (1 - prob_clean_batches)
-  data$P <- overall_p_batches
-
+  ProbUnitPos <- ProbUnitPos + (1 - ProbUnitPos) * (1 - prob_clean_batches)
+  P <- overall_p_batches
+  
+  
+  #lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N / data$unitSize))
+  
+  #data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
+  # Modified RP (was an error identified by UGB on 18 Jan 2024)
+  data$ProbUnitPos <- ProbUnitPos
+  data$P <- P
   return(data)
 }

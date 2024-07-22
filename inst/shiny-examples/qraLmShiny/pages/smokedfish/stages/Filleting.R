@@ -3,17 +3,17 @@ sf_Filleting_ui <- function(id) {
   fluidPage(  
   fluidRow(
     column(6,
-           h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_fill"),
-           h4("Between lots LM counts"), mcstatsLotsUI("sf_lot_stats_fill")
-           #           h4("Between lots LM counts distribution"), countsLotsDistUI("sf_lot_counts_fill")
+           h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_fill"),
+           h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_lot_stats_fill"),
+           h5("Distribution of between-lot mean counts"), countsLotsDistUI("sf_lot_counts_fill")
            ),
      column(6,      
-           h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_fill"),
-           h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_unit_stats_fill")
-           #           h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_unit_counts_fill")
+           h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_fill"),
+           h5("Counts in contaminated units"), mcstatsUnitsUI("sf_unit_stats_fill"),
+           h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_unit_counts_fill")
            ),
      column(12,       
-           h4("ECDF Plot"), ecdfLotsUI("sf_ecdf_fill")
+           h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf_fill")
            )
     )
   )
@@ -60,7 +60,7 @@ sf_FilletingInputs_ui <- function(id) {
       sliderInput(ns("w_slices_f"), "wSlices: Slice weight (g)",
                   value = 1300, min = 500, max = 2000, step = 100),
       sliderInput(ns("init_slicer_f"), "initSlicer: Slicer initial contamination (CFU)",
-                  value = 100, min = 0, max = 1000, step = 25)
+                  value = 1000, min = 100, max = 10000, step = 100)
 #      )  
    )
 }

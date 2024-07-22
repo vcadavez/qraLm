@@ -13,7 +13,8 @@ prevLotsServer <- function(id, data) {
     
     output$prev_lots <-  renderPrint({
 #      cat("Prevalence of contaminated lots\n")
-          return(data()$P)
-      })
+
+      return(data()$P)
+    })
     })
 }

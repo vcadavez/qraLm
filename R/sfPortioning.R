@@ -88,8 +88,14 @@ sfPortioning <- function(data = list(),
     data$P <- data$P * (1 - Pi_0)
     data$ProbUnitPos <- data$ProbUnitPos*(1 - Pi_0)
   }
+  # output
+  N <- N_out
+  lotMeans <- rowMeans(N / servingSize, na.rm = TRUE)
+  unitsServing <- c((data$ProbUnitPos/mean(data$ProbUnitPos)) * (N / servingSize))
   
-  data$N <- N_out
-  data$unitSize <- servingSize # para a função summary da shiny
+  data$lotMeans <- lotMeans
+  data$unitsServing <- unitsServing
+  data$N <- N
+  data$servingSize <- servingSize
   return(data)
 }

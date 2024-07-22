@@ -3,7 +3,7 @@ sf_rteCharacteristics_ui <- function(id) {
   fluidPage(
     fluidRow(
       column(12,
-             h4("Fish characteristics"), dataUI("sf_datRTE")
+             h5("Fish characteristics"), dataUI("sf_datRTE")
       )
     )
   )

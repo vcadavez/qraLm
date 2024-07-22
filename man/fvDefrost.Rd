@@ -77,13 +77,17 @@ These are the values recommended for use as arguments of the function.
 Tmin <- -1.18
 meanEGR5 <- 0.0117
 sdEGR5 <- 0.00816
-dat <- list(
-  N = matrix(c(10, 1500, 3589, 1, 40, 4590, 10, 4000, 1, 10, 500, 13),
-    nc = 3, nr = 4
-  ),
-  P = 0.4,
-  ProbUnitPos = rep(0.4, 4)
-)
+dat <- Lot2LotGen(
+                  nLots = 50,
+                  sizeLot = 100,
+                  unitSize = 500,
+                  betaAlpha = 0.5112,
+                  betaBeta = 9.959,
+                  C0MeanLog = 1.023,
+                  C0SdLog = 0.3267,
+                  propVarInter = 0.7
+                  )
+
 defrosted <- fvDefrost(
   dat,
   Temp = 15,

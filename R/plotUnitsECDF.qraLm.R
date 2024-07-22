@@ -8,7 +8,8 @@
 #' @importFrom stats weighted.mean
 #' @importFrom Hmisc wtd.quantile
 #' @importFrom DT datatable
-#'
+#' @importFrom plotly ggplotly
+#' 
 #' @examples
 #'
 #' prod <- Lot2LotGen(
@@ -31,7 +32,7 @@
 #'                     C0SdLog = 0.5267,
 #'                     propVarInter = 0.7
 #'                     )
-#'
+#' str(prod1)
 #' plotUnitsECDF.qraLm(prod1)
 #'
 #' p1 <- plotUnitsECDF.qraLm(prod)
@@ -46,14 +47,8 @@
 plotUnitsECDF.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
-  if (exists("unitSize", x) == TRUE) {
-    lotN <- c(x$N / x$unitSize)
-  } else {
-    lotN <- c(x$N / x$cantaWeight, na.rm = TRUE)
-  }
 
-  df <- data.frame(cfu = lotN) # weighted cels/g per lot
-
+  df <- data.frame(cfu = c(x$unitsCounts)) # weighted cels/g per lot
 
   plot <- ggplot2::ggplot(df, ggplot2::aes(x = cfu)) +
     ggplot2::theme_minimal() +

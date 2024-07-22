@@ -1,70 +1,46 @@
-# Ui
+# UI
 riskDistUI <- function(id) {
   ns <- NS(id)
-    plotlyOutput(ns("risk_dist"))
-}  
+  plotlyOutput(ns("risk_dist"))
+}
 
-# server
+# Server
 riskDistServer <- function(id, data) {
   moduleServer(id, function(input, output, session) {
-  
-    output$risk_dist <-  renderPlotly ({
-      
-      wRiskLotMean <- matrixStats::rowWeightedMeans(data()$Risk, W = data()$ProbUnitPos)
+    output$risk_dist <- renderPlotly({
 
-      log_risk = function(x){
-        ifelse(x!=0, log10(x), 0)
-      }
+      wRiskLotMean <- data()$lotMeanRisk
       
-      df <- data.frame(risklog=log_risk(wRiskLotMean))
+      wRiskLotMeanlog <- log10(wRiskLotMean)
+      df <- data.frame(risklog = wRiskLotMeanlog)
       
-      # axis styles
-      ax <- list(
-                 title = "",
-                 zeroline = FALSE,
-                 showline = FALSE,
-                 showticklabels = TRUE,
-                 showgrid = FALSE
-                 )
-      
-      aax <- list(
-                 title = "",
-                 zeroline = FALSE,
-                 showline = FALSE,
-                 showticklabels = FALSE,
-                 showgrid = FALSE
-                 )
-      # box on top / hist bottom
-
-      box <-  plotly::plot_ly(df, 
-                              x = ~risklog, 
-                              type = "box", 
-                              name = "log10 Risk",
-                              width = 500,
-                              height = 500) %>%
-        plotly::layout(showlegend=FALSE,
-                       xaxis = ax,
-                       yaxis = ax)
-      
-      histo <- plotly::plot_ly(df,
-                               x = ~risklog, 
+      box <- plotly::plot_ly(x = ~df$risklog, 
+                             type = "box", name="log10 Risk")
+      histo <- plotly::plot_ly(x = ~df$risklog, 
                                type = "histogram",
-                               histnorm = "probability",
-                               name = "log10 Risk",
-                               width = 500, 
-                               height = 500) %>%
-        plotly::layout(showlegend = FALSE, 
-                       xaxis = ax, 
-                       yaxis = ax)
+                               histnorm = "probability")
       plot <- plotly::subplot(box, histo,
                               nrows = 2,
-                              shareX = TRUE) |>
-        plotly::layout(title = "",
-                       xaxis = list(title = "log10 Risk"),
-                       yaxis = list(title = "Probability"),
-                       margin = list(l = 50, r = 50, t = 50, b = 150)
-                      )
-        return(plot)
-        })
+                              heights = c(0.3, 0.7),
+                              shareX = TRUE, shareY = TRUE) |>
+        plotly::layout(
+          title = "", 
+          showlegend = FALSE,
+          xaxis = list(title = "log10 Risk"),
+          yaxis = list(
+            title = "Probability",
+            titlefont = list(
+                             size = 14,      # Adjust the font size
+                             color = "black" # Adjust the font color
+                             ),
+            tickfont = list(
+              size = 12,      # Adjust the tick font size
+              color = "black" # Adjust the tick font color
+            )
+          ),
+          margin = list(l = 50, r = 50, t = 50, b = 150)
+        )
+      return(plot)
+    })
   })
 }

@@ -72,10 +72,19 @@ sfMaceration <- function(data = list(),
                       ncol=sizeLot, nrow=nLots)
 
   atLeastOneSurvive <- 1 - (1 - pSurvive)^N
+  # output
+  N <- N_gravad
+  ProbUnitPos <- data$ProbUnitPos * rowMeans(atLeastOneSurvive)
+  P <- data$P * mean(atLeastOneSurvive)
   
-  data$N <- N_gravad
-  data$ProbUnitPos <- data$ProbUnitPos * rowMeans(atLeastOneSurvive)
-  data$P <- data$P * mean(atLeastOneSurvive)
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N / data$unitSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
+  data$ProbUnitPos <- ProbUnitPos
+  data$P <- P
   data$pSurvMaceration <- pSurvive
   return(data)
 }

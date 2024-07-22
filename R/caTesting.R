@@ -212,10 +212,15 @@ caTesting <- function(data = list(),
     #   P <- P * (1- sum(Zeroes)/newMC)
     # }
   }
-
+  
+  lotMeans <- rowMeans(N / unitSize, na.rm = TRUE)
+  unitsCounts <- c(N / unitSize)
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  
   data$N <- N
   # Discarded: Positive * prevalence
   data$D <- mean(testPos) * data$P
-
   return(data)
 }

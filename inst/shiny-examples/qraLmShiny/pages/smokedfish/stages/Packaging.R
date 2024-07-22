@@ -4,16 +4,16 @@ sf_Packaging_ui <- function(id) {
   fluidPage(
     fluidRow(
     column(6,
-           h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_pack"),
-           h4("Between lots LM counts"), mcstatsLotsUI("sf_mcstats_lots_pack")
-           #           h4("Between lots LM Counts distribution"), countsLotsDistUI("sf_counts_lots_dist_pack")
+           h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_pack"),
+           h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_mcstats_lots_pack"),
+           h5("Between lots LM Counts distribution"), countsLotsDistUI("sf_counts_lots_dist_pack")
            ),
      column(6,
-            h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_pack"),
-            h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_mcstats_units_pack")
-            #            h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_pack")
+            h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_pack"),
+            h5("Counts in contaminated units"), mcstatsUnitsUI("sf_mcstats_units_pack"),
+            h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_counts_units_dist_pack")
             ),
-     column(12, h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_pack")
+     column(12, h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf_prob_pack")
             )
     )
     )

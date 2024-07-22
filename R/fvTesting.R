@@ -57,25 +57,25 @@
 #'  on the same samples, to verify if intermediate set limits are reached (\eqn{< 10 CFU/g}) or not.
 #'
 #' @examples
-#' nLots <- 1000
-#' sizeLot <- 500
-#' N <- matrix(rpois(sizeLot * nLots, 5),
-#'   nrow = nLots,
-#'   ncol = sizeLot
-#' )
-#' data <- list(
-#'   N = N, P = 0.16,
-#'   ProbUnitPos = rep(0.16, nLots)
+#' dat <- Lot2LotGen(
+#'   nLots = 50,
+#'   sizeLot = 100,
+#'   unitSize = 500,
+#'   betaAlpha = 0.5112,
+#'   betaBeta = 9.959,
+#'   C0MeanLog = 1.023,
+#'   C0SdLog = 0.3267,
+#'   propVarInter = 0.7
 #' )
 #' # Testing the microbiological criterion for RTE foods of absence of \emph{L. monocytogenes}
 #' # in five samples of 25 g each (two-class sampling plan)
-#' Nf1 <- fvTesting(data,
+#' Nf1 <- fvTesting(dat,
 #'   nTested = 5, gTested = 25, MTested = 0, cTested = 0,
 #'   pLotTested = 0.5, unitSize = 500, Se = 0.9, iterSub = NULL
 #' )
 #' # Applying an in-house sampling plan of a maximum of one sample (c=1)
 #' # below the M limit 10 CFU/g from a total of five samples taken from a lot
-#' Nf2 <- fvTesting(data,
+#' Nf2 <- fvTesting(dat,
 #'   nTested = 5, gTested = 25, MTested = 10, cTested = 1,
 #'   pLotTested = 0.5, unitSize = 500, Se = 0.9, gTestedEnum = 10, iterSub = 800
 #' )
@@ -171,6 +171,11 @@ fvTesting <- function(data = list(),
   data$ProbUnitPos[Se == 1] <- 1E-20
   data$ProbThisLot <- (1 - testPos)
 
+  lotMeans <- rowMeans(data$N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((data$ProbUnitPos/mean(data$ProbUnitPos)) * (data$N/data$unitSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
   # N is unchanged
   data$N <- N
   data$unitSize <- unitSize

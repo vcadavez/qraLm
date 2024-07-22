@@ -4,17 +4,17 @@ sf_Slicing_ui <- function(id) {
   fluidPage(
     fluidRow(
     column(6,
-           h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_slice"),
-           h4("Between lots LM counts"), mcstatsLotsUI("sf_mcstats_lots_slice")
-           #           h4("Between lots LM counts distribution"), countsLotsDistUI("sf_counts_lots_dist_slice")
+           h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_slice"),
+           h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_mcstats_lots_slice"),
+          h5("Distribution of between-lot mean counts"), countsLotsDistUI("sf_counts_lots_dist_slice")
            ),
     column(6,
-          h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_slice"),
-          h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_mcstats_units_slice")
-          #          h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_slice")
+          h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_slice"),
+          h5("Counts in contaminated units"), mcstatsUnitsUI("sf_mcstats_units_slice"),
+          h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_counts_units_dist_slice")
           ),
     column(12,
-           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_slice")
+           h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf_prob_slice")
     )
   )
   )
@@ -63,7 +63,7 @@ sf_SlicingInputs_ui <- function(id) {
                   value = 32.5, min = 10, max = 50, step = 2.5),
       sliderInput(ns("init_slicer_s"), 
                   "initSlicer: Slicer initial contamination (CFU)",
-                  value = 100, min = 0, max = 1000, step = 100)
+                  value = 0, min = 0, max = 10000, step = 100)
 #    )  
    )
 }

@@ -21,4 +21,4 @@ fv_sidebar_server <- function(input, output, session, suffix, fv_stages) {
   fv_stageSelector_server(input, output, session, id, fv_stages)
   source("pages/frozenvegetables/sidebar/stageInputs.R")
   fv_stageInputs_server(input, output, session, id, fv_stages)
-}
+  }

@@ -63,8 +63,24 @@ DRForModel <- function(data = list(), model = "JEMRA", population = 1, Poisson =
     ncol = ncol(data$N),
     nrow = nrow(data$N)
   )
+  
+  if (exists("ProbUnitPos", data) == TRUE) {
+    lotMeanRisk <- rowMeans(Risk * data$ProbUnitPos) 
+  } else {
+    probunitpos <- rep(1, nrow(data$N))
+    lotMeanRisk <- rowMeans(Risk * probunitpos)
+  }
 
+  if (exists("ProbUnitPos", data) == TRUE) {
+    servingRisk <- Risk * data$ProbUnitPos
+  } else {
+    probunitpos <- rep(1, nrow(data$N))
+    servingRisk <- Risk * probunitpos
+  }
+  
   data$Risk <- Risk
+  data$lotMeanRisk <- lotMeanRisk
+  data$servingRisk <- servingRisk
   data$Model <- model
   data$Population <- population
 

@@ -83,9 +83,17 @@ sfPackaging <- function(data = list(),
   # Npack <- rowSums(Npack)
   # matrix(t(Npack), ncol=nPacks, nrow=size_mc, byrow=TRUE)
 
-  data$unitSize <- floor(data$unitSize * slicesPerPack) # update unitSize and add it to the dataset
-
-  data$N <- Npack
+  # output
+  unitSize <- floor(data$unitSize * slicesPerPack) # update unitSize and add it to the dataset
+  N <- Npack
+  
+  lotMeans <- rowMeans(N / unitSize, na.rm = TRUE)
+  unitsCounts <- c((data$ProbUnitPos/mean(data$ProbUnitPos)) * (N / unitSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts 
+  data$unitSize <- unitSize
+  data$N <- N
   data$sizeLot <- ncol(Npack) # update the sizeLot to the number of packs
   return(data)
 }

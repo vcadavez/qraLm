@@ -1,19 +1,17 @@
 ca_Production_ui <- function(id) {
   fluidRow(
     column(6,
-      h4("Prevalence of contaminated lots"), prevLotsUI("ca_prev_lots"),
-      h4("Between lots LM counts"), mcstatsLotsUI("ca_lot_stats")
-      # h4("Between lots Counts distribution (CFU/g)"), countsLotsDistUI("ca_lot_counts")
-      #h4("Variability in the prevalence of contaminated lots"), betaDistUI("ca_beta")
+      h5("Prevalence of contaminated lots"), prevLotsUI("ca_prev_lots"),
+      h5("Mean counts in contaminated lots"), mcstatsLotsUI("ca_lot_stats"),
+      h5("Distribution of between-lot mean counts"), countsLotsDistUI("ca_lot_counts")
     ),
     column(6,
-      h4("Prevalence of contaminated units"), prevUnitsUI("ca_prev_units"),
-      h4("Within lots/Between units LM counts"), mcstatsUnitsUI("ca_unit_stats"),
-      # h4("Counts distribution per unit (CFU/g)"), countsUnitsDistUI("ca_unit_counts")
-      #h4("Variability in within-lot prevalence"), prevWithinlotsUI("ca_within_lots")
+      h5("Prevalence of contaminated units"), prevUnitsUI("ca_prev_units"),
+      h5("Counts in contaminated units"), mcstatsUnitsUI("ca_unit_stats"),
+      h5("Distribution of between-unit counts"), countsUnitsDistUI("ca_unit_counts")
     ),
     column(12,
-      h4("ECDF Plot"), ecdfLotsUI("ca_ecdf")
+      h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("ca_ecdf")
     )
   )
 }
@@ -25,15 +23,13 @@ ca_Production_server <- function(input, output, session, suffix) {
 
   prefix <- "rtecantaloupe-sidebar-inputs-"
   datCanta <- reactive({ generate_datCanta(input, prefix) })
-#  datBeta <- reactive({ generate_datBeta(input, prefix) })
 
   prevLotsServer("ca_prev_lots",          data = datCanta)
   prevUnitsServer("ca_prev_units",        data = datCanta)
   mcstatsLotsServer("ca_lot_stats",       data = datCanta)
   mcstatsUnitsServer("ca_unit_stats",     data = datCanta)
-#  countsLotsDistServer("ca_lot_counts",   data = datCanta)
-#  countsUnitsDistServer("ca_unit_counts", data = datCanta)
-#  betaDistServer("ca_beta",               data = datBeta)
+  countsLotsDistServer("ca_lot_counts",   data = datCanta)
+  countsUnitsDistServer("ca_unit_counts", data = datCanta)
   prevWithinlotsServer("ca_within_lots",  data = datCanta)
   ecdfLotsServer("ca_ecdf",               data = datCanta)
 
@@ -67,14 +63,6 @@ generate_datCanta <- function(input, prefix) { #first stage, no input
   return(df)
 }
 
-# generate_datBeta <- function(input, prefix) {
-#   prev <- seq(0, 1, length = get_input_value(input, prefix, "size_lot"))
-#   prob <- stats::dbeta(prev, 
-#                        shape1 = get_input_value(input, prefix, "beta_alpha"), 
-#                        shape2 = get_input_value(input, prefix, "beta_beta"))
-#   data.frame(prev = prev, prob = prob)
-# }
-
 ca_ProductionInputs_ui <- function(id) {  
   ns <- NS(id)  
   div(  
@@ -83,7 +71,7 @@ ca_ProductionInputs_ui <- function(id) {
       numericInput(ns("seed"), "Set a random seed", 
                    value = 12345),  
       numericInput(ns("n_lots"), "nLots: Number of lots",
-                   value = 1000,  min = 1000, max = 10000, step = 1000),
+                   value = 500,  min = 500, max = 5000, step = 500),
       numericInput(ns("size_lot"), "lotSize: Number of units in a lot",
                    value = 1000,  min = 1000, max = 5000, step = 500),
       numericInput(ns("canta_weight"), "cantaweight: Cantaloupe weight (g)", 

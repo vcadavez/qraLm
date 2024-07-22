@@ -55,10 +55,19 @@ distribution (\insertCite{Nauta2005;textual}{qraLm}).
 \examples{
 library(extraDistr)
 library(mc2d)
-nLots <- 10
-sizeLot <- 50
-data <- list(N = matrix(100, ncol = sizeLot, nrow = nLots), P = 0.35)
-WashedMelons <- caFlumeTank(data,
+dat <- caPrimaryProduction(
+  nLots = 100,
+  sizeLot = 100,
+  cantaWeight = 800,
+  pSoil = 0.089,
+  pManure = 0.1,
+  pIrrigRaining = 0.05,
+  pFoil = 0.5,
+  rFoil = 0.75,
+  pIrrig = 0.131
+)
+
+WashedMelons <- caFlumeTank(dat,
   logDecWash = 1.5,
   logDecSani = 2,
   b = 2.5,

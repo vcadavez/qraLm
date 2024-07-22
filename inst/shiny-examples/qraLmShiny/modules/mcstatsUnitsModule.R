@@ -12,24 +12,18 @@ mcstatsUnitsServer <- function(id, data) {
     output$mcstats_units <-  DT::renderDataTable({
 #   cat("variability of contamination in units (CFU/g)\n")
     
- if (exists("ProbUnitPos", data())==TRUE) {
-    cfuUnit <- data()$ProbUnitPos*(data()$N/data()$unitSize)
-  } else if (exists("unitSize", data())==TRUE)  {
-    cfuUnit <- data()$N/data()$unitSize
-  } else{
-    cfuUnit <- data()$N
-  }
-         
-       index <- which(cfuUnit==0)
-         if (length(index)==0) {
-           posUnits <- cfuUnit
-          } else {
-            posUnits <- cfuUnit[-index]
-          }    
-      
+    posUnits <- data()$ unitsCounts
+    
+    index <- which(posUnits==0)
+    if (length(index)==0) {
+      posUnits <- posUnits
+    } else {
+      posUnits <- posUnits[-index]
+    }
+  
       NStatsMin    <- min(posUnits)
       NStatsMax    <- max(posUnits)
-      NStatsMedian <- median(posUnits)
+      NStatsMedian <- quantile(posUnits, probs = c(0.5), na.rm=TRUE)
       NStatsMean   <- mean(posUnits)
       Q2.5  <- quantile(posUnits, probs = c(0.025), na.rm=TRUE)
       Q97.5 <- quantile(posUnits, probs = c(0.975), na.rm=TRUE)
@@ -40,7 +34,6 @@ mcstatsUnitsServer <- function(id, data) {
                      unname(NStatsMedian),
                      unname(Q97.5),
                      unname(NStatsMax))
-                     
                      
       logCounts <- round(log10(Counts), digits=4)
       Statistics <- c("Minimum", "pct 2.5th", "Mean", "Median", "pct 97.5th", "Maximum")

@@ -75,12 +75,15 @@ established the log 10 of the transfer coefficient of \emph{L. monocytogenes} fr
 distribution with \eqn{TR\_mean=-0.44} and \eqn{TR\_sd=0.40}.
 }
 \examples{
-nLots <- 1000
-sizeLot <- 500
-dat <- list(
-  N = matrix(20, nrow = nLots, ncol = sizeLot),
-  P = 0.05,
-  ProbUnitPos = rep(0.05, nLots)
+dat <- Lot2LotGen(
+  nLots = 50,
+  sizeLot = 100,
+  unitSize = 500,
+  betaAlpha = 0.5112,
+  betaBeta = 9.959,
+  C0MeanLog = 1.023,
+  C0SdLog = 0.3267,
+  propVarInter = 0.7
 )
 Nf <- fvPartitioningCC(dat,
                        probCC = 0.125, trMean = -0.44,

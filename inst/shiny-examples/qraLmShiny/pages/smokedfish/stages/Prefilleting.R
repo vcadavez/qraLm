@@ -4,17 +4,17 @@ sf_Prefilleting_ui <- function(id) {
   fluidPage(
     fluidRow(
       column(6,
-      h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_prefill"),
-      h4("Between lots LM counts"), mcstatsLotsUI("sf_lot_mcstats_prefill")  
-      #      h4("Summary statistics - Mean between units"), countsLotsDistUI("sf_lot_counts_prefill")
+      h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_prefill"),
+      h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_lot_mcstats_prefill"),  
+      h5("Summary statistics - Mean between units"), countsLotsDistUI("sf_lot_counts_prefill")
       ),
       column(6,
-             h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_prefill"),
-             h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_unit_mcstats_prefill")
-             #             h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_unit_counts_prefill")
+             h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_prefill"),
+             h5("Counts in contaminated units"), mcstatsUnitsUI("sf_unit_mcstats_prefill"),
+             h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_unit_counts_prefill")
     ),
     column(12,
-      h4("ECDF"), ecdfLotsUI("sf_ecdf_prefill")
+      h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf_prefill")
     )
   )
   )
@@ -61,19 +61,19 @@ sf_PrefilletingInputs_ui <- function(id) {
      id = ns("Prefilleting"),
 #    tagList(
       sliderInput(ns("mpd"), "MPD: MPD of LM in raw fish (log10 CFU/g)",
-                  value = 9.2, min = 5, max = 12, step = 0.1),
+                  value = 9.2, min = 5, max = 10, step = 0.1),
       sliderInput(ns("temp_min"), "tempMin: Minimum holding temperature (ºC)", 
-                  value = -2, min = -3, max = 5, step =0.20),
+                  value = -2, min = -4, max = 5, step =0.20),
       sliderInput(ns("temp_mode"), "tempMode: Mode holding temperature (ºC)",
-                  value = 0, min = -3, max = 5, step = 0.20),
+                  value = 0, min = -3, max = 8, step = 0.20),
       sliderInput(ns("temp_max"), "tempMax. Maximum holding temperature (ºC)",
-                  value = 4, min = 0, max = 5, step = 0.20),
+                  value = 4, min = 1, max = 10, step = 0.20),
       sliderInput(ns("time_min"), "timeMin: Minimum holding time (h)",     
-                  value = 0.5, min = 0, max = 5, step = 0.5),
+                  value = 0.5, min = 0.0, max = 12.0, step = 0.5),
       sliderInput(ns("time_mode"), "timeMode: Mode of the holding time (h)",
-                  value = 2, min = 0, max = 5, step = 1),
+                  value = 2, min = 1, max = 16, step = 0.5),
       sliderInput(ns("time_max"), "timeMax: Maximum holding time (h)",
-                  value = 6, min = 0, max = 10, step = 1)
+                  value = 6, min = 5, max = 24, step = 0.5)
 #    )
    )
 }

@@ -3,8 +3,8 @@ body{
 }
 
 .navbar {
-  background-color: #005393;
-  font-size: 16px;
+  background-color: #008dc9;
+  font-size: 18px;
   font-weight: bold;
 }
 .navbar-brand{
@@ -38,9 +38,9 @@ body > nav > div{
 .irs-bar {
   top: 25px;
   height: 8px;
-  border-top: 1px solid #005393 !important;
-  border-bottom: 1px solid #005393 !important;
-  background: #005393 !important;
+  border-top: 1px solid #008dc9 !important;
+  border-bottom: 1px solid #008dc9 !important;
+  background: #008dc9 !important;
 }
 
 

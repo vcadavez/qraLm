@@ -356,8 +356,16 @@ sfColdChain <- function(data = list(),
     lim = lim,
     step = step
   )
-
-  data$N <- Growth$N1Lm
+# output
+  N <- Growth$N1Lm
+  
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((data$ProbUnitPos/mean(data$ProbUnitPos)) * (N / data$unitSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  
+  data$N <- N
   data$lnQ0Lm <- Growth$lnQtLm
   data$N0LAB <- Growth$N1LAB
   data$lnQ0LAB <- Growth$lnQtLAB

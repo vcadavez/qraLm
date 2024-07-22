@@ -5,17 +5,17 @@ fv_Testing_ui <- function(id) {
     
       fluidRow(
            column(6,
-                  h4("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_test"),
-                  h4("Between lots LM counts"), mcstatsLotsUI("fv_lots_mcstats_test")
-                  #                  h4("Between lots LM Counts distribution"), countsLotsDistUI("fv_counts_lots_dist_test")
+                  h5("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_test"),
+                  h5("Mean counts in contaminated lots"), mcstatsLotsUI("fv_lots_mcstats_test"),
+                  h5("Distribution of between-lot mean counts"), countsLotsDistUI("fv_counts_lots_dist_test")
                   ),
            column(6,
-                  h4("Prevalence of contaminated units"), prevUnitsUI("fv_prev_units_test"),
-                  h4("Within lots/Between units LM counts"),  mcstatsUnitsUI("fv_units_mcstats_test")
-                  #                  h4("Within lots/Between units LM counts distribution"), countsUnitsDistUI("fv_counts_units_dist_test")
+                  h5("Prevalence of contaminated units"), prevUnitsUI("fv_prev_units_test"),
+                  h5("Counts in contaminated units"),  mcstatsUnitsUI("fv_units_mcstats_test"),
+                  h5("Distribution of between-unit counts"), countsUnitsDistUI("fv_counts_units_dist_test")
            ),
            column(12,
-                  h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob_test")
+                  h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("fv_ecdf_prob_test")
                   )
            )
   )
@@ -63,19 +63,19 @@ fv_TestingInputs_ui <- function(id) {
   id = ns("Testing"),
 #  tagList(
     sliderInput(ns("n_tested"), 
-                "nTested: Sample size", value=5, min=1, max=10, step=1),
+                "nTested: Sample size", value=5, min=0, max=20, step=5),
     sliderInput(ns("g_tested"),
-                "gTested: Sample weight tested (g)", value=25, min=25, max=100, step=5),
+                "gTested: Sample weight tested (g)", value=25, min=5, max=50, step=5),
     sliderInput(ns("m_tested"), 
-                "mTested: Maximum concentration accepted (CFU/g)", value=0, min=0, max=1, step=0.5),
+                "MTested: Maximum concentration accepted (CFU/g)", value=0, min=0, max=10, step=1),
     sliderInput(ns("c_tested"), 
-                "cTested: Maximum number of samples", value=0, min=0, max=20, step=5),
+                "cTested: Maximum nº samples accepted", value=0, min=0, max=5, step=1),
     sliderInput(ns("p_lot_tested"), 
-                "pLotTested: Proportion of lots tested", value=0, min=0, max=1, step=0.1),
+                "pLotTested: Proportion of lots tested", value=0, min=0, max=1, step=0.01),
     sliderInput(ns("se"), 
-                "Se: Sensibility of the test", value=1, min=0, max=1.0, step=0.10),
+                "Se: Sensibility of the test", value=1, min=0.7, max=1.0, step=0.1),
     sliderInput(ns("g_tested_enumeration"),
-                "gTestedEnum: Sample weight tested for enumeration (g)", value=10, min=10, max=100, step=10),
+                "gTestedEnum: Sample weight tested for enumeration (g)", value=10, min=5, max=50, step=5),
 # )
 )
 }

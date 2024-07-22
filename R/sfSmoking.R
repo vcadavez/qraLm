@@ -143,11 +143,20 @@ sfSmoking <- function(data = list(),
   # Preparing the outputs
   # pSurvSmoking[index_brine] <- pSurvive_brine
   # pSurvSmoking[index_salt] <- pSurvive_salt
-
-  data$N <- N_out
-  data$ProbUnitPos <- data$ProbUnitPos * rowMeans(atLeastOneSurvive_out)
-  data$P <- data$P * mean(atLeastOneSurvive_out)
+ 
+  # output
+  N <- N_out
+  ProbUnitPos <- data$ProbUnitPos * rowMeans(atLeastOneSurvive_out)
+  P <- data$P * mean(atLeastOneSurvive_out)
   
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N / data$unitSize))
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  
+  data$N <- N
+  data$ProbUnitPos <- ProbUnitPos
+  data$P <- P
   #Testing Correction factor  - just a test
   #CF = data$ProbUnitPos/data$P 
   #data$ProbUnitPos= data$ProbUnitPos/CF

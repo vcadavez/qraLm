@@ -5,17 +5,17 @@ fv_Portioning_ui <- function(id) {
 #    h3("Variability of contamination in lots"),
       fluidRow(
            column(6,
-                  h4("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_port"),
-                  h4("Between lots LM counts"), mcstatsLotsUI("fv_lots_mcstats_port")
-                  #                  h4("Between lots LM counts distribution"), countsLotsDistUI("fv_counts_lots_dist_port")
+                  h5("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_port"),
+                  h5("Mean counts in contaminated lots"), mcstatsLotsUI("fv_lots_mcstats_port"),
+                  h5("Distribution of between-lot mean counts"), countsLotsDistUI("fv_counts_lots_dist_port")
                   ),
            column(6,
-                  h4("Prevalence of contaminated units"),     prevUnitsUI("fv_prev_units_port"),
-                  h4("Within lots/Between units LM counts"),  mcstatsUnitsUI("fv_units_mcstats_port")
-                  #                  h4("Within lots/Between units LM counts distribution"), countsUnitsDistUI("fv_counts_units_dist_port")
+                  h5("Prevalence of contaminated units"),     prevUnitsUI("fv_prev_units_port"),
+                  h5("Counts in contaminated units"),  mcstatsUnitsUI("fv_units_mcstats_port"),
+                  h5("Distribution of between-unit counts"), countsUnitsDistUI("fv_counts_units_dist_port")
            ),
            column(12,
-             h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob_port")
+             h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("fv_ecdf_prob_port")
              )
            )
   )
@@ -50,7 +50,6 @@ generate_datPortfv <- function(input, prefix, datTest) {
   return(df)
 }
 
-
 fv_PortioningInputs_ui <- function(id) {
   ns <- NS(id)
   div(
@@ -61,7 +60,7 @@ fv_PortioningInputs_ui <- function(id) {
                 value=50, min=25, max=500, step=25),
     sliderInput(ns("b_port"), 
                 "bPort: Dispersion in the pack:",
-                value=1, min=0, max=2, step=0.05) 
+                value=1, min=0, max=3, step=0.05) 
 #    )
  )
 }

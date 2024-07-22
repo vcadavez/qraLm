@@ -59,22 +59,23 @@
 #'
 #' @examples
 #' library(extraDistr)
-#' timeMin <- 2
-#' timeMode <- 5
-#' timeMax <- 9
-#' nLots <- 1000
-#' sizeLot <- 250
-#' dat <- list(
-#'   N = matrix(80, nLots, sizeLot),
-#'   lnQt = matrix(2, nLots, sizeLot),
-#'   lotEGR5 = rtnorm(nLots, 0.03557288, 0.004, a = 0),
-#'   P = 0.4, unitSize = 200
-#' )
+#' dat <- caPrimaryProduction(
+#'                            nLots = 100,
+#'                            sizeLot = 100)
+#'                            dat$unitSize = 900
+#'                            dat$lotEGR5 = 0.3
+#'                            dat$lnQt = 0.2
+#' str(dat)
 #' EndRetail <- caRetRTE(dat,
-#'   MPD = 8.5, Tmin = -2.0196,
-#'   tempMin = 1.4, tempMode = 5.6, tempMax = 9.8,
-#'   timeMin, timeMode, timeMax
-#' )
+#'                       MPD = 10,
+#'                       Tmin = -2.0196,
+#'                       tempMin = 1.4, 
+#'                       tempMode = 5.6, 
+#'                       tempMax = 9.8,
+#'                       timeMin = 2,
+#'                       timeMode = 5,
+#'                       timeMax = 9
+#'                       )
 #' str(EndRetail)
 #' str(EndRetail$lnQt)
 #'
@@ -90,7 +91,7 @@ caRetRTE <- function(data = list(),
   if (missing(MPD)) MPD <- data$MPD # test if MPD was defined
   if (is.null(MPD)) warning("Add 'MPD=#' to function arguments") # test again if MPD is defined
 
-  # To evaluate the growth during retail
+    # To evaluate the growth during retail
   N_t <- data$N
   # Get the dimensions
   Number_packs <- ncol(N_t)
@@ -125,20 +126,24 @@ caRetRTE <- function(data = list(),
   if (is.null(Tmin)) warning("Add 'Tmin=#' to function arguments") # test again if Tmin is defined
 
   results <- caGrowthBaranyi(data,
-    MPD = MPD,
-    unitSize = data$unitSize,
-    EGR5 = data$lotEGR5,
-    Tmin = Tmin,
-    Temp = Temp_v,
-    time = time_v,
-    Q0 = Q0_v
-  )
+                             MPD = MPD,
+                             unitSize = data$unitSize,
+                             EGR5 = data$lotEGR5,
+                             Tmin = Tmin,
+                             Temp = Temp_v,
+                             time = time_v,
+                             Q0 = Q0_v
+                             )
 
   Nt_matrix <- ceiling(matrix(results$Nt, ncol = Number_packs, nrow = old_nLots))
   lnQt_matrix <- matrix(results$lnQt, ncol = Number_packs, nrow = old_nLots)
 
-  data$N <- Nt_matrix
+  N <- Nt_matrix
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c(N / data$unitSize)
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
   data$lnQt <- lnQt_matrix
-
   return(data)
 }

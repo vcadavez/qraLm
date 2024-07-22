@@ -5,7 +5,7 @@
 #' @param ... optional plot parameters passed to the plot function
 #' @author Vasco Cadavez
 #'
-#' @importFrom stats weighted.mean
+#' @importFrom stats weighted.mean quantile
 #' @importFrom Hmisc wtd.quantile
 #' @importFrom DT datatable
 #' @importFrom DT formatSignif
@@ -41,18 +41,13 @@ summaryServings.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
   
-  if (exists("ProbUnitPos", x) == TRUE) {
-    cfuUnit <- (x$ProbUnitPos/mean(x$ProbUnitPos)) * (x$N/x$servingSize) 
-  } else {
-    probunitpos <- rep(1, nrow(x$N))
-    cfuUnit <- (x$probunitpos/mean(x$probunitpos)) * (x$N/x$unitSize)
-  }
+    unitsServing <- c(x$unitsServing)
   
-  index <- which(cfuUnit==0)
+  index <- which(unitsServing==0)
   if (length(index)==0) {
-    PosServings <- cfuUnit
+    PosServings <- unitsServing
   } else {
-    PosServings <- cfuUnit[-index]
+    PosServings <- unitsServing[-index]
   }
   
   NStatsMin    <- min(PosServings)

@@ -3,17 +3,17 @@ ca_StoredDices_ui <- function(id) {
   
   fluidRow(
     column(6, 
-           h4("Prevalence of contaminated lots"), prevLotsUI("prev_lots_storeddices"),
-           h4("Between lots LM counts"), mcstatsLotsUI("lots_mcstats_storeddices")
-           #           h4("Between lots LM counts distribution"), countsLotsDistUI("counts_lots_dist_storeddices")
+           h5("Prevalence of contaminated lots"), prevLotsUI("prev_lots_storeddices"),
+           h5("Mean counts in contaminated lots"), mcstatsLotsUI("lots_mcstats_storeddices")
+           #           h5("Distribution of between-lot mean counts"), countsLotsDistUI("counts_lots_dist_storeddices")
     ),
     column(6, 
-           h4("Prevalence of contaminated units"), prevUnitsUI("prev_units_storeddices"),
-           h4("Within lots/Between units LM counts"), mcstatsUnitsUI("units_mcstats_storeddices")
-           #           h4("Within lots/Between units distribution"), countsUnitsDistUI("counts_units_dist_storeddices")
+           h5("Prevalence of contaminated units"), prevUnitsUI("prev_units_storeddices"),
+           h5("Counts in contaminated units"), mcstatsUnitsUI("units_mcstats_storeddices")
+           #           h5("Distribution of between-unit counts"), countsUnitsDistUI("counts_units_dist_storeddices")
     ),
     column(12, 
-           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("ecdf_prob_storeddices")
+           h5("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("ecdf_prob_storeddices")
     )
   )
 }

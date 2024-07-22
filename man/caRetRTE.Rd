@@ -71,22 +71,23 @@ so that the \emph{L. monocytogenes} growth could be followed up in subsequent lo
 }
 \examples{
 library(extraDistr)
-timeMin <- 2
-timeMode <- 5
-timeMax <- 9
-nLots <- 1000
-sizeLot <- 250
-dat <- list(
-  N = matrix(80, nLots, sizeLot),
-  lnQt = matrix(2, nLots, sizeLot),
-  lotEGR5 = rtnorm(nLots, 0.03557288, 0.004, a = 0),
-  P = 0.4, unitSize = 200
-)
+dat <- caPrimaryProduction(
+                           nLots = 100,
+                           sizeLot = 100)
+                           dat$unitSize = 900
+                           dat$lotEGR5 = 0.3
+                           dat$lnQt = 0.2
+str(dat)
 EndRetail <- caRetRTE(dat,
-  MPD = 8.5, Tmin = -2.0196,
-  tempMin = 1.4, tempMode = 5.6, tempMax = 9.8,
-  timeMin, timeMode, timeMax
-)
+                      MPD = 10,
+                      Tmin = -2.0196,
+                      tempMin = 1.4, 
+                      tempMode = 5.6, 
+                      tempMax = 9.8,
+                      timeMin = 2,
+                      timeMode = 5,
+                      timeMax = 9
+                      )
 str(EndRetail)
 str(EndRetail$lnQt)
 

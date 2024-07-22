@@ -9,30 +9,24 @@ mcstatsLotsServer <- function(id, data) {
   moduleServer(id, function(input, output, session) {
  
     output$mcstats_lots <-  DT::renderDataTable({
-# to define inputs
-      observe(input$simulate)
-#     cat("variability of contamination in lots (CFU/g)\n")
-
-    if (exists("unitSize", data())==TRUE) {
-      lotN <- rowMeans(data()$N/data()$unitSize, na.rm=TRUE)
-         } else{
-           lotN <- rowMeans(data()$N, na.rm=TRUE)
-           }
-           
-      if (exists("ProbUnitPos", data())==TRUE) {
-      NStats <- Hmisc::wtd.quantile(lotN,
-                                    weights=data()$ProbUnitPos,
-                                    probs=c(0.0, 0.5, 0.025, 0.975, 1.0),
-                                    normwt=TRUE, na.rm=TRUE)
-      NStatsMean   <- stats::weighted.mean(lotN, w = data()$ProbUnitPos, na.rm=TRUE)
+      lotN <- data()$lotMeans
+      if (exists("ProbUnitPos", data()) == TRUE) {
+        NStats <- Hmisc::wtd.quantile(lotN,
+                                      weights = data()$ProbUnitPos,
+                                      probs = c(0.00, 0.50, 0.025, 0.975, 1.0),
+                                      normwt = TRUE, na.rm = TRUE)
+        
+        NStatsMean <- stats::weighted.mean(lotN, w = data()$ProbUnitPos, na.rm = TRUE)
       } else {
-      NStats <- Hmisc::wtd.quantile(lotN,
-                                    weights=rep(1, nrow(data()$N)),
-                                    probs=c(0.0, 0.5, 0.025, 0.975, 1.0),
-                                    normwt=TRUE, na.rm=TRUE)
-      NStatsMean   <- mean(lotN, na.rm=TRUE)
+        probunitpos <- rep(1, nrow(data()$N))
+        NStats <- Hmisc::wtd.quantile(lotN,
+                                      weights = probunitpos,
+                                      probs = c(0.00, 0.50, 0.025, 0.975, 1.00),
+                                      normwt = TRUE, na.rm = TRUE)
+        
+        NStatsMean <- stats::weighted.mean(lotN, w = probunitpos, na.rm = TRUE)
       }
-      
+
       NStatsMin    <- NStats[1]
       NStatsMedian <- NStats[2]
       Q2.5         <- NStats[3]
@@ -47,11 +41,12 @@ mcstatsLotsServer <- function(id, data) {
                             unname(NStatsMax)
                             )
       
-      # logs function
+  #    logs function
       log_var <- function(x) {
-        ifelse(x != 0, log10(x), 0)
-      }
-      logCounts <- round(log_var(Counts), digits=5)
+         ifelse(x != 0, log10(x), 0)
+       }
+       logCounts <- round(log_var(Counts), digits=5)
+       #logCounts <- log10(Counts)
         
       Statistics <- c("Minimum", "pct 2.5th", "Mean", "Median", "pct 97.5th", "Maximum")
       MCstats <- data.frame(Statistics, Counts, logCounts)

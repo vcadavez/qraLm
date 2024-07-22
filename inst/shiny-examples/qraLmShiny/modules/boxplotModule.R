@@ -11,10 +11,8 @@ boxplotServer <- function(id, data) {
   
   output$boxPlot <- renderPlotly({
 #    isolate({
-    lotsSums <- rowSums(data()$N)
-    weights <- data()$ProbUnitPos
-    
-    df <- data.frame(Counts=ceiling(wtd.rowSums(x=lotsSums, wts=weights, na.rm = TRUE)))
+    lotMeans <- data()$lotMeans
+    df <- data.frame(Counts=lotMeans)
     
     log_risk = function(x){
       ifelse(x!=0, log10(x), 0)

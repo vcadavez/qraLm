@@ -12,20 +12,10 @@ ecdfLotsServer <- function(id, data) {
   output$ecdf_lots <- renderPlotly({
 #    isolate({
 #    cat("variability of contamination in lots (CFU/g)\n")
-       
-     if (exists("unitSize", data()) == TRUE) {
-       lotN <- rowMeans(data()$N/data()$unitSize)
-           } else{
-             lotN <- rowMeans(data()$N)
-           }
-           
-     if (exists("ProbUnitPos", data())==TRUE) {
-     Clot <- lotN*data()$ProbUnitPos  # compute cells/g per lot (concentration)
-     } else {
-     Clot <- lotN 
-     }
     
-    df <- data.frame(Counts= Clot) # weighted cels/g per lot
+      lotN <- data()$lotMeans
+    
+    df <- data.frame(Counts= lotN) # weighted cels/g per lot
     
     # logs function
     log_var <- function(x) {
@@ -37,11 +27,11 @@ ecdfLotsServer <- function(id, data) {
              theme_minimal() +
              stat_ecdf(geom = "step", col="blue", linewidth=1.5)
     
-    plot <- plotly::ggplotly(p, width = 800, height = 500) |> 
+    plot <- plotly::ggplotly(p) |> 
         plotly::layout(title = "",
                xaxis = list(title = "Counts (log10 CFU/g)"),
-               yaxis = list(title = "Cumulative Probability"),
-               margin = list(l = 50, r = 50, t = 50, b = 150)
+               yaxis = list(title = "Cumulative Probability")#,
+ #              margin = list(l = 50, r = 50, t = 50, b = 150)
                )
       return(plot)
 #    })

@@ -10,33 +10,31 @@ countsUnitsDistServer <- function(id, data) {
   moduleServer(id, function(input, output, session) {
   output$counts_units_dist <- renderPlotly({
    
-    # assessment in CFU per gram in a contaminated serving (unit base)
-    #index <- which(data()$N==0)
-    CFU <- c(data()$N / data()$unitSize)  # compute cells/g per unit (concentration)
-    CFU <- data.frame(CFU=CFU[CFU>0])
+    CFU <- data()$unitsCounts
     
-    plot1 <- ggplot2::ggplot(data = CFU, aes(x = "", y = CFU)) +
-      ggplot2::geom_boxplot(color="blue", fill="blue", alpha=0.5, width=1.5) +
-      ggplot2::theme_classic() +
-      ggplot2::coord_flip() 
-
-    plot2 <- ggplot2::ggplot(CFU, aes(x=CFU, y=after_stat(count),
-                      position = "identity", binwidth = 1, 
-                      color = "blue")) +
-      ggplot2::geom_histogram( color="blue", fill="grey", bins=10, binwidth = 0.25) +
-      ggplot2::theme_classic() 
+    index <- which(CFU==0)
+      if (length(index)==0) {
+       PosServings <- CFU
+     } else {
+       PosServings <- CFU[-index]
+     }
+    df <- data.frame(counts=PosServings)
+  
+    histo <- plot_ly(x = ~df$counts, 
+                     type = "histogram", nbinsx = 25,          
+                     histnorm = "probability")
     
-    plot1 <- ggplotly(plot1, width = 500, height = 500)
-    plot2 <- ggplotly(plot2, width = 500, height = 500)
-        
-    plot <- plotly::subplot(plot1, plot2, nrows = 2,
-                            shareX = TRUE, titleX = TRUE) |> 
-    layout(title = "",
-           xaxis = list(title = "Counts (CFU/g)"),
-           yaxis = list(title = "Frequency"),
-           margin = list(l = 50, r = 50, t = 50, b = 150)
-    )
+    box <- plot_ly(x = ~df$counts, type = "box") 
     
+    plot <- plotly::subplot(box, histo,
+                            nrows = 2,
+                            heights = c(0.2,0.8),
+                            shareX = TRUE, 
+                            titleX = TRUE) |>
+      plotly::layout(title = "", showlegend = FALSE,
+                     xaxis = list(title = "CFU/g"),
+                     yaxis = list(title = "Probability")
+                     )
     return(plot)
       })
    })

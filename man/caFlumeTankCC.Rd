@@ -66,25 +66,15 @@ The cross-contamination algorithm accounts for four possible scenarios:
 Write a note!
 }
 \examples{
-nLots <- 100
-sizeLot <- 20
-dat <- list(
-  N = matrix(20,
-    nrow = nLots,
-    ncol = sizeLot
-  ),
-  P = 0.25,
-  cantaWeight = 1000,
+dat <- caPrimaryProduction(
   nLots = 100,
-  sizeLot = 20
-)
-Nf <- caFlumeTankCC(dat,
-  probCCW = 0.125,
-  logWaterMin = 1,
-  logWaterMode = 1,
-  logWaterMax = 5,
-  bWater = 1
-)
+    sizeLot = 100)
+    Nf <- caFlumeTankCC(dat,
+                   probCCW = 0.125,
+                   logWaterMin = 1,
+                   logWaterMode = 1,
+                   logWaterMax = 5,
+                   bWater = 1)
 hist(Nf$N)
 
 }

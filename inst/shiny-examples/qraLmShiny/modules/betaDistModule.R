@@ -15,7 +15,7 @@ betaDistServer <- function(id, data) {
       
      p <- ggplot2::ggplot(data(), aes(x=prev, y=prob)) +
             theme_minimal() +
-            geom_line( col="blue") +
+            geom_line( col="blue" ) +
             labs(x = "Prevalence", y = "Probability")
      
               

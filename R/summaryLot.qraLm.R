@@ -30,28 +30,17 @@
 summaryLot.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
-  if (exists("unitSize", x) == TRUE) {
-    lotN <- rowMeans(x$N / x$unitSize, na.rm = TRUE)
-  } else {
-    lotN <- rowMeans(x$N / x$cantaWeight, na.rm = TRUE)
-  }
   
-  if (exists("ProbUnitPos", x) == TRUE) {
-      NStats <- Hmisc::wtd.quantile(lotN,
-                                    weights = x$ProbUnitPos,
-                                    probs = c(0.00, 0.50, 0.025, 0.975, 1.0),
-                                    normwt = TRUE, na.rm = TRUE)
+  lotMeans <- x$lotMeans
+   
+  NStats <- Hmisc::wtd.quantile(lotMeans,
+                                weights = x$ProbUnitPos,
+                                probs = c(0.00, 0.50, 0.025, 0.975, 1.0),
+                                normwt = TRUE, na.rm = TRUE)
       
-      NStatsMean <- stats::weighted.mean(lotN, w = x$ProbUnitPos, na.rm = TRUE)
-  } else {
-    probunitpos <- rep(1, nrow(x$N))
-    NStats <- Hmisc::wtd.quantile(lotN,
-                                  weights = probunitpos,
-                                  probs = c(0.00, 0.50, 0.025, 0.975, 1.00),
-                                  normwt = TRUE, na.rm = TRUE)
-    
-    NStatsMean <- stats::weighted.mean(lotN, w = probunitpos, na.rm = TRUE)
-  }
+  NStatsMean <- stats::weighted.mean(lotMeans, 
+                                      w = x$ProbUnitPos,
+                                      na.rm = TRUE)
 
   NStatsMin    <- NStats[1]
   NStatsMedian <- NStats[2]

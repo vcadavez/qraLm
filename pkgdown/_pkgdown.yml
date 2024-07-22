@@ -42,7 +42,10 @@ reference:
   - summaryServings.qraLm
   - summaryUnits.qraLm
   - summaryRisk.qraLm
-
+  - plotLotRisk.qraLm
+  - plotUnitsECDF.qraLm
+  - printPrevContUnits.qraLm
+  
 - title: Generate Data
   desc: Functions to generate the simulated data
   contents:
@@ -87,6 +90,7 @@ reference:
   - sfBrineORsaltCC
   - sfBriningCC
   - sfSmearingCC
+  - sfMaceration
   - sfSmoking
   - sfRawFishStorage
   - sfSlicer

@@ -78,18 +78,25 @@ library(extraDistr)
 library(mc2d)
 sizeLot <- 500 # 500 cantaloupes were harvested from a field
 sizeSublot <- 50 # sublots of 50 cantaloupes are processed at each time
-newMC <- 1000 # number of sublots
-N <- matrix(100, nrow = newMC, ncol = sizeSublot)
-N0 <- list(N = N, P = 0.35)
-Packs <- caPartitioningCC(N0,
+dat <- Lot2LotGen(
+  nLots = 50,
+  sizeLot = 100,
+  unitSize = 500,
+  betaAlpha = 0.5112,
+  betaBeta = 9.959,
+  C0MeanLog = 1.023,
+  C0SdLog = 0.3267,
+  propVarInter = 0.7
+)
+str(dat)
+Packs <- caPartitioningCC(dat,
                           probCCDice = 0.08,
                           trDicerMean = -1.42,
                           trDicerSd = 0.52, 
                           nDicer = 280,
-                          b = 1, 
+                          b = 1,
+                          sizeSublot = 50,
                           cantaRindFree = 950, 
-                          sizeSublot, 
-                          sizeLot,
                           unitSize = 250
                           )
 hist(Packs$N)

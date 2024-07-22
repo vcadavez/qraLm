@@ -13,11 +13,9 @@ logCountsDistServer <- function(id, data) {
   
   output$logCountsDist <- renderPlotly({
     
-    Nlot <- wtd.rowSums(x=data()$N,
-                        wts=data()$ProbUnitPos, 
-                        na.rm = TRUE)
-    
-    df <- data.frame(Counts=Nlot/(data()$sizeLot*data()$unitSize))
+    Nlot <- data()$lotMeans
+
+    df <- data.frame(Counts=Nlot)
     
     log_risk = function(x){
       ifelse(x!=0, log10(x), 0)

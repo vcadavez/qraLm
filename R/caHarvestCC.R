@@ -45,28 +45,26 @@
 #'
 #' @examples
 #' # Example of use in LARGE production farms
-#' nLots <- 1000
-#' sizeLot <- 500
-#' data <- list(N = matrix(rpois(nLots * sizeLot, 5), nrow = nLots, ncol = sizeLot), P = 0.15)
+#' dat <- caPrimaryProduction(
+#' nLots = 100,
+#'   sizeLot = 100)
 #' probCCH <- 0.005
-#' LargeFarms <- caHarvestCC(data,
-#'   probCCH = probCCH, trMean = -1.42,
-#'   trSd = 0.52, nPlas = 200,
-#'   nLots = nLots, sizeLot = sizeLot
-#' )
+#' LargeFarms <- caHarvestCC(dat,
+#'                           probCCH = probCCH, 
+#'                           trMean = -1.42,
+#'                           trSd = 0.52, 
+#'                           nPlas = 200
+#'                           )
 #' hist(LargeFarms$N)
-#'
-#' # Example of use in SMALL production farms
-#' sizeLot <- 40
-#' data <- list(N = matrix(rpois(nLots * sizeLot, 20), nrow = nLots, ncol = sizeLot), P = 0.20)
+# Example of use in SMALL production farms
 #' probCCH <- 0.02
 #' nPlas <- 500
-#' SmallFarms <- caHarvestCC(data,
-#'   probCCH = probCCH, trMean = -1.42,
-#'   trSd = 0.52, nPlas = 500,
-#'   nLots = nLots, sizeLot = sizeLot
-#' )
-#' hist(SmallFarms$N)
+#' SmallFarms <- caHarvestCC(dat,
+#'                           probCCH = probCCH, trMean = -1.42,
+#'                           trSd = 0.52, nPlas = 500,
+#'                           nLots = 100, sizeLot = 100
+#'                           )
+#'                           hist(SmallFarms$N)
 caHarvestCC <- function(data = list(),
                         probCCH,
                         trMean,
@@ -82,7 +80,6 @@ caHarvestCC <- function(data = list(),
 
   if (missing(sizeLot)) sizeLot <- data$sizeLot # test if sizeLot was defined
   if (is.null(sizeLot)) warning("Add 'sizeLot=#' to function arguments") # test again if sizeLot is defined
-
   # if(missing(P)) P <- data$P #test if P was defined
   # if(is.null(P)) warning("Add 'P=#' to function arguments") #test again if P is defined
 
@@ -145,7 +142,16 @@ caHarvestCC <- function(data = list(),
   N_out[origin == "Newly", ] <- N_total2_c[sample_index2, ]
 
   # hist(N_out) #displays histogram of N (cells)
-  data$N <- N_out
-  data$P <- overall_p_batches
+  N <- N_out
+  P <- overall_p_batches
+  
+  lotMeans <- rowMeans(N / data$cantaWeight, na.rm = TRUE)
+  unitsCounts <- c(N / data$cantaWeight)
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
+  data$P <- P
+  
   return(data)
 }

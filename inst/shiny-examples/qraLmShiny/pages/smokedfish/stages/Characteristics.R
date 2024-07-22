@@ -1,10 +1,10 @@
 sf_Characteristics_ui <- function(id) {
   ns <- NS(id)
   fluidPage(
-    fluidRow( h4("Smoked fish characteristics"),
+    fluidRow( h5("Smoked fish characteristics"),
       column(12,
-            # h4("Smoked fish characteristics"), dataUI("rte_chars")
-            h4(histUI("histograms"))
+            # h5("Smoked fish characteristics"), dataUI("rte_chars")
+            h5(histUI("histograms"))
              )
       )
     )
@@ -77,21 +77,21 @@ sf_CharacteristicsInputs_ui <- function(id) {
 #  tagList(
 # SF characteristics    
     sliderInput(ns("NaCl_min_SF"),     "NaClminSF: Minimum NaCl concentration (%)",
-                value = 1.5, min = 0, max = 2, step=0.1),
+                value = 1.5, min = 0, max = 3, step=0.1),
     sliderInput(ns("NaCl_mode_SF"),     "NaClmodeSF: Mode of NaCl concentration(%)",
-                value = 3.4, min = 3.0, max = 4.5, step=0.1),
+                value = 3.4, min = 2.0, max = 4.0, step=0.1),
     sliderInput(ns("NaCl_max_SF"),     "NaClmaxSF: Maximum NaCl concentration (%)",
-                value = 5.3, min = 5.0, max = 7.0, step=0.1),
+                value = 5.3, min = 4.0, max = 7.0, step=0.1),
     sliderInput(ns("P_min_SF"),     "PminSF: Minimum phenol concentration (ppm)",
-                value = 5, min = 0, max = 10, step=0.1),
+                value = 5, min = 0, max = 10, step=1),
     sliderInput(ns("P_mode_SF"),     "PmodeSF: Mode of phenol concentration (ppm)",
-                value = 10, min = 0, max = 10, step=0.1),
+                value = 10, min = 5, max = 10, step=1),
     sliderInput(ns("P_max_SF"),     "PmaxSF: Maximum phenol concentration (ppm)",
-                value = 22, min = 0, max = 30, step=0.1),
+                value = 22, min = 10, max = 40, step=1),
     sliderInput(ns("pH_min_SF"),     "pHminSF: Minimum pH",
-                value = 5.8, min = 5.0, max = 7.0, step=0.1),
+                value = 5.8, min = 4.0, max = 6.0, step=0.1),
     sliderInput(ns("pH_mode_SF"),     "pHmodeSF: Mode of pH",
-                value = 6.1, min = 5.0, max = 7.0, step=0.1),
+                value = 6.1, min = 4.5, max = 6.5, step=0.1),
     sliderInput(ns("pH_max_SF"),     "pHmaxSF: Maximum pH",
                 value = 6.5, min = 5.0, max = 7.0, step=0.1),
     sliderInput(ns("CO2equi_min_SF"),     "CO2equiminSF: Minimum CO2 equilibrium (%)",
@@ -101,16 +101,16 @@ sf_CharacteristicsInputs_ui <- function(id) {
     sliderInput(ns("CO2equi_max_SF"),     "CO2equimaxSF: Maximum CO2 equilibrium (%)",
                 value = 0.30, min = 0, max = 1.0, step=0.05),
     sliderInput(ns("daWph_min_SF"),     "daWphminSF: Minimum diacetate concentration (ppm)",
-                value = 0, min = 0, max = 1000, step=50),
+                value = 0, min = 0, max = 1500, step=100),
     sliderInput(ns("daWph_mode_SF"),     "daWphmodeSF: Mode of diacetate concentration (ppm)",
-                value = 0, min = 0, max = 2000, step=50),
+                value = 0, min = 0, max = 2000, step=100),
     sliderInput(ns("daWph_max_SF"),     "daWphmaxSF: Maximum diacetate concentration (ppm)",
-                value = 0, min = 0, max = 2500, step=50),
-    sliderInput(ns("laWph_min_SF"),     "laWphminSF: Minimum lactic concentration (ppm)",
+                value = 0, min = 0, max = 3000, step=100),
+    sliderInput(ns("laWph_min_SF"),     "laWphminSF: Minimum lactic acid concentration (ppm)",
                 value = 0, min = 0, max = 10000, step=100),
-    sliderInput(ns("laWph_mode_SF"),     "laWphmodeSF: Mode of lactic concentration (ppm)",
-                value = 0, min = 0, max = 15000, step=100),
-    sliderInput(ns("laWph_max_SF"),     "laWphmaxSF: Maximum lactic concentration (ppm)",
+    sliderInput(ns("laWph_mode_SF"),     "laWphmodeSF: Mode of lactic acid concentration (ppm)",
+                value = 0, min = 0, max = 20000, step=100),
+    sliderInput(ns("laWph_max_SF"),     "laWphmaxSF: Maximum lactic acid concentration (ppm)",
                 value = 0, min = 0, max = 35000, step=100)
 #    ) 
   )

@@ -37,5 +37,5 @@ printPrevContUnits.qraLm <- function(x, ...) {
     prev <- stats::weighted.mean(probunitpos * (x$N != 0),
                                  w=rep(1,length(x$N)))
   }
-print(round(prev,5))
+print(round(prev,4))
 }

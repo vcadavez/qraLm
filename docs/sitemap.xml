@@ -109,13 +109,22 @@
     <loc>https://vcadavez.github.io/qraLm/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://vcadavez.github.io/qraLm/reference/plotLotRisk.qraLm.html</loc>
+  </url>
+  <url>
     <loc>https://vcadavez.github.io/qraLm/reference/plotLotsECDF.qraLm.html</loc>
   </url>
   <url>
     <loc>https://vcadavez.github.io/qraLm/reference/plotRisk.qraLm.html</loc>
   </url>
   <url>
+    <loc>https://vcadavez.github.io/qraLm/reference/plotUnitsECDF.qraLm.html</loc>
+  </url>
+  <url>
     <loc>https://vcadavez.github.io/qraLm/reference/printMC.qraLm.html</loc>
+  </url>
+  <url>
+    <loc>https://vcadavez.github.io/qraLm/reference/printPrevContUnits.qraLm.html</loc>
   </url>
   <url>
     <loc>https://vcadavez.github.io/qraLm/reference/qraLm-package.html</loc>
@@ -140,6 +149,9 @@
   </url>
   <url>
     <loc>https://vcadavez.github.io/qraLm/reference/sfGrowthLPD.html</loc>
+  </url>
+  <url>
+    <loc>https://vcadavez.github.io/qraLm/reference/sfMaceration.html</loc>
   </url>
   <url>
     <loc>https://vcadavez.github.io/qraLm/reference/sfMejlholmDalgaard.html</loc>

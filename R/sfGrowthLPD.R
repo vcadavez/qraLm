@@ -127,8 +127,15 @@ sfGrowthLPD <- function(data = list(),
   # Cap with MPD
   N_out <- pmin(N_out, (10^MPD) * unitSize)
   # if(is.array(N_out)) workDone <- matrix(workDone, ncol=ncol(N_out), nrow=nrow(N_out))
-
-  data$N <- N_out
+  
+  # output
+  N <- N_out
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((data$ProbUnitPos/mean(data$ProbUnitPos)) * (N / data$unitSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
   data$workDone <- workDone
   return(data)
 }

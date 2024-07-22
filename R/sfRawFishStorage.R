@@ -161,11 +161,20 @@ sfRawFishStorage <- function(data = list(),
                          workDone = workDone
                          )
   #data$results <- results
-  data$N <- ceiling(results$N)
-  data$ProbUnitPos <- results$ProbUnitPos
-  data$P <- results$P
+  N <- ceiling(results$N)
+  ProbUnitPos <- results$ProbUnitPos
+  P <- results$P
+  lotMeans <- rowMeans(N / unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N / unitSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  
+  data$N <- N
+  data$ProbUnitPos <- ProbUnitPos
+  data$P <- P
   data$MPD <- MPD
-  data$unitSize <- results$unitSize
+  data$unitSize <- unitSize
   data$workDone <- results$workDone
  #data$results <- NULL
   #  data$N <- ceiling(results$N)

@@ -5,17 +5,17 @@ fv_Cooking_ui <- function(id) {
 #    h3("Variability of contamination in lots"),
     fluidRow(
     column(6, 
-           h4("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_cook"),
-           h4("Between lots LM counts"), mcstatsLotsUI("fv_lots_mcstats_cook")
-#           h4("Between lots LM counts distribution"), countsLotsDistUI("fv_counts_lots_dist_cook"),
+           h5("Prevalence of contaminated lots"), prevLotsUI("fv_prev_lots_cook"),
+           h5("Mean counts in contaminated lots"), mcstatsLotsUI("fv_lots_mcstats_cook")#,
+#           h5("Distribution of between-lot mean counts"), countsLotsDistUI("fv_counts_lots_dist_cook"),
            ),
     column(6, 
-           h4("Prevalence of contaminated units"), prevUnitsUI("fv_prev_units_cook"),
-           h4("Within lots/Between units LM counts"), mcstatsUnitsUI("fv_units_mcstats_cook")
-#           h4("Within lots/Between units LM Counts distribution"), countsUnitsDistUI("fv_counts_units_dist_cook")
+           h5("Prevalence of contaminated units"), prevUnitsUI("fv_prev_units_cook"),
+           h5("Counts in contaminated units"), mcstatsUnitsUI("fv_units_mcstats_cook"),
+#           h5("Distribution of between-unit counts"), countsUnitsDistUI("fv_counts_units_dist_cook")
            ),
     column(12, 
-           h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("fv_ecdf_prob_cook")
+           h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("fv_ecdf_prob_cook")
            )
     )
     )
@@ -58,13 +58,13 @@ fv_CookingInputs_ui <- function(id) {
   id = ns("Cooking"),
 #  tagList(
     sliderInput(ns("p_cooked"), "pCooked: Probability of cooking",      
-                value=0.40, min=0.00, max=1.00, step=0.10),
-    sliderInput(ns("min_cook"), "minCook: Minimum cooking time (min)", 
-                value=1, min=0, max=10, step=0.25),
-    sliderInput(ns("mode_cook"), "modeCook: Mode of cooking time (min)",
-                value=5, min=0, max=10, step=0.25),
-    sliderInput(ns("max_cook"), "maxCook: Maximum cooking time (min)",  
-                value=9, min=0, max=20, step=0.25) 
+                value=1.0, min=0.00, max=1.00, step=0.05),
+    sliderInput(ns("min_cook"), "minCook: Minimum LM log reduction", 
+                value=1, min=0, max=5, step=0.25),
+    sliderInput(ns("mode_cook"), "modeCook: Mode of LM log reduction",
+                value=5, min=2, max=8, step=0.25),
+    sliderInput(ns("max_cook"), "maxCook: Maximum LM log reduction",  
+                value=9, min=5, max=9, step=0.25) 
 #    )
   )
 }

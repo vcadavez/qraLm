@@ -63,38 +63,31 @@
 #' tested in scenarios. Similarly, the values of `pBrine`, `Pcc_salting` and `nSurface` must be defined by the user and/or assessed in scenarios.
 #'
 #' @examples
-#' nLots <- 100
-#' sizeLot <- 100
-#' pBrine <- 0.2
-#' pccBrine <- 5 / 37
-#' volInjMin <- 0.5
-#' volInjMode <- 1.2
-#' volInjMax <- 4.5
-#' concBrineMin <- 0
-#' concBrineMode <- 3
-#' concBrineMax <- 40
-#' pccSmearing <- 0.05 #  unlikely to occur
-#' trSmearingMean <- -0.29 # TR board to meat
-#' trSmearingSd <- 0.31 # TR board to meat
-#' nSurface <- 200
-#'
-#' dat <- list(
-#'   N = matrix(rpois(nLots * sizeLot, 25),
-#'     nrow = nLots,
-#'     ncol = sizeLot
-#'   ),
-#'   P = 0.05,
-#'   ProbUnitPos = rep(0.05, nLots),
-#'   nLots = 100,
-#'   sizeLot = 100
+#' 
+#' dat <- Lot2LotGen(
+#'   nLots = 50,
+#'   sizeLot = 100,
+#'   unitSize = 500,
+#'   betaAlpha = 0.5112,
+#'   betaBeta = 9.959,
+#'   C0MeanLog = 1.023,
+#'   C0SdLog = 0.3267,
+#'   propVarInter = 0.7
 #' )
-#' Nf <- sfBrineORsaltCC(
-#'   dat, pBrine, pccBrine,
-#'   volInjMin, volInjMode, volInjMax,
-#'   concBrineMin, concBrineMode, concBrineMax,
-#'   pccSmearing, nSurface, trSmearingMean, trSmearingSd
-#' )
-#' hist(Nf$N)
+#' df <- sfBrineORsaltCC(dat,
+#'                       pBrine = 0.2,
+#'                       pccBrine = 0.13,
+#'                       volInjMin = 0.5,
+#'                       volInjMode = 1.2,
+#'                       volInjMax = 4.5,
+#'                       concBrineMin = 0,
+#'                       concBrineMode = 3,
+#'                       concBrineMax = 40,
+#'                       pccSmearing = 0.05,
+#'                       trSmearingMean = -0.29,
+#'                       trSmearingSd = 0.31,
+#'                       nSurface = 200)
+#'  hist(df$N)
 sfBrineORsaltCC <- function(data = list(),
                             pBrine,
                             pccBrine,
@@ -108,78 +101,95 @@ sfBrineORsaltCC <- function(data = list(),
                             nSurface,
                             trSmearingMean,
                             trSmearingSd) {
+  
   N <- data$N
-  # Get the simulation dimension
-
-  # if(missing(nLots)) nLots <- data$nLots #test if nLots was defined
-  # if(is.null(nLots)) warning("Add 'nLots=#' to function arguments") #test again if nLots is defined
-  #
-  # if(missing(sizeLot)) sizeLot <- data$sizeLot #test if sizeLot was defined
-  # if(is.null(sizeLot)) warning("Add 'sizeLot=#' to function arguments") #test again if sizeLot is defined
-
   nLots <- nrow(N)
   sizeLot <- ncol(N)
+  ProbUnitPos <- data$ProbUnitPos
+  
   # Sample the lots that will be brining (1) vs salting (0) as a function of pBrine
-  # in the vector n_lot, 1=brining, 0=salting
   n_lot <- stats::rbinom(nLots, size = 1, prob = pBrine)
   index_brine <- which(n_lot == 1)
   index_salt <- which(n_lot == 0)
-
+  
+  cat("Length of index_brine:", length(index_brine), "\n")
+  cat("Length of index_salt:", length(index_salt), "\n")
+  
   # Lots of fish being injected with brine
-
-  if (any(n_lot == 1)) { # some fishes are brined
-
+  if (length(index_brine) > 0) { # some fishes are brined
     N_brine_in <- N[index_brine, ]
-    ProbUnitPos_brine_in <- data$ProbUnitPos[index_brine]
+    ProbUnitPos_brine_in <- ProbUnitPos[index_brine]
     data_brine_in <- list(
-                          N = N_brine_in,
-                          ProbUnitPos = ProbUnitPos_brine_in,
-                          P = data$P
-                          )
-
+      N = N_brine_in,
+      ProbUnitPos = ProbUnitPos_brine_in,
+      P = data$P
+    )
     data_brine_out <- sfBriningCC(
-                                  data = data_brine_in,
-                                  pccBrine = pccBrine,
-                                  volInjMin = volInjMin,
-                                  volInjMode = volInjMode,
-                                  volInjMax = volInjMax,
-                                  concBrineMin = concBrineMin,
-                                  concBrineMode = concBrineMode,
-                                  concBrineMax = concBrineMax
-                                  )
-
+      data = data_brine_in,
+      pccBrine = pccBrine,
+      volInjMin = volInjMin,
+      volInjMode = volInjMode,
+      volInjMax = volInjMax,
+      concBrineMin = concBrineMin,
+      concBrineMode = concBrineMode,
+      concBrineMax = concBrineMax
+    )
     N_brine_out <- data_brine_out$N
     ProbUnitPos_brine_out <- data_brine_out$ProbUnitPos * pBrine
-
+    cat("Length of ProbUnitPos_brine_out:", length(ProbUnitPos_brine_out), "\n")
     data$N[index_brine, ] <- N_brine_out
     data$ProbUnitPos[index_brine] <- ProbUnitPos_brine_out
   }
-
+  
   # Lots of fish being dry-salted
-  if (any(n_lot == 0)) { # some fishes are salted
+  if (length(index_salt) > 0) { # some fishes are salted
     N_salt_in <- N[index_salt, ]
-    ProbUnitPos_salt_in <- data$ProbUnitPos[index_salt]
+    ProbUnitPos_salt_in <- ProbUnitPos[index_salt]
     data_salt_in <- list(
-                         N = N_salt_in,
-                         ProbUnitPos = ProbUnitPos_salt_in,
-                         P = data$P
-                         )
-
+      N = N_salt_in,
+      ProbUnitPos = ProbUnitPos_salt_in,
+      P = data$P
+    )
     data_salt_out <- sfSmearingCC(
-                                  data = data_salt_in,
-                                  pccSmearing = pccSmearing,
-                                  trSmearingMean = trSmearingMean,
-                                  trSmearingSd = trSmearingSd,
-                                  nSurface = nSurface
-                                  )
+      data = data_salt_in,
+      pccSmearing = pccSmearing,
+      trSmearingMean = trSmearingMean,
+      trSmearingSd = trSmearingSd,
+      nSurface = nSurface
+    )
     N_salt_out <- data_salt_out$N
     ProbUnitPos_salt_out <- data_salt_out$ProbUnitPos * (1 - pBrine)
+    
+    cat("Length of ProbUnitPos_salt_out:", length(ProbUnitPos_salt_out), "\n")
+    
+    # Additional check for empty ProbUnitPos_salt_out
+    if (length(ProbUnitPos_salt_out) == 0) {
+      stop("ProbUnitPos_salt_out is empty. Cannot assign a zero-length vector.")
+    }
+    
     data$N[index_salt, ] <- N_salt_out
     data$ProbUnitPos[index_salt] <- ProbUnitPos_salt_out
   }
+  
   # Calculating P
-  data$P <- 1 - (pBrine * (1 - data$P) * (1 - pccBrine) +
-    (1 - pBrine) * (1 - data$P) * (1 - pccSmearing))
-  data$saltingType <- ifelse(n_lot == 1, "brined", "salted") # 1 for brined-injected lots and 0 dry-salted lots
+  P <- 1 - (pBrine * (1 - data$P) * (1 - pccBrine) +
+              (1 - pBrine) * (1 - data$P) * (1 - pccSmearing))
+  
+  saltingType <- ifelse(n_lot == 1, "brined", "salted") # 1 for brined-injected lots and 0 dry-salted lots
+  
+  # Ensure these variables are defined before using them
+  N <- if (exists("N_salt_out", inherits = FALSE)) N_salt_out else N
+  ProbUnitPos <- if (exists("ProbUnitPos_salt_out", inherits = FALSE)) ProbUnitPos_salt_out else ProbUnitPos
+  
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- (ProbUnitPos / mean(ProbUnitPos, na.rm = TRUE)) * (N / data$unitSize)
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$ProbUnitPos <- ProbUnitPos
+  data$N <- N
+  data$P <- P
+  data$saltingType <- saltingType
+  
   return(data)
 }

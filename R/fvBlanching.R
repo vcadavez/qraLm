@@ -115,6 +115,11 @@ fvBlanching <- function(data = list(),
 
   P1 <- data$P * mean(atLeastOneSurvive)
 
+  lotMeans <- rowMeans(N1 / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N1/data$unitSize)) 
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
   data$nLots <- nLots
   data$N <- N1
   data$P <- P1

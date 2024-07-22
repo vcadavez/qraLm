@@ -59,13 +59,17 @@
 #' Tmin <- -1.18
 #' meanEGR5 <- 0.0117
 #' sdEGR5 <- 0.00816
-#' dat <- list(
-#'   N = matrix(c(10, 1500, 3589, 1, 40, 4590, 10, 4000, 1, 10, 500, 13),
-#'     nc = 3, nr = 4
-#'   ),
-#'   P = 0.4,
-#'   ProbUnitPos = rep(0.4, 4)
-#' )
+#' dat <- Lot2LotGen(
+#'                   nLots = 50,
+#'                   sizeLot = 100,
+#'                   unitSize = 500,
+#'                   betaAlpha = 0.5112,
+#'                   betaBeta = 9.959,
+#'                   C0MeanLog = 1.023,
+#'                   C0SdLog = 0.3267,
+#'                   propVarInter = 0.7
+#'                   )
+#' 
 #' defrosted <- fvDefrost(
 #'   dat,
 #'   Temp = 15,
@@ -80,49 +84,58 @@
 #' hist(defrosted$N) # histogram of microbial cells in contaminated defrosted/non-defrosted servings
 #'
 fvDefrost <- function(data = list(),
-                      nLots = NULL,
-                      sizeLot = NULL,
-                      Temp,
-                      time,
-                      MPD,
-                      Tmin,
-                      meanEGR5,
-                      sdEGR5,
-                      servingSize,
-                      pDefrost) {
+                     nLots = NULL,
+                     sizeLot = NULL,
+                     Temp,
+                     time,
+                     MPD,
+                     Tmin,
+                     meanEGR5,
+                     sdEGR5,
+                     servingSize,
+                     pDefrost) {
   if (pDefrost == 0) {
     return(data)
   } # Shortcut
-
+  
   N_m <- data$N
-
-  ifelse(exists("nLots", data) == TRUE, nLots <- data$nLots, nLots <- nrow(N_m))
-  ifelse(exists("sizeLot", data) == TRUE, sizeLot <- data$sizeLot, sizeLot <- ncol(N_m))
-
-  #  nLots <- nrow(N_m)
-  #  sizeLot <- ncol(N_m)
-
+  servingSize <- data$servingSize
+  
+  nLots <- ifelse(exists("nLots", data), data$nLots, nrow(N_m))
+  sizeLot <- ifelse(exists("sizeLot", data), data$sizeLot, ncol(N_m))
+  
   # Applied similarly to all lots to better compare lot impact
   portions_defrosted <- matrix(as.logical(stats::rbinom(n = sizeLot, size = 1, prob = pDefrost)),
-    nrow = nLots, ncol = sizeLot, byrow = TRUE
-  )
-
+                               nrow = nLots, ncol = sizeLot, byrow = TRUE)
+  
   lnorm_a <- log(meanEGR5^2 / sqrt(sdEGR5^2 + meanEGR5^2))
   lnorm_b <- sqrt(log(1 + (sdEGR5^2 / meanEGR5^2)))
   # Same EGR5 to better compare lot impact
   EGR5 <- matrix(stats::rlnorm(sizeLot, lnorm_a, lnorm_b),
                  nrow = nLots, 
                  ncol = sizeLot, 
-                 byrow = TRUE
-  )
-
+                 byrow = TRUE)
+  
   # Evaluate on all and apply only on defrost
   delta <- (EGR5 * ((Temp - Tmin) / (5 - Tmin))^2) * time # log10 CFU/g
   Nf <- 10^(log10(N_m / servingSize) + delta) * servingSize
   Nf[N_m == 0] <- 0
   Nf <- pmin(Nf, servingSize * (10^MPD)) # checking for N values higher than MPD*servingSize
-
-  data$N[portions_defrosted] <- round(Nf)[portions_defrosted]
+  
+  # Initialize N based on N_m
+  N <- N_m
+  
+  # Update N based on portions_defrosted
+  N[portions_defrosted] <- round(Nf)[portions_defrosted]
+  
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((data$ProbUnitPos / mean(data$ProbUnitPos)) * (N / data$unitSize))
+  unitsServing <- c((data$ProbUnitPos / mean(data$ProbUnitPos)) * (N / servingSize))
+  
+  data$N <- N
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$unitsServing <- unitsServing
   data$servingSize <- servingSize 
   return(data)
 }

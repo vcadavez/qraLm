@@ -36,7 +36,7 @@ prod1 <- Lot2LotGen(
                     C0SdLog = 0.5267,
                     propVarInter = 0.7
                     )
-
+str(prod1)
 plotUnitsECDF.qraLm(prod1)
 
 p1 <- plotUnitsECDF.qraLm(prod)

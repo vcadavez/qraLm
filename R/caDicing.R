@@ -107,8 +107,16 @@ caDicing <- function(data = list(),
   # N_out <- matrix(t(N_trans_lot), ncol=sizeSublot,
   #                 nrow = newMC, byrow=TRUE)
 
-  data$P <- data$P * (1 - Pi_0) # prevalence at the sublot level
-  data$N <- N_trans
+  P <- data$P * (1 - Pi_0) # prevalence at the sublot level
+  N <- N_trans
+  
+  lotMeans <- rowMeans(N / cantaRindFree, na.rm = TRUE)
+  unitsCounts <- c(N / cantaRindFree)
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$P <- P
+  data$N <- N
   data$sizeSublot <- sizeSublot
   data$sizeLot <- sizeLot
   data$cantaRindFree <- cantaRindFree

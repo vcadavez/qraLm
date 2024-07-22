@@ -81,17 +81,12 @@ It is assumed that after the holding time, it is not possible that a contaminate
 if by chance the rinds of all cantaloupes from a contaminated lot end up having zero counts, one cell will be assigned to one cantaloupe of the lot.
 }
 \examples{
-nLots <- 100
-sizeLot <- 50
-data <- list(
-  N = matrix(rpois(nLots * sizeLot, 25), nLots, sizeLot),
-  P = 0.4,
+dat <- caPrimaryProduction(
   nLots = 100,
-  sizeLot = 50
-)
+    sizeLot = 100)
 pCooled <- 0.75
 time <- 4 # hours
-AfterStorage <- caHoldingTime(data,
+AfterStorage <- caHoldingTime(dat,
   pCooled = pCooled,
   time = time,
   shape = 0.6271,

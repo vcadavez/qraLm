@@ -3,17 +3,17 @@ sf_ColdChain_ui <- function(id) {
   fluidPage(
     fluidRow(
       column(6,
-             h4("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_coldchain"),
-             h4("Between lots LM counts"), mcstatsLotsUI("sf_mcstats_lots_coldchain")
-             #          h4("Between lots LM counts distribution"), countsLotsDistUI("sf_counts_lots_dist_coldchain")
+             h5("Prevalence of contaminated lots"), prevLotsUI("sf_prev_lots_coldchain"),
+             h5("Mean counts in contaminated lots"), mcstatsLotsUI("sf_mcstats_lots_coldchain"),
+             h5("Distribution of between-lot mean counts"), countsLotsDistUI("sf_counts_lots_dist_coldchain")
       ),
       column(6,
-             h4("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_coldchain"),
-             h4("Within lots/Between units LM counts"), mcstatsUnitsUI("sf_mcstats_units_coldchain")
-             #            h4("Within lots/Between units distribution"), countsUnitsDistUI("sf_counts_units_dist_coldchain")
+             h5("Prevalence of contaminated units"), prevUnitsUI("sf_prev_units_coldchain"),
+             h5("Counts in contaminated units"), mcstatsUnitsUI("sf_mcstats_units_coldchain"),
+             h5("Distribution of between-unit counts"), countsUnitsDistUI("sf_counts_units_dist_coldchain")
       ),
       column(12,
-             h4("Empirical Cumulative Distribution Function (ECDF)"), ecdfLotsUI("sf_ecdf_prob_coldchain")
+             h5("Cumulative distribution of mean counts in contaminated lots"), ecdfLotsUI("sf_ecdf_prob_coldchain")
       )
     )
   )
@@ -59,9 +59,9 @@ generate_datColdChain <- function(input, prefix, datPack, RTE) {
     N0LABmode = get_input_value(input, prefix, "N0_LAB_mode"),
     N0LABmax  = get_input_value(input, prefix, "N0_LAB_max"),
     intralotSdN0LAB = 0,
-    lnQ0LABmin = -12,
+    lnQ0LABmin  = -12,
     lnQ0LABmode = -2.73,
-    lnQ0LABmax = 1.26,
+    lnQ0LABmax  = 1.26,
     MPDLABmin   = get_input_value(input, prefix, "MPD_LAB_min"),
     MPDLABmode  = get_input_value(input, prefix, "MPD_LAB_mode"),
     MPDLABmax   = get_input_value(input, prefix, "MPD_LAB_max"),
@@ -110,27 +110,27 @@ sf_ColdChainInputs_ui <- function(id) {
    id = ns("ColdChain"),   
 #  tagList(
     sliderInput(ns("temp_min_cc"),     "tempMin: Minimum storage temperature (ºC)",
-                value = 0.288, min = 0, max = 2, step=0.001),
+                value = 0.28, min = 0, max = 4, step=0.02),
     sliderInput(ns("temp_mode_cc"),     "tempMode: Mode storage temperature (ºC)",
-                value = 4.6, min = 0, max = 6, step=0.1),
+                value = 4.6, min = 0, max = 7, step=0.1),
     sliderInput(ns("temp_max_cc"),     "tempMax: Maximum storage temperature (ºC)",
-                value = 8.9, min = 0, max = 10, step=0.1),
+                value = 7, min = 4, max = 12, step=0.1),
     sliderInput(ns("time_min_cc"),     "timeMin: Minimum storage time (h)",
-                value = 12, min = 0, max = 100, step=1),
+                value = 12, min = 0, max = 24, step=2),
     sliderInput(ns("time_mode_cc"),     "timeMode: Mode storage time (h)",
-                value = 144, min = 0, max = 250, step=10),
+                value = 144, min = 0, max = 200, step=2),
     sliderInput(ns("time_max_cc"),     "timeMax: Maximum storage time (h)",
-                value = 720, min = 0, max = 800, step=10),
+                value = 720, min = 0, max = 1000, step=10),
     selectInput(ns("Variability_cc"),     "variability: Variability for time and temperature",
                 choices = c("lot", "column", "portion"), selected=c("lot")),
     sliderInput(ns("cor_time_temp"),     "corTimeTemp: Correlation time/temperature",
-                value = -0.15, min = -1.0, max = 1.0, step=0.05),
+                value = -0.16, min = -1.0, max = 1.0, step=0.02),
     sliderInput(ns("N0_LAB_min"),     "N0LABmin: Minimum LAB counts (log10 CFU/g)",
-                value = -1, min = -2, max = 8, step=0.1),
+                value = -1.0, min = -2, max = 4, step=0.1),
     sliderInput(ns("N0_LAB_mode"),     "N0LABmode: Mode of LAB counts (log10 CFU/g)",
-                value = 0.28, min = -2 , max = 8, step=0.1),
+                value = 0.28, min = -2 , max = 6, step=0.1),
     sliderInput(ns("N0_LAB_max"),     "N0LABmax: Maximum LAB counts (log10 CFU/g)",
-                value = 1.6, min = -2 , max = 8, step=0.1),
+                value = 1.6, min = 1.0 , max = 10, step=0.1),
     sliderInput(ns("MPD_LAB_min"),     "MPDLABmin: Minimum MPD of LAB (⁠log10 CFU/g)⁠",
                 value = 8, min = 4 , max = 10, step=0.25),
     sliderInput(ns("MPD_LAB_mode"),     "MPDLABmode: Mode of MPD of LAB (⁠log10 CFU/g)",
@@ -138,11 +138,11 @@ sf_ColdChainInputs_ui <- function(id) {
     sliderInput(ns("MPD_LAB_max"),     "MPDLABmax: Maximum  MPD of LAB (⁠log10 CFU/g)",
                 value = 9, min = 4 , max = 10, step=0.25),
     sliderInput(ns("MPD_Lm_min"),     "MPDLmmin: Minimum  MPD of Lm (⁠log10 CFU/g)⁠",
-                value = 6.6, min = 2 , max = 10, step=0.25),
+                value = 6.6, min = 2 , max = 10, step=0.2),
     sliderInput(ns("MPD_Lm_mode"),     "MPDLmmode: Mode of   MPD of Lm (⁠log10 CFU/g)",
-                value = 7.4, min = 2 , max = 10, step=0.25),
+                value = 7.4, min = 2 , max = 10, step=0.2),
     sliderInput(ns("MPD_Lm_max"),     "MPDLmmax: Maximum   MPD of Lm (⁠log10 CFU/g)",
-                value = 8.2, min = 2 , max = 10, step=0.25)
+                value = 8.2, min = 2 , max = 10, step=0.2)
 #  ) 
   )
 }

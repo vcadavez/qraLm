@@ -167,7 +167,14 @@ sfSlicer <- function(data = list(),
     data$P <- data$P * (1 - Pi_0)
   }
 
-  data$N <- cfu.on.slices
+  N <- cfu.on.slices
+  
+  lotMeans <- rowMeans(N / wSlices, na.rm = TRUE)
+  unitsCounts <- c((data$ProbUnitPos/mean(data$ProbUnitPos)) * (N / wSlices))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
   data$sizeLot <- ncol(data$N)
   data$unitSize <- wSlices # update unitSize and add it to the dataset
   # If there is a workDone, repeat the workDone by the nb of slices.

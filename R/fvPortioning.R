@@ -46,13 +46,15 @@
 #' within the package.
 #'
 #' @examples
-#' nLots <- 1000
-#' sizeLot <- 500
-#' dat <- list(
-#'   N = matrix(rpois(sizeLot * nLots, 10),
-#'     nrow = nLots, ncol = sizeLot
-#'   ), P = 0.16,
-#'   ProbUnitPos = rep(0.16, nLots)
+#' dat <- Lot2LotGen(
+#'   nLots = 50,
+#'   sizeLot = 100,
+#'   unitSize = 500,
+#'   betaAlpha = 0.5112,
+#'   betaBeta = 9.959,
+#'   C0MeanLog = 1.023,
+#'   C0SdLog = 0.3267,
+#'   propVarInter = 0.7
 #' )
 #' Nf <- fvPortioning(dat, servingSize = 150, unitSize = 500, bPort = 1)
 #' str(Nf)
@@ -133,10 +135,21 @@ fvPortioning <- function(data = list(),
   N[whichNotOnes] <- N_pos
 
   # calculating overall probability of a serving having positive counts
-  data$P <- data$P * (1 - mean(prob_zero))
-
+  P <- data$P * (1 - mean(prob_zero))
+  
+  ProbUnitPos <- data$ProbUnitPos * (1 - prob_zero)
+  
+  lotMeans <- rowMeans(N / data$unitSize, na.rm = TRUE)
+  unitsCounts <- c((ProbUnitPos/mean(ProbUnitPos)) * (N/data$unitSize))
+  unitsServing <- c((ProbUnitPos/mean(ProbUnitPos)) * (N/servingSize))
+  
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$unitsServing <- unitsServing
+  
+  data$P <- P
   data$N <- N
-  data$ProbUnitPos <- data$ProbUnitPos * (1 - prob_zero)
+  data$ProbUnitPos <- ProbUnitPos
   data$unitSize <- unitSize
   data$servingSize <- servingSize
   return(data)

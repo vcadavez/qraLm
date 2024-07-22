@@ -2,12 +2,12 @@ sf_Risk_ui <- function(id) {
   ns <- NS(id)
 
   fluidPage(
-#    h4("Risk computation"),
+#    h5("Risk computation"),
     fluidRow(
     column(8,
-           h4("Risk summary statistics"), riskStatsUI("sf_risk_stats")),
+           h5("Risk summary"), riskStatsUI("sf_risk_stats")),
     column(8,
-           h4("Risk distribution (log10 risk)"), riskDistUI("sf_risk_dist")
+           h5("Risk plots"), riskDistUI("sf_risk_dist")
     )
   )
   )
@@ -71,7 +71,7 @@ sf_RiskInputs_ui <- function(id) {
                          selectInput(ns("PopulationJEMRA"), label = "Select population:", 
                                      choices = list("Healthy population" = 1,
                                                     "Increased susceptibility" = 2),
-                                     selected = 1
+                                     selected = 2
                          )
         ),
         conditionalPanel(sprintf("input['%s'] == 'Pouillot'", ns("Model")),

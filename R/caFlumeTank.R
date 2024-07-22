@@ -52,10 +52,19 @@
 #' @examples
 #' library(extraDistr)
 #' library(mc2d)
-#' nLots <- 10
-#' sizeLot <- 50
-#' data <- list(N = matrix(100, ncol = sizeLot, nrow = nLots), P = 0.35)
-#' WashedMelons <- caFlumeTank(data,
+#' dat <- caPrimaryProduction(
+#'   nLots = 100,
+#'   sizeLot = 100,
+#'   cantaWeight = 800,
+#'   pSoil = 0.089,
+#'   pManure = 0.1,
+#'   pIrrigRaining = 0.05,
+#'   pFoil = 0.5,
+#'   rFoil = 0.75,
+#'   pIrrig = 0.131
+#' )
+#' 
+#' WashedMelons <- caFlumeTank(dat,
 #'   logDecWash = 1.5,
 #'   logDecSani = 2,
 #'   b = 2.5,
@@ -70,9 +79,10 @@ caFlumeTank <- function(data = list(),
                         b,
                         nLots = NULL,
                         sizeLot = NULL) {
+  
   ifelse(exists("nLots", data) == TRUE, nLots <- data$nLots, nLots <- nrow(data$N))
   ifelse(exists("sizeLot", data) == TRUE, sizeLot <- data$sizeLot, sizeLot <- ncol(data$N))
-
+ 
   if (!length(logDecWash) %in% c(1, nLots)) stop("logDecWash not conformable size in FlumeTank_CA")
   if (!length(logDecSani) %in% c(1, nLots)) stop("logDecSani not conformable size in FlumeTank_CA")
   if (!length(b) %in% c(1, nLots, nLots * sizeLot)) stop("b not confortable size in FlumeTank_CA")
@@ -113,9 +123,15 @@ caFlumeTank <- function(data = list(),
     ))
   }
   # Final are the one that stayed + the one that were redistributed
-  data$N <- NNotWash + N_out
-
-  # In case of 0 (per lot)
+  N <- NNotWash + N_out
+  
+  lotMeans <- rowMeans(N / data$cantaWeight, na.rm = TRUE)
+  unitsCounts <- c(N / data$cantaWeight)
+  data$lotMeans <- lotMeans
+  data$unitsCounts <- unitsCounts
+  data$N <- N
+  
+# In case of 0 (per lot)
   # zeroes <- rowSums(Nfinal) == 0
   # if(all(zeroes)) stop("No more bacteria in the system following flume tank")
   # Nfinal[zeroes,] <- Nfinal[sample(which(!zeroes),sum(zeroes), replace=TRUE),]

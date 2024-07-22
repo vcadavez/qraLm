@@ -88,6 +88,7 @@ dat <- Lot2LotGen(
   C0SdLog = 0.3267,
   propVarInter = 0.7
 )
+
 print(dat$P)
 summary(c(dat$N))
 
