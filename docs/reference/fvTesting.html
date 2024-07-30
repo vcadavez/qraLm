@@ -20,7 +20,7 @@ as positive during testing. Contaminated lots detected after testing are not rem
     
     <a class="navbar-brand me-2" href="../index.html">qraLm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@ as positive during testing. Contaminated lots detected after testing are not rem
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.2</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -210,30 +210,28 @@ European Association of Fruit and Vegetable Processors.
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nLots</span> <span class="op">&lt;-</span> <span class="fl">1000</span></span></span>
-<span class="r-in"><span><span class="va">sizeLot</span> <span class="op">&lt;-</span> <span class="fl">500</span></span></span>
-<span class="r-in"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="va">sizeLot</span> <span class="op">*</span> <span class="va">nLots</span>, <span class="fl">5</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  nrow <span class="op">=</span> <span class="va">nLots</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="va">sizeLot</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  N <span class="op">=</span> <span class="va">N</span>, P <span class="op">=</span> <span class="fl">0.16</span>,</span></span>
-<span class="r-in"><span>  ProbUnitPos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.16</span>, <span class="va">nLots</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="Lot2LotGen.html">Lot2LotGen</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  nLots <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  sizeLot <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>  unitSize <span class="op">=</span> <span class="fl">500</span>,</span></span>
+<span class="r-in"><span>  betaAlpha <span class="op">=</span> <span class="fl">0.5112</span>,</span></span>
+<span class="r-in"><span>  betaBeta <span class="op">=</span> <span class="fl">9.959</span>,</span></span>
+<span class="r-in"><span>  C0MeanLog <span class="op">=</span> <span class="fl">1.023</span>,</span></span>
+<span class="r-in"><span>  C0SdLog <span class="op">=</span> <span class="fl">0.3267</span>,</span></span>
+<span class="r-in"><span>  propVarInter <span class="op">=</span> <span class="fl">0.7</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Testing the microbiological criterion for RTE foods of absence of \emph{L. monocytogenes}</span></span></span>
 <span class="r-in"><span><span class="co"># in five samples of 25 g each (two-class sampling plan)</span></span></span>
-<span class="r-in"><span><span class="va">Nf1</span> <span class="op">&lt;-</span> <span class="fu">fvTesting</span><span class="op">(</span><span class="va">data</span>,</span></span>
+<span class="r-in"><span><span class="va">Nf1</span> <span class="op">&lt;-</span> <span class="fu">fvTesting</span><span class="op">(</span><span class="va">dat</span>,</span></span>
 <span class="r-in"><span>  nTested <span class="op">=</span> <span class="fl">5</span>, gTested <span class="op">=</span> <span class="fl">25</span>, MTested <span class="op">=</span> <span class="fl">0</span>, cTested <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>  pLotTested <span class="op">=</span> <span class="fl">0.5</span>, unitSize <span class="op">=</span> <span class="fl">500</span>, Se <span class="op">=</span> <span class="fl">0.9</span>, iterSub <span class="op">=</span> <span class="cn">NULL</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Add 'unitSize=#' to function arguments"</span>
 <span class="r-in"><span><span class="co"># Applying an in-house sampling plan of a maximum of one sample (c=1)</span></span></span>
 <span class="r-in"><span><span class="co"># below the M limit 10 CFU/g from a total of five samples taken from a lot</span></span></span>
-<span class="r-in"><span><span class="va">Nf2</span> <span class="op">&lt;-</span> <span class="fu">fvTesting</span><span class="op">(</span><span class="va">data</span>,</span></span>
+<span class="r-in"><span><span class="va">Nf2</span> <span class="op">&lt;-</span> <span class="fu">fvTesting</span><span class="op">(</span><span class="va">dat</span>,</span></span>
 <span class="r-in"><span>  nTested <span class="op">=</span> <span class="fl">5</span>, gTested <span class="op">=</span> <span class="fl">25</span>, MTested <span class="op">=</span> <span class="fl">10</span>, cTested <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>  pLotTested <span class="op">=</span> <span class="fl">0.5</span>, unitSize <span class="op">=</span> <span class="fl">500</span>, Se <span class="op">=</span> <span class="fl">0.9</span>, gTestedEnum <span class="op">=</span> <span class="fl">10</span>, iterSub <span class="op">=</span> <span class="fl">800</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Add 'unitSize=#' to function arguments"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -242,7 +240,7 @@ European Association of Fruit and Vegetable Processors.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>.</p>
+  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

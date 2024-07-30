@@ -12,7 +12,7 @@ finished product."><meta property="og:image" content="https://vcadavez.github.io
     
     <a class="navbar-brand me-2" href="../index.html">qraLm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@ finished product."><meta property="og:image" content="https://vcadavez.github.io
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.2</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -106,27 +106,32 @@ is assumed during packaging.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">columns</span> <span class="op">&lt;-</span> <span class="fl">200</span></span></span>
 <span class="r-in"><span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="va">slicesPerPack</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
-<span class="r-in"><span><span class="va">N0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="va">columns</span> <span class="op">*</span> <span class="va">rows</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  nrow <span class="op">=</span> <span class="va">rows</span>, ncol <span class="op">=</span> <span class="va">columns</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">N0</span><span class="op">$</span><span class="va">N</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># To check packages</span></span></span>
-<span class="r-in"><span><span class="va">N1</span> <span class="op">&lt;-</span> <span class="fu">sfPackaging</span><span class="op">(</span><span class="va">N0</span>, <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="Lot2LotGen.html">Lot2LotGen</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>                  nLots <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>                  sizeLot <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>                  unitSize <span class="op">=</span> <span class="fl">500</span>,</span></span>
+<span class="r-in"><span>                  betaAlpha <span class="op">=</span> <span class="fl">0.5112</span>,</span></span>
+<span class="r-in"><span>                  betaBeta <span class="op">=</span> <span class="fl">9.959</span>,</span></span>
+<span class="r-in"><span>                  C0MeanLog <span class="op">=</span> <span class="fl">1.023</span>,</span></span>
+<span class="r-in"><span>                  C0SdLog <span class="op">=</span> <span class="fl">0.3267</span>,</span></span>
+<span class="r-in"><span>                  propVarInter <span class="op">=</span> <span class="fl">0.7</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dat</span><span class="op">$</span><span class="va">N</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># To check packages</span></span></span>
+<span class="r-in"><span><span class="va">N1</span> <span class="op">&lt;-</span> <span class="fu">sfPackaging</span><span class="op">(</span><span class="va">dat</span>, <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Check the change of dimension</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">N0</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  10 200</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  50 100</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">N1</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10 40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 50 20</span>
 <span class="r-in"><span><span class="co"># Check the mass balance of slices</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">N0</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5559</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1853671</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">N1</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5559</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1853671</span>
 <span class="r-in"><span><span class="co"># Check the packaging (should be TRUE)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">N1</span><span class="op">$</span><span class="va">N</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span> <span class="op">==</span> <span class="va">slicesPerPack</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="va">N2</span> <span class="op">&lt;-</span> <span class="fu">sfPackaging</span><span class="op">(</span><span class="va">N0</span>, <span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>the number of slices is not a multiple</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>     of the number of slices per pack. Some slices will be discarded</span>
+<span class="r-in"><span><span class="va">N2</span> <span class="op">&lt;-</span> <span class="fu">sfPackaging</span><span class="op">(</span><span class="va">dat</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -135,7 +140,7 @@ is assumed during packaging.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>.</p>
+  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

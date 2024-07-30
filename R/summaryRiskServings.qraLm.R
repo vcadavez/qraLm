@@ -1,6 +1,6 @@
 #' Print summary MC risk results per contamiunated serving
 #'
-#' @title summaryRisk generic function to print the risk summary statistics
+#' @title summaryRiskServings generic function to print the risk summary statistics
 #' @param x qraLm object. See [Lot2LotGen()]
 #' @param ... optional plot parameters passed to the plot function
 #' @author Vasco Cadavez
@@ -27,16 +27,15 @@
 #' res <- DRForModel(dat, 
 #'                   model=DRmodel,
 #'                   population = population)
-#' 
-#' summaryRisk.qraLm(res)
+#' summaryRiskServings.qraLm(res)
 #'
 #' @export
 #'
-summaryRisk.qraLm <- function(x, ...) {
+summaryRiskServings.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
   
- servingRisk <- x$servingRisk
+ servingRisk <- c(x$servingRisk!=0)
   
  servingRiskLog <-  log10(servingRisk)
   
@@ -45,7 +44,7 @@ riskMax <- max(servingRiskLog)
 riskMedian <- stats::quantile(servingRiskLog, probs = c(0.50), na.rm = TRUE)
 riskMean <- mean(servingRiskLog, na.rm = TRUE)
 riskQ2.5 <- stats::quantile(servingRiskLog, probs = c(0.025), na.rm = TRUE)
- riskQ97.5 <- stats::quantile(, probs = c(0.975), na.rm = TRUE)
+ riskQ97.5 <- stats::quantile(servingRiskLog, probs = c(0.975), na.rm = TRUE)
 
   risk <- rbind(
                 unname(riskMin),

@@ -35,20 +35,27 @@ is assumed during packaging.
 columns <- 200
 rows <- 10
 slicesPerPack <- 5
-N0 <- list(N = matrix(rpois(columns * rows, 3),
-  nrow = rows, ncol = columns
-))
-N0$N[1, ] <- 1 # To check packages
-N1 <- sfPackaging(N0, 5)
+dat <- Lot2LotGen(
+                  nLots = 50,
+                  sizeLot = 100,
+                  unitSize = 500,
+                  betaAlpha = 0.5112,
+                  betaBeta = 9.959,
+                  C0MeanLog = 1.023,
+                  C0SdLog = 0.3267,
+                  propVarInter = 0.7
+                  )
+dat$N[1, ] <- 1 # To check packages
+N1 <- sfPackaging(dat, 5)
 # Check the change of dimension
-dim(N0$N)
+dim(dat$N)
 dim(N1$N)
 # Check the mass balance of slices
-sum(N0$N)
+sum(dat$N)
 sum(N1$N)
 # Check the packaging (should be TRUE)
 all(N1$N[1, ] == slicesPerPack)
-N2 <- sfPackaging(N0, 6)
+N2 <- sfPackaging(dat, 2)
 
 }
 \author{

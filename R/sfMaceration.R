@@ -41,15 +41,21 @@
 #'from \insertCite{Lopes2023;textual}{qraLm} and \insertCite{Neunlist2005;textual}{qraLm}.
 #'
 #' @examples
-#' nLots <- 10
-#' sizeLot <- 5
 #' rGravadMean=0.7
 #' rGravadSd=0.283
-#' data <- list(
-#'   N = matrix(rpois(nLots * sizeLot, 25), nrow = nLots, ncol = sizeLot),
-#'   P = 0.05, ProbUnitPos = rep(0.05, nLots) )
-#'
-#' gravadfish <- sfMaceration(data, rGravadMean=rGravadMean, rGravadSd=rGravadSd)
+#' dat <- Lot2LotGen(
+#'                   nLots = 50,
+#'                   sizeLot = 100,
+#'                   unitSize = 500,
+#'                   betaAlpha = 0.5112,
+#'                   betaBeta = 9.959,
+#'                   C0MeanLog = 1.023,
+#'                   C0SdLog = 0.3267,
+#'                   propVarInter = 0.7
+#'                   )
+#' gravadfish <- sfMaceration(dat, 
+#'                            rGravadMean=rGravadMean,
+#'                            rGravadSd=rGravadSd)
 #' hist(gravadfish$N)
 #' 
 sfMaceration <- function(data = list(),

@@ -26,7 +26,7 @@ no cross-contamination occurring in lots that were not contaminated.
     
     <a class="navbar-brand me-2" href="../index.html">qraLm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@ no cross-contamination occurring in lots that were not contaminated.
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.2</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -178,25 +178,15 @@ R Foundation for Statistical Computing, Vienna, Austria.
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nLots</span> <span class="op">&lt;-</span> <span class="fl">100</span></span></span>
-<span class="r-in"><span><span class="va">sizeLot</span> <span class="op">&lt;-</span> <span class="fl">20</span></span></span>
-<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">20</span>,</span></span>
-<span class="r-in"><span>    nrow <span class="op">=</span> <span class="va">nLots</span>,</span></span>
-<span class="r-in"><span>    ncol <span class="op">=</span> <span class="va">sizeLot</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span>,</span></span>
-<span class="r-in"><span>  P <span class="op">=</span> <span class="fl">0.25</span>,</span></span>
-<span class="r-in"><span>  cantaWeight <span class="op">=</span> <span class="fl">1000</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="caPrimaryProduction.html">caPrimaryProduction</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  nLots <span class="op">=</span> <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  sizeLot <span class="op">=</span> <span class="fl">20</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Nf</span> <span class="op">&lt;-</span> <span class="fu">caFlumeTankCC</span><span class="op">(</span><span class="va">dat</span>,</span></span>
-<span class="r-in"><span>  probCCW <span class="op">=</span> <span class="fl">0.125</span>,</span></span>
-<span class="r-in"><span>  logWaterMin <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>  logWaterMode <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>  logWaterMax <span class="op">=</span> <span class="fl">5</span>,</span></span>
-<span class="r-in"><span>  bWater <span class="op">=</span> <span class="fl">1</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span>    sizeLot <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">Nf</span> <span class="op">&lt;-</span> <span class="fu">caFlumeTankCC</span><span class="op">(</span><span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                   probCCW <span class="op">=</span> <span class="fl">0.125</span>,</span></span>
+<span class="r-in"><span>                   logWaterMin <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                   logWaterMode <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                   logWaterMax <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span>                   bWater <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">Nf</span><span class="op">$</span><span class="va">N</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="caFlumeTankCC-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -207,7 +197,7 @@ R Foundation for Statistical Computing, Vienna, Austria.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>.</p>
+  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

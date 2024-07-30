@@ -18,7 +18,7 @@ with contaminated environmental elements during the process of smearing with sal
     
     <a class="navbar-brand me-2" href="../index.html">qraLm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@ with contaminated environmental elements during the process of smearing with sal
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.2</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -166,29 +166,46 @@ U.S. Food and Drug Administration.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">nLots</span> <span class="op">&lt;-</span> <span class="fl">500</span></span></span>
-<span class="r-in"><span><span class="va">sizeLot</span> <span class="op">&lt;-</span> <span class="fl">200</span></span></span>
-<span class="r-in"><span><span class="va">pccSmearing</span> <span class="op">&lt;-</span> <span class="fl">0.05</span> <span class="co">#  unlikely to occur</span></span></span>
-<span class="r-in"><span><span class="va">trSmearingMean</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.29</span> <span class="co"># TR board to meat</span></span></span>
-<span class="r-in"><span><span class="va">trSmearingSd</span> <span class="op">&lt;-</span> <span class="fl">0.31</span> <span class="co"># TR board to meat</span></span></span>
-<span class="r-in"><span><span class="va">nSurface</span> <span class="op">&lt;-</span> <span class="fl">200</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="va">nLots</span> <span class="op">*</span> <span class="va">sizeLot</span>, <span class="fl">25</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    nrow <span class="op">=</span> <span class="va">nLots</span>,</span></span>
-<span class="r-in"><span>    ncol <span class="op">=</span> <span class="va">sizeLot</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span>,</span></span>
-<span class="r-in"><span>  P <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
-<span class="r-in"><span>  ProbUnitPos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="va">nLots</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  nLots <span class="op">=</span> <span class="fl">1000</span>,</span></span>
-<span class="r-in"><span>  sizeLot <span class="op">=</span> <span class="fl">500</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="Lot2LotGen.html">Lot2LotGen</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>                  nLots <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>                  sizeLot <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>                  unitSize <span class="op">=</span> <span class="fl">500</span>,</span></span>
+<span class="r-in"><span>                  betaAlpha <span class="op">=</span> <span class="fl">0.5112</span>,</span></span>
+<span class="r-in"><span>                  betaBeta <span class="op">=</span> <span class="fl">9.959</span>,</span></span>
+<span class="r-in"><span>                  C0MeanLog <span class="op">=</span> <span class="fl">1.023</span>,</span></span>
+<span class="r-in"><span>                  C0SdLog <span class="op">=</span> <span class="fl">0.3267</span>,</span></span>
+<span class="r-in"><span>                  propVarInter <span class="op">=</span> <span class="fl">0.7</span></span></span>
+<span class="r-in"><span>                  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Nf</span> <span class="op">&lt;-</span> <span class="fu">sfSmearingCC</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">data</span>,</span></span>
-<span class="r-in"><span>  <span class="va">pccSmearing</span>,</span></span>
-<span class="r-in"><span>  <span class="va">trSmearingMean</span>,</span></span>
-<span class="r-in"><span>  <span class="va">trSmearingSd</span>,</span></span>
-<span class="r-in"><span>  <span class="va">nSurface</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span>                   <span class="va">dat</span>,</span></span>
+<span class="r-in"><span>                   pccSmearing <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
+<span class="r-in"><span>                   trSmearingMean <span class="op">=</span> <span class="op">-</span><span class="fl">0.29</span>,</span></span>
+<span class="r-in"><span>                   trSmearingSd <span class="op">=</span> <span class="fl">0.31</span>,</span></span>
+<span class="r-in"><span>                   nSurface <span class="op">=</span> <span class="fl">200</span></span></span>
+<span class="r-in"><span>                   <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">Nf</span><span class="op">)</span>                    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Lot2LotGenParameters:List of 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nLots       : num 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sizeLot     : num 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ unitSize    : num 500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ betaAlpha   : num 0.511</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ betaBeta    : num 9.96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ C0MeanLog   : num 1.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ C0SdLog     : num 0.327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ propVarInter: num 0.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ Poisson     : logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lotMeans            : num [1:50] 0.3625 0.1263 0.0732 0.8527 0.4082 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ unitsCounts         : num [1:5000] 0 0 0 20 0 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ N                   : num [1:50, 1:100] 0 0 0 10003 0 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ProbUnitPos         : num [1:50] 1 1 1 1 1 1 1 1 1 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ P                   : num 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ betaGen             : num [1:50] 0.03298 0.00493 0.00688 0.08726 0.00792 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ nLots               : num 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sizeLot             : num 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ unitSize            : num 500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr "qraLm"</span>
 <span class="r-in"><span><span class="va">Nf</span><span class="op">$</span><span class="va">P</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Nf</span><span class="op">$</span><span class="va">ProbUnitPos</span><span class="op">)</span></span></span>
@@ -203,7 +220,7 @@ U.S. Food and Drug Administration.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>.</p>
+  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

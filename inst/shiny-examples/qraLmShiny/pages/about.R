@@ -54,7 +54,7 @@ aboutProjectContent <- function() {
             style = "font-size: 15px;"
           ),
           p(),
-          p("Cadavez, V., Pouillot, R., Guillier, L., Gonzales-Barron, U., Sanaa, M. (2024). qraLm: An R package
+          p("V. Cadavez, V., R. Pouillot, L. Guillier, M. Sanaa, U. Gonzales-Barron (2024). qraLm: An R package
             for quantitative risk assessment of ", em("Listeria monocytogenes"), " in foods. ", 
             a("https://github.com/vcadavez/qraLm/", href = "https://github.com/vcadavez/qraLm/", style = "color: blue;"),
             style = "font-size: 15px;"

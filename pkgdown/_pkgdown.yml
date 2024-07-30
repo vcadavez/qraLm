@@ -41,7 +41,8 @@ reference:
   - summaryLot.qraLm
   - summaryServings.qraLm
   - summaryUnits.qraLm
-  - summaryRisk.qraLm
+  - summaryRiskLot.qraLm
+  - summaryRiskServings.qraLm
   - plotLotRisk.qraLm
   - plotUnitsECDF.qraLm
   - printPrevContUnits.qraLm
@@ -113,5 +114,5 @@ reference:
 
 news:
   releases:
-  - text: "Version 0.1.1"
+  - text: "Version 0.1.2"
     href: https://github.com/vcadavez/qraLm/

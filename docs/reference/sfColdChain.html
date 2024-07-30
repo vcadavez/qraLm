@@ -58,7 +58,7 @@ in Giménez and Dalgaard (2004)
     
     <a class="navbar-brand me-2" href="../index.html">qraLm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@ in Giménez and Dalgaard (2004)
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/vcadavez/qraLm/">Version 0.1.2</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -561,31 +561,34 @@ R Foundation for Statistical Computing, Vienna, Austria.
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">RTE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ aw     : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NaCl   : num [1:100] 4.32 2.72 4.44 4.78 3.55 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pH     : num [1:100] 6 6.05 6.24 6.14 6.06 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ P      : num [1:100] 6.94 12.14 10.86 15.28 10.73 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CO2equi: num [1:100] 0.253 0.259 0.254 0.263 0.251 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NaCl   : num [1:100] 3.81 3.51 2.56 3.41 2.7 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pH     : num [1:100] 6.14 6.25 6.14 6.04 5.96 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ P      : num [1:100] 7.11 12.37 9.95 16.38 9.88 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CO2equi: num [1:100] 0.256 0.261 0.274 0.252 0.267 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ NIT    : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ aaWph  : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ baWph  : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ caWph  : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ daWph  : num [1:100] 1615 1687 1423 1580 1044 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ laWph  : num [1:100] 21743 7891 12270 14847 13202 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ daWph  : num [1:100] 1552 1852 1298 1093 1734 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ laWph  : num [1:100] 17675 17920 13657 13565 13805 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ saWph  : num [1:100] 0 0 0 0 0 0 0 0 0 0 ...</span>
 <span class="r-in"><span><span class="va">dat1</span> <span class="op">&lt;-</span> <span class="fu">sfColdChain</span><span class="op">(</span><span class="va">dat</span>,</span></span>
 <span class="r-in"><span>                    RTE <span class="op">=</span> <span class="va">RTE</span></span></span>
 <span class="r-in"><span>                    <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Integrate over  10  portions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Integrate over  14  portions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ================================================================================</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>argument is not numeric or logical: returning NA</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ N       : num [1:100, 1:100] 1 2 0 1668 0 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ unitSize: num 500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lnQ0Lm  : num [1:10000] -7.25 -2.12 -Inf -2.43 -Inf ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MPDLm   : num [1:100] 7.41 7.3 7.43 7.58 7.25 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MPDLAB  : num [1:100] 8.55 8.46 8.72 8.13 8.6 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lnQ0LAB : num [1:10000] -2.79 -2.01 1.82 -5.27 1.43 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ N0LAB   : num [1:10000] 643 142 1305 214 6346 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ N          : num [1:100, 1:100] 1290 0 0 16279 37 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ unitSize   : num 500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lnQ0Lm     : num [1:10000] -8.04 -Inf -Inf -8.36 -8.33 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MPDLm      : num [1:100] 7.44 7.84 7.22 7.11 7.35 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MPDLAB     : num [1:100] 8.2 8.38 8.43 8.61 8.82 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lnQ0LAB    : num [1:10000] 4.68 4.19 -4.5 -7.03 -1.82 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ N0LAB      : num [1:10000] 29948 41613 375 413 498 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ lotMeans   : num [1:100] 148.2 2084.7 33.6 5596.9 105.6 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ unitsCounts: num(0) </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -595,7 +598,7 @@ R Foundation for Statistical Computing, Vienna, Austria.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>.</p>
+  <p>Developed by <a href="https://ipb.pt/vcadavez" class="external-link">Vasco Cadavez</a>, <a href="https://scholar.google.com/citations?hl=en&amp;user=dCv0o0wAAAAJ&amp;view_op=list_works&amp;sortby=pubdate/" class="external-link">Régis Pouillot</a>, <a href="https://scholar.google.com/citations?user=R6kR2RgAAAAJ&amp;hl=fr/" class="external-link">Laurent Guillier</a>, <a href="https://ch.linkedin.com/in/sanaamo/en/" class="external-link">Moez Sanaa</a>, <a href="https://ipb.pt/~ubarron/" class="external-link">Ursula Gonzales-Barron</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

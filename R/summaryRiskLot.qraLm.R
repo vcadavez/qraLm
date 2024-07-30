@@ -1,6 +1,6 @@
 #' Print summary MC risk results per lot
 #'
-#' @title summaryRisk generic function to print the risk summary statistics
+#' @title summaryRiskLot generic function to print the risk summary statistics at lot level
 #' @param x qraLm object. See [Lot2LotGen()]
 #' @param ... optional plot parameters passed to the plot function
 #' @author Vasco Cadavez
@@ -28,11 +28,11 @@
 #'                   model=DRmodel,
 #'                   population = population)
 #' 
-#' summaryRisk.qraLm(res)
+#' summaryRiskLot.qraLm(res)
 #'
 #' @export
 #'
-summaryRisk.qraLm <- function(x, ...) {
+summaryRiskLot.qraLm <- function(x, ...) {
   # if (class(x)!= "qraLm")
   #   stop("object is not of class 'qraLm'")
   

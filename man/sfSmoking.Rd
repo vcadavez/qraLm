@@ -62,23 +62,23 @@ experiments inoculating inoculated \emph{L. monocytogenes} on the surface of dry
 18-24 hours maturation.
 }
 \examples{
-nLots <- 10
-sizeLot <- 5
-rBrineMean <- 0.871
-rBrineSd <- 0.807
-rDrysaltMean <- 1.093
-rDrysaltSd <- 0.532
-saltingType <- rbinom(nLots, size = 1, prob = 0.5)
-saltingType <- ifelse(saltingType == 1, "brined", "salted")
-data <- list(
-  N = matrix(rpois(nLots * sizeLot, 25), nrow = nLots, ncol = sizeLot),
-  P = 0.05, ProbUnitPos = rep(0.05, nLots), saltingType = saltingType
-)
-
-smokedfish <- sfSmoking(data,
-  rBrineMean = 0.871, rBrineSd = 0.807,
-  rDrysaltMean = 1.093, rDrysaltSd = 0.532
-)
+dat <- Lot2LotGen(
+                  nLots = 50,
+                  sizeLot = 100,
+                  unitSize = 500,
+                  betaAlpha = 0.5112,
+                  betaBeta = 9.959,
+                  C0MeanLog = 1.023,
+                  C0SdLog = 0.3267,
+                  propVarInter = 0.7
+                  )
+smokedfish <- sfSmoking(dat,
+                        rBrineMean = 0.871, 
+                        rBrineSd = 0.807,
+                        rDrysaltMean = 1.093, 
+                        rDrysaltSd = 0.532,
+                        saltingType = "salted"
+                        )
 hist(smokedfish$N)
 }
 \references{
