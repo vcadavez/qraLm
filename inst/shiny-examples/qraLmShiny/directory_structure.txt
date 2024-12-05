@@ -1,0 +1,108 @@
+[01;34m.[0m
+├── [00mapp.R[0m
+├── [00mcleaned_directory_structure.txt[0m
+├── [01;34mdata[0m
+│   ├── [00mdata.R[0m
+│   ├── [00msampledata.csv[0m
+│   └── [00msysdata.rda[0m
+├── [00mdirectory_structure.txt[0m
+├── [00mLICENSE[0m
+├── [01;34mmodules[0m
+│   ├── [00mbarplotModule.R[0m
+│   ├── [00mbetaDataModule.R[0m
+│   ├── [00mbetaDistModule.R[0m
+│   ├── [00mboxplotModule.R[0m
+│   ├── [00mcountsLotsDistModule.R[0m
+│   ├── [00mcountsUnitsDistModule.R[0m
+│   ├── [00mdataModule.R[0m
+│   ├── [00mecdfLotsModule.R[0m
+│   ├── [00mhistModule.R[0m
+│   ├── [00mlogCountsDistModule.R[0m
+│   ├── [00mLotGenModule.R[0m
+│   ├── [00mmcstatsLotsModule.R[0m
+│   ├── [00mmcstatsUnitsModule.R[0m
+│   ├── [00mmodule_fullscreen.R[0m
+│   ├── [00mprevLotsModule.R[0m
+│   ├── [00mprevUnitsModule.R[0m
+│   ├── [00mprevWithinlotsModule.R[0m
+│   ├── [00mriskDistModule.R[0m
+│   ├── [00mriskStatsModule.R[0m
+│   └── [00mutility_functions.R[0m
+├── [01;34mpages[0m
+│   ├── [00mabout.R[0m
+│   ├── [01;34mfrozenvegetables[0m
+│   │   ├── [01;34msidebar[0m
+│   │   │   ├── [00mstageInputs.R[0m
+│   │   │   └── [00mstageSelector.R[0m
+│   │   ├── [00msidebar.R[0m
+│   │   ├── [01;34mstages[0m
+│   │   │   ├── [00mBlanching.R[0m
+│   │   │   ├── [00mCooking.R[0m
+│   │   │   ├── [00mDefrosting.R[0m
+│   │   │   ├── [00mPartitioning.R[0m
+│   │   │   ├── [00mPortioning.R[0m
+│   │   │   ├── [00mProduction.R[0m
+│   │   │   ├── [00mRisk.R[0m
+│   │   │   └── [00mTesting.R[0m
+│   │   └── [00mstages.R[0m
+│   ├── [00mfrozenvegetables.R[0m
+│   ├── [01;34mrtecantaloupe[0m
+│   │   ├── [01;34msidebar[0m
+│   │   │   ├── [00mstageInputs.R[0m
+│   │   │   └── [00mstageSelector.R[0m
+│   │   ├── [00msidebar.R[0m
+│   │   ├── [01;34mstages[0m
+│   │   │   ├── [00mBrushing.R[0m
+│   │   │   ├── [00mConsumersTransport.R[0m
+│   │   │   ├── [00mDicing.R[0m
+│   │   │   ├── [00mHarvest.R[0m
+│   │   │   ├── [00mPartitioning.R[0m
+│   │   │   ├── [00mProduction.R[0m
+│   │   │   ├── [00mRisk.R[0m
+│   │   │   ├── [00mRTEStorage.R[0m
+│   │   │   ├── [00mStoredDices.R[0m
+│   │   │   ├── [00mStoring.R[0m
+│   │   │   ├── [00mTesting.R[0m
+│   │   │   ├── [00mTransport.R[0m
+│   │   │   └── [00mWashing.R[0m
+│   │   └── [00mstages.R[0m
+│   ├── [00mrtecantaloupe.R[0m
+│   ├── [01;34msmokedfish[0m
+│   │   ├── [01;34msidebar[0m
+│   │   │   ├── [00mstageInputs.R[0m
+│   │   │   └── [00mstageSelector.R[0m
+│   │   ├── [00msidebar.R[0m
+│   │   ├── [01;34mstages[0m
+│   │   │   ├── [00mBriningOrSalting.R[0m
+│   │   │   ├── [00mCharacteristics.R[0m
+│   │   │   ├── [00mColdChain.R[0m
+│   │   │   ├── [00mFilleting.R[0m
+│   │   │   ├── [00mHolding.R[0m
+│   │   │   ├── [00mHome.R[0m
+│   │   │   ├── [00mPackaging.R[0m
+│   │   │   ├── [00mPortioning.R[0m
+│   │   │   ├── [00mPrefilleting.R[0m
+│   │   │   ├── [00mProduction.R[0m
+│   │   │   ├── [00mRisk.R[0m
+│   │   │   ├── [00mrteCharacteristics.R[0m
+│   │   │   ├── [00mSlicing.R[0m
+│   │   │   └── [00mSmoking.R[0m
+│   │   └── [00mstages.R[0m
+│   ├── [00msmokedfish.R[0m
+│   └── [00muser.R[0m
+├── [00mqraLmShiny.Rproj[0m
+├── [00mREADME.html[0m
+├── [00mREADME.md[0m
+├── [00mREADME.Rmd[0m
+└── [01;34mwww[0m
+    ├── [00mcustom.css[0m
+    └── [01;34mimg[0m
+        ├── [00mfavicon.ico[0m
+        ├── [00mhex-qraLm.png[0m
+        ├── [00mhex-qraLmShiny.png[0m
+        ├── [00mhex-qraLmShinySmall.png[0m
+        ├── [00mlogo.png[0m
+        ├── [00mlogo_small.png[0m
+        └── [00mlogo.svg[0m
+
+14 directories, 91 files

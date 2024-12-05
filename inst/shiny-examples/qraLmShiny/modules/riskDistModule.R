@@ -10,8 +10,10 @@ riskDistServer <- function(id, data) {
     output$risk_dist <- renderPlotly({
 
       wRiskLotMean <- data()$lotMeanRisk
-      
-      wRiskLotMeanlog <- log10(wRiskLotMean)
+      log_risk = function(x){
+        ifelse(x!=0, log10(x), 0)
+      }
+      wRiskLotMeanlog <- log_risk(wRiskLotMean)
       df <- data.frame(risklog = wRiskLotMeanlog)
       
       box <- plotly::plot_ly(x = ~df$risklog, 

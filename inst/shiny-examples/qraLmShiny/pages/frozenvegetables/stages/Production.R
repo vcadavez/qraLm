@@ -76,7 +76,7 @@ fv_ProductionInputs_ui <- function(id) {
     sliderInput(ns("beta_alpha"), "betaAlpha: Alpha parameter of the Beta distribution", 
                 value = 0.5112, min = 0.100, max = 3.0, step = 0.050),  
     sliderInput(ns("beta_beta"), "betaBeta: Beta parameter of the Beta distribution", 
-                value = 2.000, min = 0.100, max = 3.0, step = 0.050),  
+                value = 2.000, min = 0.100, max = 10.0, step = 0.1),  
     sliderInput(ns("prop_var_inter"), "propVarInter: Prop. of between-lot variance (%)", 
                 value = 0.7, min = 0.0, max = 1.0, step = 0.05),  
     sliderInput(ns("log_mean_c"), "C0MeanLog: Mean of Counts (log10 CFU/g)",

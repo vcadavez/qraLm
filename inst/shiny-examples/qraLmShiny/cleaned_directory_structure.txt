@@ -1,0 +1,108 @@
+.
+├── app.R
+├── cleaned_directory_structure.txt
+├── data
+│   ├── data.R
+│   ├── sampledata.csv
+│   └── sysdata.rda
+├── directory_structure.txt
+├── LICENSE
+├── modules
+│   ├── barplotModule.R
+│   ├── betaDataModule.R
+│   ├── betaDistModule.R
+│   ├── boxplotModule.R
+│   ├── countsLotsDistModule.R
+│   ├── countsUnitsDistModule.R
+│   ├── dataModule.R
+│   ├── ecdfLotsModule.R
+│   ├── histModule.R
+│   ├── logCountsDistModule.R
+│   ├── LotGenModule.R
+│   ├── mcstatsLotsModule.R
+│   ├── mcstatsUnitsModule.R
+│   ├── module_fullscreen.R
+│   ├── prevLotsModule.R
+│   ├── prevUnitsModule.R
+│   ├── prevWithinlotsModule.R
+│   ├── riskDistModule.R
+│   ├── riskStatsModule.R
+│   └── utility_functions.R
+├── pages
+│   ├── about.R
+│   ├── frozenvegetables
+│   │   ├── sidebar
+│   │   │   ├── stageInputs.R
+│   │   │   └── stageSelector.R
+│   │   ├── sidebar.R
+│   │   ├── stages
+│   │   │   ├── Blanching.R
+│   │   │   ├── Cooking.R
+│   │   │   ├── Defrosting.R
+│   │   │   ├── Partitioning.R
+│   │   │   ├── Portioning.R
+│   │   │   ├── Production.R
+│   │   │   ├── Risk.R
+│   │   │   └── Testing.R
+│   │   └── stages.R
+│   ├── frozenvegetables.R
+│   ├── rtecantaloupe
+│   │   ├── sidebar
+│   │   │   ├── stageInputs.R
+│   │   │   └── stageSelector.R
+│   │   ├── sidebar.R
+│   │   ├── stages
+│   │   │   ├── Brushing.R
+│   │   │   ├── ConsumersTransport.R
+│   │   │   ├── Dicing.R
+│   │   │   ├── Harvest.R
+│   │   │   ├── Partitioning.R
+│   │   │   ├── Production.R
+│   │   │   ├── Risk.R
+│   │   │   ├── RTEStorage.R
+│   │   │   ├── StoredDices.R
+│   │   │   ├── Storing.R
+│   │   │   ├── Testing.R
+│   │   │   ├── Transport.R
+│   │   │   └── Washing.R
+│   │   └── stages.R
+│   ├── rtecantaloupe.R
+│   ├── smokedfish
+│   │   ├── sidebar
+│   │   │   ├── stageInputs.R
+│   │   │   └── stageSelector.R
+│   │   ├── sidebar.R
+│   │   ├── stages
+│   │   │   ├── BriningOrSalting.R
+│   │   │   ├── Characteristics.R
+│   │   │   ├── ColdChain.R
+│   │   │   ├── Filleting.R
+│   │   │   ├── Holding.R
+│   │   │   ├── Home.R
+│   │   │   ├── Packaging.R
+│   │   │   ├── Portioning.R
+│   │   │   ├── Prefilleting.R
+│   │   │   ├── Production.R
+│   │   │   ├── Risk.R
+│   │   │   ├── rteCharacteristics.R
+│   │   │   ├── Slicing.R
+│   │   │   └── Smoking.R
+│   │   └── stages.R
+│   ├── smokedfish.R
+│   └── user.R
+├── qraLmShiny.Rproj
+├── README.html
+├── README.md
+├── README.Rmd
+└── www
+    ├── custom.css
+    └── img
+        ├── favicon.ico
+        ├── hex-qraLm.png
+        ├── hex-qraLmShiny.png
+        ├── hex-qraLmShinySmall.png
+        ├── logo.png
+        ├── logo_small.png
+        └── logo.svg
+
+14 directories, 91 files

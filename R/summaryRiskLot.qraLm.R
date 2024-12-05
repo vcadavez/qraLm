@@ -38,7 +38,12 @@ summaryRiskLot.qraLm <- function(x, ...) {
   
   lotMeanRisk <- x$lotMeanRisk
   
-  lotMeanRiskLog <-  log10(lotMeanRisk)
+  log_risk = function(x){
+    ifelse(x!=0, log10(x), 0)
+  }
+  wRiskLotMeanlog  <- log_risk(wRiskLotMean)
+  
+#  lotMeanRiskLog <-  log10(lotMeanRisk)
   
 riskMin <- min(lotMeanRiskLog)
 riskMax <- max(lotMeanRiskLog)

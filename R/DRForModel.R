@@ -60,8 +60,8 @@ DRForModel <- function(data = list(), model = "JEMRA", population = 1, Poisson =
   risk <- DRQuick(data$N, model = model, population = population, Poisson = Poisson)
   # back to matrix
   Risk <- matrix(risk,
-    ncol = ncol(data$N),
-    nrow = nrow(data$N)
+                 ncol = ncol(data$N),
+                 nrow = nrow(data$N)
   )
   
   if (exists("ProbUnitPos", data) == TRUE) {
